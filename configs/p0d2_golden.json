@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "name": "p0d2",
+  "frozen_at": "2026-10-25",
+  "description": "Frozen P0-D2 plateau-entry boundary snapping and QEVD-FIT blind metrics.",
+  "expected_aifit_reps": 366,
+  "boundary_snap": {
+    "0153/pushup": [
+      {
+        "status": "applied",
+        "reason": "accepted",
+        "changed_boundaries": 4,
+        "trailing_incomplete_protected": false
+      }
+    ],
+    "0161/lunge_jumps": [
+      {
+        "status": "disabled",
+        "reason": null,
+        "changed_boundaries": 0,
+        "trailing_incomplete_protected": false
+      }
+    ],
+    "0161/pushup": [
+      {
+        "status": "applied",
+        "reason": "accepted",
+        "changed_boundaries": 3,
+        "trailing_incomplete_protected": false
+      },
+      {
+        "status": "applied",
+        "reason": "accepted",
+        "changed_boundaries": 3,
+        "trailing_incomplete_protected": true
+      }
+    ],
+    "0162/walking_lunges": [
+      {
+        "status": "disabled",
+        "reason": null,
+        "changed_boundaries": 0,
+        "trailing_incomplete_protected": false
+      }
+    ],
+    "0173/air_jump_rope": [
+      {
+        "status": "disabled",
+        "reason": null,
+        "changed_boundaries": 0,
+        "trailing_incomplete_protected": false
+      }
+    ],
+    "0173/boxing_squat_punches": [
+      {
+        "status": "applied",
+        "reason": "accepted",
+        "changed_boundaries": 10,
+        "trailing_incomplete_protected": true
+      }
+    ],
+    "0218/air_jump_rope": [
+      {
+        "status": "disabled",
+        "reason": null,
+        "changed_boundaries": 0,
+        "trailing_incomplete_protected": false
+      }
+    ],
+    "0218/boxing_squat_punches": [
+      {
+        "status": "applied",
+        "reason": "accepted",
+        "changed_boundaries": 18,
+        "trailing_incomplete_protected": false
+      }
+    ],
+    "0218/walking_lunges": [
+      {
+        "status": "disabled",
+        "reason": null,
+        "changed_boundaries": 0,
+        "trailing_incomplete_protected": false
+      }
+    ]
+  },
+  "blind_eval": {
+    "0.3": {
+      "gt_reps": 66,
+      "pred_reps": 67,
+      "matched": 66,
+      "false_positives": 1,
+      "false_negatives": 0,
+      "micro_f1": 0.9924812030075187,
+      "micro_iou": 0.6851446839953281,
+      "mean_abs_start_error_frames": 5.181818181818182,
+      "mean_abs_end_error_frames": 4.803030303030303,
+      "p95_boundary_error_frames": 12.0,
+      "split_events": 3,
+      "merge_events": 3,
+      "fp_transition": 1,
+      "fp_duplicate": 0
+    },
+    "0.5": {
+      "gt_reps": 66,
+      "pred_reps": 67,
+      "matched": 55,
+      "false_positives": 12,
+      "false_negatives": 11,
+      "micro_f1": 0.8270676691729324,
+      "micro_iou": 0.741423682692677,
+      "mean_abs_start_error_frames": 4.781818181818182,
+      "mean_abs_end_error_frames": 4.2727272727272725,
+      "p95_boundary_error_frames": 11.649999999999991,
+      "split_events": 3,
+      "merge_events": 3,
+      "fp_transition": 1,
+      "fp_duplicate": 11
+    }
+  },
+  "boundary_error_stats": {
+    "0161/lunge_jumps": {
+      "matched": 6,
+      "start_error_mean_frames": -1.8333333333333333,
+      "start_error_std_frames": 1.7716909687891083,
+      "end_error_mean_frames": -1.8333333333333333,
+      "end_error_std_frames": 1.7716909687891083
+    },
+    "0161/pushup": {
+      "matched": 5,
+      "start_error_mean_frames": 5.6,
+      "start_error_std_frames": 16.329115101560156,
+      "end_error_mean_frames": -8.6,
+      "end_error_std_frames": 4.2708313008125245
+    },
+    "0173/boxing_squat_punches": {
+      "matched": 10,
+      "start_error_mean_frames": -3.9,
+      "start_error_std_frames": 3.4190641994557516,
+      "end_error_mean_frames": -1.2,
+      "end_error_std_frames": 4.770744176750625
+    },
+    "0218/air_jump_rope": {
+      "matched": 39,
+      "start_error_mean_frames": -2.3333333333333335,
+      "start_error_std_frames": 4.9991452260814535,
+      "end_error_mean_frames": -2.4358974358974357,
+      "end_error_std_frames": 4.90836476919038
+    },
+    "0218/walking_lunges": {
+      "matched": 6,
+      "start_error_mean_frames": -3.8333333333333335,
+      "start_error_std_frames": 2.3392781412697,
+      "end_error_mean_frames": -0.3333333333333333,
+      "end_error_std_frames": 7.652160188832664
+    }
+  },
+  "targets": {
+    "0161/pushup": {
+      "start_error_std_frames": 10.0
+    },
+    "0173/boxing_squat_punches": {
+      "start_error_std_frames": 8.0,
+      "end_error_std_frames": 8.0
+    }
+  }
+}

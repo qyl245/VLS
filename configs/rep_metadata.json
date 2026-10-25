@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "description": "Segment-level repetition-unit and boundary-phase metadata for the 22 QEVD-FIT action segments. Frame numbers are intentionally excluded. rep_unit defines what counts as one GT repetition; phase_landmark and phase_polarity describe the boundary event.",
+  "segments": {
+    "0153/jumping_jack": {
+      "rep_unit": "cycle",
+      "phase_landmark": "arms_down_lowest",
+      "phase_polarity": "trough",
+      "side_pattern": "bilateral",
+      "status": "provisional",
+      "source": "action_semantics",
+      "notes": "One cycle is arms-out/open plus arms-down/close; boundary at the arms-down trough."
+    },
+    "0153/high_knees": {
+      "rep_unit": "side",
+      "phase_landmark": "alternating_knee_drive_top",
+      "phase_polarity": "peak",
+      "side_pattern": "alternating",
+      "status": "provisional",
+      "source": "action_semantics",
+      "notes": "Each knee drive counts as one side rep; left and right drives alternate."
+    },
+    "0153/squat": {
+      "rep_unit": "cycle",
+      "phase_landmark": "standing_knee_extended",
+      "phase_polarity": "peak",
+      "side_pattern": "bilateral",
+      "status": "provisional",
+      "source": "action_semantics",
+      "notes": "One full squat cycle; boundary at the standing knee-extension phase."
+    },
+    "0153/pushup": {
+      "rep_unit": "cycle",
+      "phase_landmark": "arms_extended_top",
+      "phase_polarity": "peak",
+      "side_pattern": "bilateral",
+      "status": "provisional",
+      "source": "action_semantics",
+      "notes": "One full pushup cycle; boundary at the arms-extended top."
+    },
+    "0161/jumping_jack": {
+      "rep_unit": "cycle",
+      "phase_landmark": "arms_down_lowest",
+      "phase_polarity": "trough",
+      "side_pattern": "bilateral",
+      "status": "provisional",
+      "source": "action_semantics",
+      "notes": "One cycle is arms-out/open plus arms-down/close; boundary at the arms-down trough."
+    },
+    "0161/butt_kickers": {
+      "rep_unit": "side",
+      "phase_landmark": "heel_to_glute_closest",
+      "phase_polarity": "trough",
+      "side_pattern": "alternating",
+      "status": "provisional",
+      "source": "action_semantics",
+      "notes": "Each heel kick counts as one side rep; the knee-flexion angle reaches its minimum when the heel is closest to the glute."
+    },
+    "0161/lunge_jumps": {
+      "rep_unit": "cycle",
+      "phase_landmark": "left_foot_contact",
+      "phase_polarity": "trough",
+      "side_pattern": "alternating",
+      "status": "confirmed",
+      "source": "blind_gt",
+      "notes": "One cycle contains the left-right lunge pair; blind GT counts six full cycles at left-foot contacts."
+    },
+    "0161/pushup": {
+      "rep_unit": "cycle",
+      "phase_landmark": "arms_extended_top",
+      "phase_polarity": "peak",
+      "side_pattern": "bilateral",
+      "status": "confirmed",
+      "source": "blind_gt",
+      "notes": "Confirmed by the five-rep blind GT."
+    },
+    "0162/butt_kickers": {
+      "rep_unit": "side",
+      "phase_landmark": "heel_to_glute_closest",
+      "phase_polarity": "trough",
+      "side_pattern": "alternating",
+      "status": "provisional",
+      "source": "action_semantics",
+      "notes": "Each heel kick counts as one side rep; the knee-flexion angle reaches its minimum when the heel is closest to the glute."
+    },
+    "0162/jumping_jack": {
+      "rep_unit": "cycle",
+      "phase_landmark": "arms_down_lowest",
+      "phase_polarity": "trough",
+      "side_pattern": "bilateral",
+      "status": "provisional",
+      "source": "action_semantics",
+      "notes": "One cycle is arms-out/open plus arms-down/close; boundary at the arms-down trough."
+    },
+    "0162/walking_lunges": {
+      "rep_unit": "stride",
+      "phase_landmark": "left_leg_forward_lowest",
+      "phase_polarity": "peak",
+      "side_pattern": "alternating",
+      "status": "confirmed",
+      "source": "blind_gt",
+      "notes": "Raw-frame blind GT: 12 alternating steps, starting on the left, grouped into six complete left-right strides. Boundary is the left-leg-forward phase, so this segment starts on the opposite foot from 0218/walking_lunges."
+    },
+    "0162/mountain_climbers": {
+      "rep_unit": "side",
+      "phase_landmark": "alternating_knee_drive",
+      "phase_polarity": "alternating",
+      "side_pattern": "alternating",
+      "status": "excluded",
+      "source": "blind_gt",
+      "notes": "Provisional side definition only; pose quality and left-right attribution are unstable, so the segment remains excluded from quantitative evaluation."
+    },
+    "0173/good_morning": {
+      "rep_unit": "cycle",
+      "phase_landmark": "standing_hip_extended",
+      "phase_polarity": "trough",
+      "side_pattern": "bilateral",
+      "status": "provisional",
+      "source": "action_semantics",
+      "notes": "One full hip-hinge cycle; boundary at the upright hip-extension trough of the hip-flexion signal."
+    },
+    "0173/air_jump_rope": {
+      "rep_unit": "cycle",
+      "phase_landmark": "jump_apex_head_highest",
+      "phase_polarity": "peak",
+      "side_pattern": "bilateral",
+      "status": "provisional",
+      "source": "action_semantics",
+      "notes": "One jump-rope cycle; boundary at the head-height apex. No blind GT exists for this segment."
+    },
+    "0173/standing_kicks": {
+      "rep_unit": "side",
+      "phase_landmark": "kick_extension_peak",
+      "phase_polarity": "peak",
+      "side_pattern": "alternating",
+      "status": "provisional",
+      "source": "action_semantics",
+      "notes": "Each kick counts as one side rep; left and right kicks alternate."
+    },
+    "0173/boxing_squat_punches": {
+      "rep_unit": "cycle",
+      "phase_landmark": "standing_knee_extended",
+      "phase_polarity": "peak",
+      "side_pattern": "bilateral",
+      "status": "confirmed",
+      "source": "blind_gt",
+      "notes": "Confirmed by the ten-rep blind GT; boundary at the standing knee-extension phase."
+    },
+    "0218/good_morning": {
+      "rep_unit": "cycle",
+      "phase_landmark": "standing_hip_extended",
+      "phase_polarity": "trough",
+      "side_pattern": "bilateral",
+      "status": "provisional",
+      "source": "action_semantics",
+      "notes": "One full hip-hinge cycle; boundary at the upright hip-extension trough of the hip-flexion signal."
+    },
+    "0218/air_jump_rope": {
+      "rep_unit": "cycle",
+      "phase_landmark": "jump_apex_head_highest",
+      "phase_polarity": "peak",
+      "side_pattern": "bilateral",
+      "status": "confirmed",
+      "source": "blind_gt",
+      "notes": "Confirmed by the 39-rep blind GT; boundary at the head-height apex."
+    },
+    "0218/boxing_squat_punches": {
+      "rep_unit": "cycle",
+      "phase_landmark": "standing_knee_extended",
+      "phase_polarity": "peak",
+      "side_pattern": "bilateral",
+      "status": "provisional",
+      "source": "action_semantics",
+      "notes": "One squat-punch cycle; boundary at the standing knee-extension phase. No blind GT exists for this segment."
+    },
+    "0218/walking_lunges": {
+      "rep_unit": "stride",
+      "phase_landmark": "right_leg_forward_lowest",
+      "phase_polarity": "peak",
+      "side_pattern": "alternating",
+      "status": "confirmed",
+      "source": "blind_gt",
+      "notes": "Confirmed by the six-stride blind GT; each rep contains the right-then-left step pair."
+    },
+    "0218/toe_touchers": {
+      "rep_unit": "cycle",
+      "phase_landmark": "standing_torso_upright",
+      "phase_polarity": "trough",
+      "side_pattern": "bilateral",
+      "status": "provisional",
+      "source": "action_semantics",
+      "notes": "One full bend-and-return cycle; boundary at the upright torso phase, the trough of torso flexion."
+    },
+    "0218/shoulder_gators": {
+      "rep_unit": "cycle",
+      "phase_landmark": "elbows_forward_peak",
+      "phase_polarity": "peak",
+      "side_pattern": "bilateral",
+      "status": "provisional",
+      "source": "action_semantics",
+      "notes": "Bilateral shoulder cycle with hands behind the head; boundary at the elbows-forward phase."
+    }
+  }
+}

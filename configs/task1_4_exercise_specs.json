@@ -1,0 +1,202 @@
+{
+  "schema_version": "task1-4-exercise-specs-v1",
+  "view_definitions": {
+    "front": "frontal camera; left/right joints visible for asymmetry checks",
+    "rear": "rear camera; asymmetry checks only",
+    "oblique_left": "camera obliquely ahead-left; supports side and selected frontal checks",
+    "oblique_right": "camera obliquely ahead-right; supports side and selected frontal checks",
+    "side_left": "camera on the subject's left or subject facing image-left; sagittal checks",
+    "side_right": "camera on the subject's right or subject facing image-right; sagittal checks",
+    "unknown": "unresolved view; view-dependent metrics must be disabled"
+  },
+  "metric_groups": {
+    "base": [
+      "rep_duration_s",
+      "rep_duration_cv",
+      "spine_stability_bottom"
+    ],
+    "squat_side": [
+      "knee_flexion_rom",
+      "bottom_knee_angle",
+      "hip_flexion_rom",
+      "torso_lean_bottom",
+      "hip_depth_ratio"
+    ],
+    "squat_frontal": [
+      "knee_valgus_bottom",
+      "knee_asymmetry_bottom",
+      "hip_asymmetry_bottom"
+    ],
+    "pushup_side": [
+      "elbow_flexion_rom",
+      "bottom_elbow_angle",
+      "body_line_angle",
+      "hip_sag_ratio"
+    ],
+    "pushup_frontal": [
+      "elbow_asymmetry_bottom",
+      "shoulder_asymmetry_bottom"
+    ]
+  },
+  "exercises": {
+    "squat": {
+      "action_display": "squats",
+      "rep_unit": "cycle",
+      "min_complete_reps": 3,
+      "phase": {
+        "top": "standing, knee extended, rep boundary",
+        "bottom": "minimum knee angle",
+        "signal": "left_knee_flexion",
+        "phase_landmark": "standing_knee_extended",
+        "boundary_polarity": "peak",
+        "bottom_polarity": "trough"
+      },
+      "metrics": {
+        "rep_duration_s": {
+          "unit": "s",
+          "views": "any"
+        },
+        "rep_duration_cv": {
+          "unit": "ratio",
+          "views": "any",
+          "min_reps": 3
+        },
+        "spine_stability_bottom": {
+          "unit": "variance",
+          "views": "any"
+        },
+        "knee_flexion_rom": {
+          "unit": "deg",
+          "views": "side_or_oblique"
+        },
+        "bottom_knee_angle": {
+          "unit": "deg",
+          "views": "side_or_oblique"
+        },
+        "hip_flexion_rom": {
+          "unit": "deg",
+          "views": "side_or_oblique"
+        },
+        "torso_lean_bottom": {
+          "unit": "deg",
+          "views": "side_or_oblique"
+        },
+        "hip_depth_ratio": {
+          "unit": "ratio",
+          "views": "side_or_oblique",
+          "confidence": "low"
+        },
+        "knee_valgus_bottom": {
+          "unit": "deg",
+          "views": "frontal_or_oblique"
+        },
+        "knee_asymmetry_bottom": {
+          "unit": "deg",
+          "views": "frontal_or_oblique"
+        },
+        "hip_asymmetry_bottom": {
+          "unit": "deg",
+          "views": "frontal_or_oblique"
+        }
+      },
+      "issues": {
+        "squat_depth_insufficient": [
+          "knee_flexion_rom",
+          "hip_depth_ratio"
+        ],
+        "squat_torso_lean_excess": [
+          "torso_lean_bottom"
+        ],
+        "squat_knee_valgus": [
+          "knee_valgus_bottom"
+        ],
+        "squat_asymmetry": [
+          "knee_asymmetry_bottom",
+          "hip_asymmetry_bottom"
+        ],
+        "squat_tempo_inconsistent": [
+          "rep_duration_cv"
+        ],
+        "squat_stability_low": [
+          "spine_stability_bottom"
+        ]
+      }
+    },
+    "pushup": {
+      "action_display": "pushups",
+      "rep_unit": "cycle",
+      "min_complete_reps": 3,
+      "phase": {
+        "top": "arms extended, rep boundary",
+        "bottom": "minimum elbow angle",
+        "signal": "left_elbow_flexion",
+        "phase_landmark": "arms_extended_top",
+        "boundary_polarity": "peak",
+        "bottom_polarity": "trough"
+      },
+      "metrics": {
+        "rep_duration_s": {
+          "unit": "s",
+          "views": "any"
+        },
+        "rep_duration_cv": {
+          "unit": "ratio",
+          "views": "any",
+          "min_reps": 3
+        },
+        "spine_stability_bottom": {
+          "unit": "variance",
+          "views": "any"
+        },
+        "elbow_flexion_rom": {
+          "unit": "deg",
+          "views": "side_or_oblique"
+        },
+        "bottom_elbow_angle": {
+          "unit": "deg",
+          "views": "side_or_oblique"
+        },
+        "body_line_angle": {
+          "unit": "deg",
+          "views": "side_or_oblique"
+        },
+        "hip_sag_ratio": {
+          "unit": "ratio",
+          "views": "side_or_oblique",
+          "confidence": "low"
+        },
+        "elbow_asymmetry_bottom": {
+          "unit": "deg",
+          "views": "frontal_or_oblique"
+        },
+        "shoulder_asymmetry_bottom": {
+          "unit": "deg",
+          "views": "frontal_or_oblique",
+          "confidence": "low"
+        }
+      },
+      "issues": {
+        "pushup_depth_insufficient": [
+          "elbow_flexion_rom",
+          "bottom_elbow_angle"
+        ],
+        "pushup_body_line_break": [
+          "body_line_angle"
+        ],
+        "pushup_hip_sag": [
+          "hip_sag_ratio"
+        ],
+        "pushup_asymmetry": [
+          "elbow_asymmetry_bottom",
+          "shoulder_asymmetry_bottom"
+        ],
+        "pushup_tempo_inconsistent": [
+          "rep_duration_cv"
+        ],
+        "pushup_stability_low": [
+          "spine_stability_bottom"
+        ]
+      }
+    }
+  }
+}

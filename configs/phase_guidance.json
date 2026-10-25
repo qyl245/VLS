@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "description": "Action-level boundary phase guidance. Entries describe how to derive the phase signal from task1-1 outputs; they do not contain segment frame numbers or blind GT boundaries.",
+  "defaults": {
+    "tolerance_fraction": 0.2,
+    "prominence_fraction": 0.1,
+    "min_extrema": 3,
+    "min_support_fraction": 0.65,
+    "ambiguity_margin_fraction": 0.1,
+    "min_extrema_coverage": 0.75
+  },
+  "actions": {
+    "squat": {
+      "phase_landmark": "standing_knee_extended",
+      "annotation_polarity": "peak",
+      "polarity": "peak",
+      "signal": {
+        "source": "angle",
+        "name": "left_knee_flexion"
+      },
+      "boundary_snap": {
+        "mode": "plateau_entry",
+        "plateau_fraction": 0.8,
+        "min_plateau_fraction": 0.08,
+        "snap_radius_fraction": 0.85,
+        "min_width_fraction": 0.25
+      }
+    },
+    "pushup": {
+      "phase_landmark": "arms_extended_top",
+      "annotation_polarity": "peak",
+      "polarity": "peak",
+      "signal": {
+        "source": "angle",
+        "name": "left_elbow_flexion"
+      },
+      "boundary_snap": {
+        "mode": "plateau_entry",
+        "plateau_fraction": 0.8,
+        "min_plateau_fraction": 0.08,
+        "snap_radius_fraction": 0.85,
+        "min_width_fraction": 0.25
+      }
+    },
+    "boxing_squat_punches": {
+      "phase_landmark": "standing_knee_extended",
+      "annotation_polarity": "peak",
+      "polarity": "peak",
+      "signal": {
+        "source": "angle",
+        "name": "left_knee_flexion"
+      },
+      "boundary_snap": {
+        "mode": "plateau_entry",
+        "plateau_fraction": 0.8,
+        "min_plateau_fraction": 0.08,
+        "snap_radius_fraction": 0.85,
+        "min_width_fraction": 0.25
+      }
+    },
+    "lunge_jumps": {
+      "phase_landmark": "left_foot_contact",
+      "annotation_polarity": "trough",
+      "polarity": "trough",
+      "signal": {
+        "source": "landmark_world",
+        "name": "left_foot_index",
+        "axis": "y",
+        "sign": -1.0
+      }
+    },
+    "walking_lunges": {
+      "phase_landmark": "right_leg_forward_lowest",
+      "annotation_polarity": "peak",
+      "polarity": "peak",
+      "signal": {
+        "source": "angle",
+        "name": "right_ankle_dorsiflexion_sagittal"
+      }
+    },
+    "air_jump_rope": {
+      "phase_landmark": "jump_apex_head_highest",
+      "annotation_polarity": "peak",
+      "polarity": "peak",
+      "signal": {
+        "source": "landmark_world",
+        "name": "nose",
+        "axis": "y",
+        "sign": -1.0
+      }
+    }
+  }
+}

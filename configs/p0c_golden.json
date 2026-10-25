@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "name": "p0c",
+  "frozen_at": "2026-10-25",
+  "description": "Frozen P0-C regression set for QEVD-FIT internal blind GT. Exact mode reproduces P0-C; guard mode enforces non-regression for later algorithm changes.",
+  "parameters": {
+    "min_period_s": 0.4,
+    "max_period_s": 5.0,
+    "prominence_frac": 0.2,
+    "stage_b": true,
+    "active_bouts": true,
+    "activity_window_s": 0.5,
+    "activity_threshold": 0.1,
+    "min_nonrep_s": 0.5,
+    "activity_close_gap_s": 0.2,
+    "incomplete_tail_ratio": 0.75
+  },
+  "annotation_sha256": {
+    "blind_reps.csv": "11d67866dc62241d8e1216406661c13f6f3077d5e480a17fcc89115f3efc54d1",
+    "blind_segments.csv": "66426dc22e7c71d99a8eadfc6ec597ae283c5144bf40ca4a3ced25c5b3db6abd",
+    "blind_exclusions.csv": "516024f97ea9c2507e704be7c9b856e1f76475e50a9a135e06162a9fdf917b7d",
+    "second_pass_sample.csv": "7d10f463d57d0049f5a46dc719635d46a692e54ea5e43c2cf54105567663ef03"
+  },
+  "acceptance_segments": {
+    "0153/squat": 8,
+    "0161/pushup": 5,
+    "0173/boxing_squat_punches": 10
+  },
+  "segment_counts": {
+    "0153/high_knees": {"aifit": 32, "peak": 27},
+    "0153/jumping_jack": {"aifit": 30, "peak": 27},
+    "0153/pushup": {"aifit": 3, "peak": 3},
+    "0153/squat": {"aifit": 8, "peak": 9},
+    "0161/butt_kickers": {"aifit": 17, "peak": 17},
+    "0161/jumping_jack": {"aifit": 27, "peak": 25},
+    "0161/lunge_jumps": {"aifit": 6, "peak": 6},
+    "0161/pushup": {"aifit": 5, "peak": 5},
+    "0162/butt_kickers": {"aifit": 33, "peak": 33},
+    "0162/jumping_jack": {"aifit": 27, "peak": 26},
+    "0162/mountain_climbers": {"aifit": 12, "peak": 2},
+    "0162/walking_lunges": {"aifit": 6, "peak": 10},
+    "0173/air_jump_rope": {"aifit": 24, "peak": 27},
+    "0173/boxing_squat_punches": {"aifit": 10, "peak": 10},
+    "0173/good_morning": {"aifit": 9, "peak": 9},
+    "0173/standing_kicks": {"aifit": 13, "peak": 13},
+    "0218/air_jump_rope": {"aifit": 40, "peak": 28},
+    "0218/boxing_squat_punches": {"aifit": 17, "peak": 17},
+    "0218/good_morning": {"aifit": 16, "peak": 16},
+    "0218/shoulder_gators": {"aifit": 25, "peak": 25},
+    "0218/toe_touchers": {"aifit": 0, "peak": 0},
+    "0218/walking_lunges": {"aifit": 6, "peak": 6}
+  },
+  "blind_segment_counts": {
+    "0161_lunge_jumps": {"gt_reps": 6, "pred_reps": 6},
+    "0161_pushup": {"gt_reps": 5, "pred_reps": 5},
+    "0173_boxing_squat_punches": {"gt_reps": 10, "pred_reps": 10},
+    "0218_air_jump_rope": {"gt_reps": 39, "pred_reps": 40},
+    "0218_walking_lunges": {"gt_reps": 6, "pred_reps": 6}
+  },
+  "blind_eval": {
+    "0.3": {
+      "gt_reps": 66,
+      "pred_reps": 67,
+      "matched": 65,
+      "false_positives": 2,
+      "false_negatives": 1,
+      "micro_f1": 0.9774436090225564,
+      "micro_iou": 0.5845550068615266,
+      "mean_abs_start_error_frames": 9.861538461538462,
+      "mean_abs_end_error_frames": 8.2,
+      "p95_boundary_error_frames": 20.099999999999994,
+      "split_events": 4,
+      "merge_events": 4,
+      "fp_transition": 1,
+      "fp_duplicate": 1
+    },
+    "0.5": {
+      "gt_reps": 66,
+      "pred_reps": 67,
+      "matched": 45,
+      "false_positives": 22,
+      "false_negatives": 21,
+      "micro_f1": 0.6766917293233083,
+      "micro_iou": 0.6578989005123128,
+      "mean_abs_start_error_frames": 7.155555555555556,
+      "mean_abs_end_error_frames": 6.466666666666667,
+      "p95_boundary_error_frames": 18.0,
+      "split_events": 4,
+      "merge_events": 4,
+      "fp_transition": 2,
+      "fp_duplicate": 20
+    }
+  }
+}

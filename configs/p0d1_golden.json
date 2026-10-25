@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "name": "p0d1",
+  "frozen_at": "2026-10-25",
+  "description": "Frozen P0-D1 phase-guidance decisions and QEVD-FIT blind metrics.",
+  "expected_aifit_reps": 366,
+  "phase_guidance": {
+    "0161/lunge_jumps": {
+      "status": "applied",
+      "start_frame": 1868,
+      "final_low_amplitude_accepted": "phase_aligned_edge_rep"
+    },
+    "0161/pushup": {
+      "status": "fallback",
+      "reason": "too_few_extrema"
+    },
+    "0173/boxing_squat_punches": {
+      "status": "fallback",
+      "reason": "insufficient_extrema_coverage"
+    },
+    "0218/walking_lunges": {
+      "status": "applied",
+      "start_frame": 2454,
+      "final_low_amplitude_accepted": "phase_aligned_edge_rep"
+    },
+    "0218/air_jump_rope": {
+      "status": "fallback",
+      "reason": "insufficient_phase_support"
+    }
+  },
+  "blind_eval": {
+    "0.3": {
+      "gt_reps": 66,
+      "pred_reps": 67,
+      "matched": 65,
+      "false_positives": 2,
+      "false_negatives": 1,
+      "micro_f1": 0.9774436090225564,
+      "micro_iou": 0.6290115797832668,
+      "p95_boundary_error_frames": 19.64999999999999,
+      "split_events": 4,
+      "merge_events": 4
+    },
+    "0.5": {
+      "gt_reps": 66,
+      "pred_reps": 67,
+      "matched": 48,
+      "false_positives": 19,
+      "false_negatives": 18,
+      "micro_f1": 0.7218045112781953,
+      "micro_iou": 0.7062809208803441,
+      "p95_boundary_error_frames": 16.25,
+      "split_events": 4,
+      "merge_events": 4
+    }
+  }
+}

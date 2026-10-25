@@ -1,0 +1,42 @@
+{
+  "task": "task1-1",
+  "dataset": "QEVD-FIT-COACH",
+  "selection_policy": "Five upright long videos covering squat, jumping jack, push-up, and lunge.",
+  "videos": [
+    {
+      "video_id": "0153",
+      "file": "0153.mp4",
+      "actions": ["squat", "jumping_jack", "pushup"],
+      "rotation": "none",
+      "notes": "Covers three target actions; has known irregular timestamp intervals."
+    },
+    {
+      "video_id": "0161",
+      "file": "0161.mp4",
+      "actions": ["jumping_jack", "pushup", "lunge"],
+      "rotation": "none",
+      "notes": "Covers three target actions."
+    },
+    {
+      "video_id": "0162",
+      "file": "0162.mp4",
+      "actions": ["jumping_jack", "lunge"],
+      "rotation": "none",
+      "notes": "Adds a second lunge-focused sample."
+    },
+    {
+      "video_id": "0173",
+      "file": "0173.mp4",
+      "actions": ["squat", "pushup"],
+      "rotation": "none",
+      "notes": "Adds a second squat and push-up sample."
+    },
+    {
+      "video_id": "0218",
+      "file": "0218.mp4",
+      "actions": ["squat", "lunge"],
+      "rotation": "none",
+      "notes": "Adds a third squat and lunge sample."
+    }
+  ]
+}

@@ -1,0 +1,254 @@
+{
+  "schema_version": "task1-4-feedback-templates-v1",
+  "threshold_policy": "provisional_engineering",
+  "disclaimer": "Provisional engineering thresholds for the QEVD-FIT front-view vertical slice. They are not medical standards and have not been calibrated against expert issue-level annotations.",
+  "confidence": {
+    "low_below": 0.55,
+    "suppress_below": 0.35,
+    "rule": "0.35-0.55 keeps at most low severity; below 0.35 no issue card is emitted"
+  },
+  "evidence": {
+    "radius_frames": 8,
+    "stability_window_frames": 15,
+    "tempo_reference": "most deviant rep duration"
+  },
+  "suppressed_cue": "补齐所需视角或增加完整 rep 后可重新分析。",
+  "view_requirement_labels": {
+    "any": "任意视角",
+    "side_or_oblique": "侧视或斜侧视角",
+    "frontal_or_oblique": "正面或斜前视角"
+  },
+  "metric_labels": {
+    "rep_duration_s": "单个 rep 时长",
+    "rep_duration_cv": "rep 时长变异系数",
+    "spine_stability_bottom": "底部躯干稳定性方差",
+    "knee_flexion_rom": "膝关节屈曲 ROM",
+    "bottom_knee_angle": "底部膝夹角",
+    "hip_flexion_rom": "髋关节屈曲 ROM",
+    "torso_lean_bottom": "底部躯干前倾角",
+    "hip_depth_ratio": "髋部下降比例",
+    "knee_valgus_bottom": "膝内扣角",
+    "knee_asymmetry_bottom": "左右膝角差",
+    "hip_asymmetry_bottom": "左右髋角差",
+    "elbow_flexion_rom": "肘关节屈曲 ROM",
+    "bottom_elbow_angle": "底部肘夹角",
+    "body_line_angle": "肩-髋-踝身体直线角",
+    "hip_sag_ratio": "髋部偏离身体直线比例",
+    "elbow_asymmetry_bottom": "左右肘角差",
+    "shoulder_asymmetry_bottom": "左右肩角差"
+  },
+  "thresholds": {
+    "knee_valgus_bottom": {
+      "low": 12.0,
+      "medium": 20.0,
+      "high": 30.0,
+      "unit": "deg",
+      "definition": "maximum inward knee deviation from the hip-ankle coronal alignment; positive means medial"
+    },
+    "knee_flexion_rom": {
+      "low": 70.0,
+      "medium": 55.0,
+      "high": 40.0,
+      "unit": "deg",
+      "direction": "low_bad"
+    },
+    "bottom_knee_angle": {
+      "low": 120.0,
+      "medium": 135.0,
+      "high": 150.0,
+      "unit": "deg"
+    },
+    "hip_flexion_rom": {
+      "low": 55.0,
+      "medium": 40.0,
+      "high": 25.0,
+      "unit": "deg",
+      "direction": "low_bad"
+    },
+    "torso_lean_bottom": {
+      "low": 35.0,
+      "medium": 45.0,
+      "high": 60.0,
+      "unit": "deg"
+    },
+    "hip_depth_ratio": {
+      "low": 0.12,
+      "medium": 0.08,
+      "high": 0.05,
+      "unit": "ratio",
+      "direction": "low_bad"
+    },
+    "knee_asymmetry_bottom": {
+      "low": 5.0,
+      "medium": 8.0,
+      "high": 15.0,
+      "unit": "deg"
+    },
+    "hip_asymmetry_bottom": {
+      "low": 5.0,
+      "medium": 8.0,
+      "high": 15.0,
+      "unit": "deg"
+    },
+    "elbow_asymmetry_bottom": {
+      "low": 8.0,
+      "medium": 12.0,
+      "high": 20.0,
+      "unit": "deg"
+    },
+    "shoulder_asymmetry_bottom": {
+      "low": 8.0,
+      "medium": 12.0,
+      "high": 20.0,
+      "unit": "deg"
+    },
+    "elbow_flexion_rom": {
+      "low": 60.0,
+      "medium": 45.0,
+      "high": 30.0,
+      "unit": "deg",
+      "direction": "low_bad"
+    },
+    "bottom_elbow_angle": {
+      "low": 110.0,
+      "medium": 125.0,
+      "high": 140.0,
+      "unit": "deg"
+    },
+    "body_line_angle": {
+      "low": 165.0,
+      "medium": 155.0,
+      "high": 145.0,
+      "unit": "deg",
+      "direction": "low_bad"
+    },
+    "hip_sag_ratio": {
+      "low": 0.12,
+      "medium": 0.20,
+      "high": 0.30,
+      "unit": "ratio"
+    },
+    "rep_duration_cv": {
+      "low": 0.15,
+      "medium": 0.20,
+      "high": 0.35,
+      "unit": "ratio"
+    },
+    "spine_stability_bottom": {
+      "low": 0.03,
+      "medium": 0.06,
+      "high": 0.10,
+      "unit": "variance"
+    }
+  },
+  "issues": {
+    "squat_depth_insufficient": {
+      "title": "下蹲深度不足",
+      "detail": "{rep_phrase} 的膝关节屈曲 ROM 约 {value_text}，低于初版参考阈值。",
+      "cue": "尝试在可控范围内再向下坐一些，同时保持膝盖朝向脚尖。",
+      "disabled_detail": "当前视角为 {view}；下蹲深度需要{view_requirement_text}，本次不评估。",
+      "highlight_joints": ["left_hip", "right_hip", "left_knee", "right_knee"],
+      "draw": ["skeleton", "angle_arc", "reference_arc", "deviation_label"],
+      "camera_zoom": 1.2
+    },
+    "squat_torso_lean_excess": {
+      "title": "躯干前倾过多",
+      "detail": "{rep_phrase} 的底部躯干前倾角约 {value_text}，高于初版参考阈值。",
+      "cue": "保持胸廓与骨盆大致叠放，减少用躯干前倾代替髋部下沉。",
+      "disabled_detail": "当前视角为 {view}；躯干前倾需要{view_requirement_text}，本次不评估。",
+      "highlight_joints": ["left_shoulder", "right_shoulder", "left_hip", "right_hip"],
+      "draw": ["skeleton", "torso_line", "reference_arc", "deviation_label"],
+      "camera_zoom": 1.15
+    },
+    "squat_knee_valgus": {
+      "title": "膝盖内扣",
+      "detail": "{rep_phrase} 的膝内扣角约 {value_text}，超过初版关注阈值 {threshold_text}。",
+      "cue": "下蹲时让膝盖继续朝向脚尖，可适当减小负重并放慢离心阶段。",
+      "disabled_detail": "当前视角为 {view}；膝内扣需要{view_requirement_text}，本次不评估。",
+      "highlight_joints": ["left_knee", "right_knee", "left_ankle", "right_ankle"],
+      "draw": ["skeleton", "knee_alignment_line", "angle_arc", "deviation_label"],
+      "camera_zoom": 1.2
+    },
+    "squat_asymmetry": {
+      "title": "左右发力不对称",
+      "detail": "{rep_phrase} 的{metric_label}约 {value_text}，超过初版关注阈值 {threshold_text}。",
+      "cue": "放慢动作并关注两侧同时发力；若差异持续，建议降低负重或单侧辅助练习。",
+      "disabled_detail": "当前视角为 {view}；左右对称性需要{view_requirement_text}，本次不评估。",
+      "highlight_joints": ["left_knee", "right_knee", "left_hip", "right_hip"],
+      "draw": ["skeleton", "bilateral_compare", "deviation_label"],
+      "camera_zoom": 1.2
+    },
+    "squat_tempo_inconsistent": {
+      "title": "动作节奏不一致",
+      "detail": "本组 rep 时长变异系数约 {value_text}，高于初版关注阈值 {threshold_text}；代表 rep 为第 {representative_rep_id} 个。",
+      "cue": "用稳定的节拍完成每一次下蹲和起身，避免突然加速或停顿。",
+      "disabled_detail": "本组完整 rep 少于 3 个，无法可靠评估节奏一致性。",
+      "highlight_joints": ["left_hip", "right_hip", "left_knee", "right_knee"],
+      "draw": ["rep_timeline", "duration_bars", "deviation_label"],
+      "camera_zoom": 1.0
+    },
+    "squat_stability_low": {
+      "title": "底部稳定性不足",
+      "detail": "{rep_phrase} 底部附近的躯干稳定性方差约 {value_text}，高于初版关注阈值 {threshold_text}。",
+      "cue": "在底部短暂停稳，保持核心收紧，避免身体左右或前后晃动。",
+      "disabled_detail": "当前结果缺少足够可信的躯干稳定性指标，本次不评估。",
+      "highlight_joints": ["left_shoulder", "right_shoulder", "left_hip", "right_hip"],
+      "draw": ["skeleton", "torso_line", "stability_halo", "deviation_label"],
+      "camera_zoom": 1.15
+    },
+    "pushup_depth_insufficient": {
+      "title": "俯卧撑下放深度不足",
+      "detail": "{rep_phrase} 的肘关节屈曲 ROM 约 {value_text}，低于初版参考阈值。",
+      "cue": "在肩肘舒适的前提下增加下放幅度，保持身体整体移动。",
+      "disabled_detail": "当前视角为 {view}；下放深度需要{view_requirement_text}，本次不评估。",
+      "highlight_joints": ["left_elbow", "right_elbow", "left_shoulder", "right_shoulder"],
+      "draw": ["skeleton", "angle_arc", "reference_arc", "deviation_label"],
+      "camera_zoom": 1.2
+    },
+    "pushup_body_line_break": {
+      "title": "身体直线保持不佳",
+      "detail": "{rep_phrase} 的肩-髋-踝直线角约 {value_text}，低于初版参考阈值。",
+      "cue": "收紧核心和臀部，让肩、髋、踝尽量保持在同一延长线上。",
+      "disabled_detail": "当前视角为 {view}；身体直线需要{view_requirement_text}，本次不评估。",
+      "highlight_joints": ["left_shoulder", "right_shoulder", "left_hip", "right_hip", "left_ankle", "right_ankle"],
+      "draw": ["skeleton", "body_line", "reference_arc", "deviation_label"],
+      "camera_zoom": 1.1
+    },
+    "pushup_hip_sag": {
+      "title": "塌腰或撅臀",
+      "detail": "{rep_phrase} 的髋部偏离身体直线比例约 {value_text}，高于初版参考阈值。",
+      "cue": "在动作全程保持骨盆稳定，避免腰部下塌或臀部抬高。",
+      "disabled_detail": "当前视角为 {view}；塌腰/撅臀需要{view_requirement_text}，本次不评估。",
+      "highlight_joints": ["left_hip", "right_hip", "left_shoulder", "right_shoulder", "left_ankle", "right_ankle"],
+      "draw": ["skeleton", "body_line", "hip_offset_arrow", "deviation_label"],
+      "camera_zoom": 1.1
+    },
+    "pushup_asymmetry": {
+      "title": "左右发力不对称",
+      "detail": "{rep_phrase} 的{metric_label}约 {value_text}，超过初版关注阈值 {threshold_text}。",
+      "cue": "保持两手位置稳定并让两侧同时推起；若差异持续，建议降低难度。",
+      "disabled_detail": "当前视角为 {view}；左右对称性需要{view_requirement_text}，本次不评估。",
+      "highlight_joints": ["left_elbow", "right_elbow", "left_shoulder", "right_shoulder"],
+      "draw": ["skeleton", "bilateral_compare", "deviation_label"],
+      "camera_zoom": 1.2
+    },
+    "pushup_tempo_inconsistent": {
+      "title": "动作节奏不一致",
+      "detail": "本组 rep 时长变异系数约 {value_text}，高于初版关注阈值 {threshold_text}；代表 rep 为第 {representative_rep_id} 个。",
+      "cue": "用稳定的节拍完成每一次下放和推起，避免突然加速或停顿。",
+      "disabled_detail": "本组完整 rep 少于 3 个，无法可靠评估节奏一致性。",
+      "highlight_joints": ["left_elbow", "right_elbow", "left_shoulder", "right_shoulder"],
+      "draw": ["rep_timeline", "duration_bars", "deviation_label"],
+      "camera_zoom": 1.0
+    },
+    "pushup_stability_low": {
+      "title": "底部稳定性不足",
+      "detail": "{rep_phrase} 底部附近的躯干稳定性方差约 {value_text}，高于初版关注阈值 {threshold_text}。",
+      "cue": "在底部短暂停稳，保持核心收紧，避免身体左右或前后晃动。",
+      "disabled_detail": "当前结果缺少足够可信的躯干稳定性指标，本次不评估。",
+      "highlight_joints": ["left_shoulder", "right_shoulder", "left_hip", "right_hip"],
+      "draw": ["skeleton", "torso_line", "stability_halo", "deviation_label"],
+      "camera_zoom": 1.15
+    }
+  }
+}

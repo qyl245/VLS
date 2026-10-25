@@ -1,0 +1,2118 @@
+{
+  "schema_version": "task1-4-v1",
+  "task": "task1-4a",
+  "generated_at": "2026-10-25T08:01:10.668596+00:00",
+  "dataset": "QEVD-FIT-COACH",
+  "source_feedback": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/feedbacks_long_range.json",
+  "selection_policy": {
+    "action_filter": "action_display in {squats, pushups}",
+    "excluded_actions": [
+      "squat jumps",
+      "squat kicks"
+    ],
+    "split_unit": "video_id",
+    "selected_for_phase": {
+      "squat": {
+        "dev": 5,
+        "holdout": 5
+      },
+      "pushup": {
+        "dev": 8,
+        "holdout": 8
+      }
+    },
+    "reserve_policy": "remaining clips retained in manifest but excluded from dev and holdout",
+    "reserve_clips": [
+      "0153_pushup_set01"
+    ]
+  },
+  "video_splits": {
+    "0001": "dev",
+    "0004": "dev",
+    "0005": "dev",
+    "0007": "dev",
+    "0008": "reserve",
+    "0020": "dev",
+    "0021": "dev",
+    "0034": "dev",
+    "0044": "holdout",
+    "0046": "dev",
+    "0047": "reserve",
+    "0065": "holdout",
+    "0067": "holdout",
+    "0075": "holdout",
+    "0090": "holdout",
+    "0103": "holdout",
+    "0104": "dev",
+    "0106": "reserve",
+    "0118": "reserve",
+    "0122": "reserve",
+    "0125": "holdout",
+    "0127": "reserve",
+    "0137": "holdout",
+    "0143": "holdout",
+    "0150": "reserve",
+    "0151": "reserve",
+    "0152": "reserve",
+    "0153": "holdout",
+    "0156": "dev",
+    "0157": "reserve",
+    "0159": "reserve",
+    "0160": "holdout",
+    "0161": "dev",
+    "0163": "reserve",
+    "0177": "reserve",
+    "0184": "holdout",
+    "0211": "reserve"
+  },
+  "screening_findings": {
+    "candidate_view_counts": {
+      "front": 40,
+      "oblique_left": 1
+    },
+    "selected_view_counts": {
+      "front": 26
+    },
+    "selected_side_or_oblique_clips": [],
+    "sagittal_metric_status": "disabled_for_all_selected_clips",
+    "note": "QEVD pure squat/pushup windows are predominantly frontal; side-view depth, torso-lean, and body-line metrics require supplemental clips."
+  },
+  "clips": [
+    {
+      "clip_id": "0001_pushup_set01",
+      "video_id": "0001",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0001.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 2575,
+        "end_frame": 3261
+      },
+      "fps": 30.0,
+      "frame_count": 4927,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.34706,
+        "pose_detection_rate": 0.888889,
+        "mean_visible_fraction": 0.755442,
+        "view_confidence": 1.0,
+        "width_ratio": 4.954379,
+        "shoulder_tilt": 0.012273,
+        "nose_offset": -0.133413,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0004_pushup_set01",
+      "video_id": "0004",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0004.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 2447,
+        "end_frame": 3087
+      },
+      "fps": 30.0,
+      "frame_count": 4848,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.245389,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.879138,
+        "view_confidence": 1.0,
+        "width_ratio": 1.823821,
+        "shoulder_tilt": 0.013847,
+        "nose_offset": -0.153022,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0005_pushup_set01",
+      "video_id": "0005",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0005.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 1788,
+        "end_frame": 2483
+      },
+      "fps": 30.0,
+      "frame_count": 4887,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.266819,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.823166,
+        "view_confidence": 1.0,
+        "width_ratio": 2.587417,
+        "shoulder_tilt": 0.021875,
+        "nose_offset": -0.072632,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0007_pushup_set01",
+      "video_id": "0007",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0007.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 2537,
+        "end_frame": 3283
+      },
+      "fps": 30.0,
+      "frame_count": 4835,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.13951,
+        "pose_detection_rate": 0.888889,
+        "mean_visible_fraction": 0.67462,
+        "view_confidence": 1.0,
+        "width_ratio": 4.70789,
+        "shoulder_tilt": 0.016872,
+        "nose_offset": -0.314807,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0008_pushup_set01",
+      "video_id": "0008",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0008.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 2544,
+        "end_frame": 3314
+      },
+      "fps": 30.0,
+      "frame_count": 4962,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "reserve",
+      "phase_role": "reserve",
+      "selected_for_phase": false,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.226681,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.910937,
+        "view_confidence": 1.0,
+        "width_ratio": 1.75391,
+        "shoulder_tilt": 0.020812,
+        "nose_offset": -0.117837,
+        "quality_flags": []
+      },
+      "notes": "standing for most of the window; pushup action only at the tail; reserve"
+    },
+    {
+      "clip_id": "0020_pushup_set01",
+      "video_id": "0020",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0020.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 2603,
+        "end_frame": 3276
+      },
+      "fps": 30.0,
+      "frame_count": 4929,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.177839,
+        "pose_detection_rate": 0.888889,
+        "mean_visible_fraction": 0.764238,
+        "view_confidence": 1.0,
+        "width_ratio": 4.731861,
+        "shoulder_tilt": 0.027051,
+        "nose_offset": -0.166978,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0021_pushup_set01",
+      "video_id": "0021",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0021.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 2482,
+        "end_frame": 3193
+      },
+      "fps": 30.0,
+      "frame_count": 4770,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.21559,
+        "pose_detection_rate": 0.888889,
+        "mean_visible_fraction": 0.72319,
+        "view_confidence": 1.0,
+        "width_ratio": 4.095595,
+        "shoulder_tilt": 0.037837,
+        "nose_offset": -0.203466,
+        "quality_flags": []
+      },
+      "notes": "frontal but smaller in frame; keep pose-detection review flag"
+    },
+    {
+      "clip_id": "0044_pushup_set01",
+      "video_id": "0044",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0044.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 1774,
+        "end_frame": 2514
+      },
+      "fps": 30.0,
+      "frame_count": 4872,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.223195,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.807126,
+        "view_confidence": 1.0,
+        "width_ratio": 3.077024,
+        "shoulder_tilt": 0.018802,
+        "nose_offset": -0.133755,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0047_pushup_set01",
+      "video_id": "0047",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0047.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 1754,
+        "end_frame": 2471
+      },
+      "fps": 30.0,
+      "frame_count": 4793,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "reserve",
+      "phase_role": "reserve",
+      "selected_for_phase": false,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.248484,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.932665,
+        "view_confidence": 1.0,
+        "width_ratio": 1.698027,
+        "shoulder_tilt": 0.017074,
+        "nose_offset": -0.127848,
+        "quality_flags": []
+      },
+      "notes": "standing for most of the window; only isolated pushup pose near midpoint; reserve"
+    },
+    {
+      "clip_id": "0065_pushup_set01",
+      "video_id": "0065",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0065.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 1648,
+        "end_frame": 2430
+      },
+      "fps": 30.0,
+      "frame_count": 4761,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.246882,
+        "pose_detection_rate": 0.888889,
+        "mean_visible_fraction": 0.742474,
+        "view_confidence": 1.0,
+        "width_ratio": 3.315588,
+        "shoulder_tilt": 0.023717,
+        "nose_offset": -0.154315,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0067_pushup_set01",
+      "video_id": "0067",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0067.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 2505,
+        "end_frame": 3313
+      },
+      "fps": 30.0,
+      "frame_count": 4828,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.258126,
+        "pose_detection_rate": 0.888889,
+        "mean_visible_fraction": 0.762907,
+        "view_confidence": 1.0,
+        "width_ratio": 3.938219,
+        "shoulder_tilt": 0.007705,
+        "nose_offset": -0.116886,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0090_pushup_set01",
+      "video_id": "0090",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0090.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 2460,
+        "end_frame": 3243
+      },
+      "fps": 30.0,
+      "frame_count": 4781,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.241777,
+        "pose_detection_rate": 0.888889,
+        "mean_visible_fraction": 0.723618,
+        "view_confidence": 1.0,
+        "width_ratio": 3.462643,
+        "shoulder_tilt": 0.06341,
+        "nose_offset": -0.224715,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0103_pushup_set01",
+      "video_id": "0103",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0103.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 1833,
+        "end_frame": 2473
+      },
+      "fps": 30.0,
+      "frame_count": 4813,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.246972,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.678573,
+        "view_confidence": 1.0,
+        "width_ratio": 3.722321,
+        "shoulder_tilt": 0.011935,
+        "nose_offset": -0.116493,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0118_pushup_set01",
+      "video_id": "0118",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0118.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 1856,
+        "end_frame": 2555
+      },
+      "fps": 30.0,
+      "frame_count": 4897,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "reserve",
+      "phase_role": "reserve",
+      "selected_for_phase": false,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.237191,
+        "pose_detection_rate": 0.888889,
+        "mean_visible_fraction": 0.930272,
+        "view_confidence": 1.0,
+        "width_ratio": 1.750454,
+        "shoulder_tilt": 0.00854,
+        "nose_offset": -0.071446,
+        "quality_flags": []
+      },
+      "notes": "segment includes floor entry and standing recovery; reserve"
+    },
+    {
+      "clip_id": "0122_pushup_set01",
+      "video_id": "0122",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0122.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 2460,
+        "end_frame": 3091
+      },
+      "fps": 30.0,
+      "frame_count": 4763,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "reserve",
+      "phase_role": "reserve",
+      "selected_for_phase": false,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.290098,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.798342,
+        "view_confidence": 1.0,
+        "width_ratio": 2.256563,
+        "shoulder_tilt": 0.023795,
+        "nose_offset": -0.047358,
+        "quality_flags": []
+      },
+      "notes": "segment starts in kneeling setup; reserve"
+    },
+    {
+      "clip_id": "0137_pushup_set01",
+      "video_id": "0137",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0137.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 2453,
+        "end_frame": 3169
+      },
+      "fps": 30.0,
+      "frame_count": 4841,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.252039,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.762587,
+        "view_confidence": 1.0,
+        "width_ratio": 3.030274,
+        "shoulder_tilt": 0.00789,
+        "nose_offset": 0.123817,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0143_pushup_set01",
+      "video_id": "0143",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0143.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 2397,
+        "end_frame": 3074
+      },
+      "fps": 30.0,
+      "frame_count": 4723,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.198118,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.70595,
+        "view_confidence": 1.0,
+        "width_ratio": 4.618126,
+        "shoulder_tilt": 0.013522,
+        "nose_offset": -0.191634,
+        "quality_flags": []
+      },
+      "notes": "consistent pushup poses across the window"
+    },
+    {
+      "clip_id": "0150_pushup_set01",
+      "video_id": "0150",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0150.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 2433,
+        "end_frame": 3105
+      },
+      "fps": 30.0,
+      "frame_count": 4730,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "oblique_left",
+      "view_source": "manual_override",
+      "split": "reserve",
+      "phase_role": "reserve",
+      "selected_for_phase": false,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.242611,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.844922,
+        "view_confidence": 0.172467,
+        "width_ratio": 0.654493,
+        "shoulder_tilt": 0.090888,
+        "nose_offset": -0.018068,
+        "quality_flags": []
+      },
+      "notes": "low wide-angle camera; depth distortion present"
+    },
+    {
+      "clip_id": "0151_pushup_set01",
+      "video_id": "0151",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0151.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 2499,
+        "end_frame": 3207
+      },
+      "fps": 30.0,
+      "frame_count": 4802,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "reserve",
+      "phase_role": "reserve",
+      "selected_for_phase": false,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.252304,
+        "pose_detection_rate": 0.777778,
+        "mean_visible_fraction": 0.852801,
+        "view_confidence": 0.483039,
+        "width_ratio": 1.016608,
+        "shoulder_tilt": 0.042372,
+        "nose_offset": -0.05162,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0152_pushup_set01",
+      "video_id": "0152",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0152.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 2313,
+        "end_frame": 2968
+      },
+      "fps": 30.0,
+      "frame_count": 4479,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "reserve",
+      "phase_role": "reserve",
+      "selected_for_phase": false,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.280421,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.78385,
+        "view_confidence": 0.481857,
+        "width_ratio": 1.146371,
+        "shoulder_tilt": 0.016651,
+        "nose_offset": 0.100608,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0153_pushup_set01",
+      "video_id": "0153",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0153.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 1853,
+        "end_frame": 2326
+      },
+      "fps": 30.0,
+      "frame_count": 3556,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "oblique_left",
+      "view_source": "manual_override",
+      "split": "holdout",
+      "phase_role": "reserve",
+      "selected_for_phase": false,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.246632,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.808134,
+        "view_confidence": 0.160998,
+        "width_ratio": 0.6522,
+        "shoulder_tilt": 0.031538,
+        "nose_offset": -0.050665,
+        "quality_flags": []
+      },
+      "notes": "first half is kneeling entry; only tail contains pushups; reserve"
+    },
+    {
+      "clip_id": "0156_pushup_set01",
+      "video_id": "0156",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0156.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 2349,
+        "end_frame": 3062
+      },
+      "fps": 30.0,
+      "frame_count": 4689,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "oblique_right",
+      "view_source": "manual_override",
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.245902,
+        "pose_detection_rate": 0.888889,
+        "mean_visible_fraction": 0.806922,
+        "view_confidence": 0.686093,
+        "width_ratio": 0.782781,
+        "shoulder_tilt": 0.110203,
+        "nose_offset": 0.064626,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0157_pushup_set01",
+      "video_id": "0157",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0157.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 2409,
+        "end_frame": 3094
+      },
+      "fps": 30.0,
+      "frame_count": 4915,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "oblique_left",
+      "auto_view": "oblique_right",
+      "view_source": "manual_override",
+      "split": "reserve",
+      "phase_role": "reserve",
+      "selected_for_phase": false,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.264151,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.765362,
+        "view_confidence": 0.313126,
+        "width_ratio": 0.857375,
+        "shoulder_tilt": 0.223127,
+        "nose_offset": 0.248127,
+        "quality_flags": []
+      },
+      "notes": "visible oblique angle; not a clean side view"
+    },
+    {
+      "clip_id": "0159_pushup_set01",
+      "video_id": "0159",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0159.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 1710,
+        "end_frame": 2474
+      },
+      "fps": 30.0,
+      "frame_count": 4773,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "oblique_right",
+      "view_source": "manual_override",
+      "split": "reserve",
+      "phase_role": "reserve",
+      "selected_for_phase": false,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.186002,
+        "pose_detection_rate": 0.888889,
+        "mean_visible_fraction": 0.66293,
+        "view_confidence": 0.716529,
+        "width_ratio": 0.763306,
+        "shoulder_tilt": 0.058423,
+        "nose_offset": 0.087551,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0160_pushup_set01",
+      "video_id": "0160",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0160.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 2407,
+        "end_frame": 3066
+      },
+      "fps": 30.0,
+      "frame_count": 4571,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.142765,
+        "pose_detection_rate": 0.777778,
+        "mean_visible_fraction": 0.783378,
+        "view_confidence": 0.343961,
+        "width_ratio": 0.988792,
+        "shoulder_tilt": 0.072356,
+        "nose_offset": 0.018318,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0161_pushup_set01",
+      "video_id": "0161",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0161.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 2280,
+        "end_frame": 2947
+      },
+      "fps": 30.0,
+      "frame_count": 4489,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "oblique_right",
+      "view_source": "manual_override",
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.250602,
+        "pose_detection_rate": 0.888889,
+        "mean_visible_fraction": 0.777379,
+        "view_confidence": 0.133366,
+        "width_ratio": 0.893327,
+        "shoulder_tilt": 0.041077,
+        "nose_offset": 0.046384,
+        "quality_flags": []
+      },
+      "notes": "consistent pushup poses through most of the window"
+    },
+    {
+      "clip_id": "0163_pushup_set01",
+      "video_id": "0163",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0163.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 1622,
+        "end_frame": 2318
+      },
+      "fps": 30.0,
+      "frame_count": 4553,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "reserve",
+      "phase_role": "reserve",
+      "selected_for_phase": false,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.24161,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.83913,
+        "view_confidence": 0.455356,
+        "width_ratio": 1.011071,
+        "shoulder_tilt": 0.046106,
+        "nose_offset": 0.04677,
+        "quality_flags": []
+      },
+      "notes": "dimmer lighting; inspect confidence in T1-4B"
+    },
+    {
+      "clip_id": "0020_squat_set01",
+      "video_id": "0020",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0020.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 1892,
+        "end_frame": 2602
+      },
+      "fps": 30.0,
+      "frame_count": 4929,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.275162,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.993263,
+        "view_confidence": 1.0,
+        "width_ratio": 1.68118,
+        "shoulder_tilt": 0.01112,
+        "nose_offset": -0.112337,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0034_squat_set01",
+      "video_id": "0034",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0034.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 2471,
+        "end_frame": 3236
+      },
+      "fps": 30.0,
+      "frame_count": 4742,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.275296,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.990855,
+        "view_confidence": 1.0,
+        "width_ratio": 1.832848,
+        "shoulder_tilt": 0.007369,
+        "nose_offset": -0.073911,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0046_squat_set01",
+      "video_id": "0046",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0046.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 1809,
+        "end_frame": 2506
+      },
+      "fps": 30.0,
+      "frame_count": 4872,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.27525,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.993948,
+        "view_confidence": 1.0,
+        "width_ratio": 1.769714,
+        "shoulder_tilt": 0.006697,
+        "nose_offset": -0.045247,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0075_squat_set01",
+      "video_id": "0075",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0075.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 2459,
+        "end_frame": 3146
+      },
+      "fps": 30.0,
+      "frame_count": 4777,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.2748,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.99057,
+        "view_confidence": 1.0,
+        "width_ratio": 1.903425,
+        "shoulder_tilt": 0.005822,
+        "nose_offset": -0.076067,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0104_squat_set01",
+      "video_id": "0104",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0104.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 1838,
+        "end_frame": 2517
+      },
+      "fps": 30.0,
+      "frame_count": 4845,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.275366,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.99174,
+        "view_confidence": 1.0,
+        "width_ratio": 1.804141,
+        "shoulder_tilt": 0.011335,
+        "nose_offset": -0.098929,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0106_squat_set01",
+      "video_id": "0106",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0106.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 2387,
+        "end_frame": 3162
+      },
+      "fps": 30.0,
+      "frame_count": 4654,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "reserve",
+      "phase_role": "reserve",
+      "selected_for_phase": false,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.268147,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.926625,
+        "view_confidence": 1.0,
+        "width_ratio": 1.415984,
+        "shoulder_tilt": 0.105351,
+        "nose_offset": 0.054534,
+        "quality_flags": []
+      },
+      "notes": "contains body turn and partial movement; reserve"
+    },
+    {
+      "clip_id": "0125_squat_set01",
+      "video_id": "0125",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0125.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 2517,
+        "end_frame": 3220
+      },
+      "fps": 30.0,
+      "frame_count": 4838,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.274773,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.988371,
+        "view_confidence": 1.0,
+        "width_ratio": 1.648615,
+        "shoulder_tilt": 0.00925,
+        "nose_offset": -0.044789,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0127_squat_set01",
+      "video_id": "0127",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0127.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 1840,
+        "end_frame": 2545
+      },
+      "fps": 30.0,
+      "frame_count": 4902,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "90cw",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "manual_override",
+      "split": "reserve",
+      "phase_role": "reserve",
+      "selected_for_phase": false,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.275511,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.990753,
+        "view_confidence": 1.0,
+        "width_ratio": 1.688525,
+        "shoulder_tilt": 0.003485,
+        "nose_offset": -0.129406,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0153_squat_set01",
+      "video_id": "0153",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0153.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 1327,
+        "end_frame": 1852
+      },
+      "fps": 30.0,
+      "frame_count": 3556,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "side_left",
+      "view_source": "manual_override",
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.275091,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.988426,
+        "view_confidence": 0.258998,
+        "width_ratio": 0.5682,
+        "shoulder_tilt": 0.022114,
+        "nose_offset": -0.005714,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0156_squat_set01",
+      "video_id": "0156",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0156.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 1666,
+        "end_frame": 2348
+      },
+      "fps": 30.0,
+      "frame_count": 4689,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "side_right",
+      "view_source": "manual_override",
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.274084,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.99014,
+        "view_confidence": 0.326458,
+        "width_ratio": 0.554708,
+        "shoulder_tilt": 0.048653,
+        "nose_offset": 0.03522,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0160_squat_set01",
+      "video_id": "0160",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0160.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 1694,
+        "end_frame": 2406
+      },
+      "fps": 30.0,
+      "frame_count": 4571,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "side_right",
+      "view_source": "manual_override",
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.274661,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.968739,
+        "view_confidence": 0.221073,
+        "width_ratio": 0.575785,
+        "shoulder_tilt": 0.052724,
+        "nose_offset": 0.00624,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0177_squat_set01",
+      "video_id": "0177",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0177.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 2412,
+        "end_frame": 3090
+      },
+      "fps": 30.0,
+      "frame_count": 4644,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "side_right",
+      "view_source": "manual_override",
+      "split": "reserve",
+      "phase_role": "reserve",
+      "selected_for_phase": false,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.276395,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.98707,
+        "view_confidence": 0.115,
+        "width_ratio": 0.597,
+        "shoulder_tilt": 0.115429,
+        "nose_offset": 0.045444,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0184_squat_set01",
+      "video_id": "0184",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0184.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 2387,
+        "end_frame": 3082
+      },
+      "fps": 30.0,
+      "frame_count": 4643,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "side_right",
+      "view_source": "manual_override",
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.274468,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.979831,
+        "view_confidence": 0.266791,
+        "width_ratio": 0.566642,
+        "shoulder_tilt": 0.068121,
+        "nose_offset": 0.023658,
+        "quality_flags": []
+      },
+      "notes": ""
+    },
+    {
+      "clip_id": "0211_squat_set01",
+      "video_id": "0211",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/long_range_videos/0211.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 2424,
+        "end_frame": 3113
+      },
+      "fps": 30.0,
+      "frame_count": 4643,
+      "source_size": {
+        "width": 640,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "side_right",
+      "view_source": "manual_override",
+      "split": "reserve",
+      "phase_role": "reserve",
+      "selected_for_phase": false,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ],
+      "quality": {
+        "rotation_confidence": 1.0,
+        "rotation_margin": 0.276173,
+        "pose_detection_rate": 1.0,
+        "mean_visible_fraction": 0.956045,
+        "view_confidence": 0.364693,
+        "width_ratio": 0.547061,
+        "shoulder_tilt": 0.055924,
+        "nose_offset": 0.02735,
+        "quality_flags": []
+      },
+      "notes": ""
+    }
+  ]
+}

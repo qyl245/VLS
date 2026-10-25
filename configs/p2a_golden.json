@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "name": "p2a",
+  "frozen_at": "2026-10-25",
+  "description": "Frozen P2-A default output after enabling the guarded air-jump-rope tail filter.",
+  "parameters": {
+    "p2a_tail_filter": "guarded",
+    "angle_scoring": "legacy",
+    "smooth_window": 7,
+    "smooth_polyorder": 2
+  },
+  "expected_aifit_reps": 365,
+  "expected_peak_reps": 341,
+  "target": {
+    "video_id": "0218",
+    "action": "air_jump_rope",
+    "reference_reps": 40,
+    "expected_reps": 39,
+    "reject_reason": "air_jump_rope_transition_tail",
+    "minimum_support_count": 2
+  },
+  "unchanged_air_jump": {
+    "video_id": "0173",
+    "action": "air_jump_rope",
+    "expected_reps": 24
+  },
+  "segment_counts": {
+    "0153/high_knees": {"aifit": 32, "peak": 27},
+    "0153/jumping_jack": {"aifit": 30, "peak": 27},
+    "0153/pushup": {"aifit": 3, "peak": 3},
+    "0153/squat": {"aifit": 8, "peak": 9},
+    "0161/butt_kickers": {"aifit": 17, "peak": 17},
+    "0161/jumping_jack": {"aifit": 27, "peak": 25},
+    "0161/lunge_jumps": {"aifit": 6, "peak": 6},
+    "0161/pushup": {"aifit": 5, "peak": 5},
+    "0162/butt_kickers": {"aifit": 33, "peak": 33},
+    "0162/jumping_jack": {"aifit": 27, "peak": 26},
+    "0162/mountain_climbers": {"aifit": 12, "peak": 2},
+    "0162/walking_lunges": {"aifit": 6, "peak": 10},
+    "0173/air_jump_rope": {"aifit": 24, "peak": 27},
+    "0173/boxing_squat_punches": {"aifit": 10, "peak": 10},
+    "0173/good_morning": {"aifit": 9, "peak": 9},
+    "0173/standing_kicks": {"aifit": 13, "peak": 13},
+    "0218/air_jump_rope": {"aifit": 39, "peak": 28},
+    "0218/boxing_squat_punches": {"aifit": 17, "peak": 17},
+    "0218/good_morning": {"aifit": 16, "peak": 16},
+    "0218/shoulder_gators": {"aifit": 25, "peak": 25},
+    "0218/toe_touchers": {"aifit": 0, "peak": 0},
+    "0218/walking_lunges": {"aifit": 6, "peak": 6}
+  },
+  "blind_eval": {
+    "0.3": {
+      "pred_reps": 66,
+      "matched": 66,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "fp_transition": 0,
+      "micro_f1": 1.0,
+      "micro_iou": 0.6851446839953281,
+      "mean_abs_start_error_frames": 5.181818181818182,
+      "mean_abs_end_error_frames": 4.803030303030303,
+      "p95_boundary_error_frames": 12.0
+    },
+    "0.5": {
+      "pred_reps": 66,
+      "matched": 55,
+      "false_positives": 11,
+      "false_negatives": 11,
+      "fp_transition": 0,
+      "micro_f1": 0.8333333333333334,
+      "micro_iou": 0.741423682692677,
+      "mean_abs_start_error_frames": 4.781818181818182,
+      "mean_abs_end_error_frames": 4.2727272727272725,
+      "p95_boundary_error_frames": 11.649999999999991
+    }
+  },
+  "walking_lunge_stride": {
+    "gt_reps": 12,
+    "pred_reps": 12,
+    "matched": 12,
+    "f1": 1.0
+  }
+}
