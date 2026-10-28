@@ -13,10 +13,12 @@ from typing import Any
 import cv2
 import numpy as np
 
+from paths import DATA_ROOT
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ACTION_SEGMENTS = ROOT / "results" / "segmentation" / "action_segments.csv"
-DEFAULT_VIDEOS = ROOT.parent / "dataset" / "QEVD-FIT" / "QEVD-FIT-COACH" / "long_range_videos"
+DEFAULT_VIDEOS = DATA_ROOT / "long_range_videos"
 DEFAULT_OUTPUT = ROOT / "results" / "segmentation" / "annotation_blind" / "frames"
 
 DEFAULT_SEGMENTS = (

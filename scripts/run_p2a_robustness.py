@@ -219,7 +219,13 @@ def write_noisy_landmarks(
         is_target_landmarks = source.name.endswith("_landmarks.json") and video_id in LANDMARK_PERTURB_VIDEOS
         target = destination / source.name
         if not is_target_landmarks:
-            os.symlink(source.resolve(), target)
+            try:
+                os.symlink(source.resolve(), target)
+                if not target.exists():
+                    target.unlink()
+                    shutil.copy2(source, target)
+            except (OSError, NotImplementedError):
+                shutil.copy2(source, target)
             continue
         records = json.loads(source.read_text())
         for record in records:

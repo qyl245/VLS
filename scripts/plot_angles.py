@@ -14,9 +14,10 @@ import numpy as np
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
+from paths import DATA_ROOT
+
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA_ROOT = ROOT.parent / "dataset" / "QEVD-FIT" / "QEVD-FIT-COACH"
 DEFAULT_ANGLES_DIR = ROOT / "outputs" / "angles"
 DEFAULT_FEEDBACK = DATA_ROOT / "feedbacks_long_range.json"
 

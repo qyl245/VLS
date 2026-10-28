@@ -17,9 +17,10 @@ import cv2
 import mediapipe as mp
 import numpy as np
 
+from paths import DATA_ROOT
+
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA_ROOT = ROOT.parent / "dataset" / "QEVD-FIT" / "QEVD-FIT-COACH"
 DEFAULT_FEEDBACK = DATA_ROOT / "feedbacks_long_range.json"
 DEFAULT_VIDEO_DIR = DATA_ROOT / "long_range_videos"
 DEFAULT_MODEL = ROOT / "models" / "pose_landmarker_full.task"

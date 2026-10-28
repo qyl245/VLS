@@ -13,6 +13,10 @@ __pycache__/
 outputs/
 results/
 
+# Local dataset and reference papers
+rawdata/
+reference/
+
 # Local logs, secrets and media files
 *.log
 .env

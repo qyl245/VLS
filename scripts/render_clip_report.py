@@ -20,6 +20,8 @@ import mediapipe as mp
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
+from paths import resolve_data_path
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_FEEDBACK_DIR = ROOT / "results" / "feedback_v1"
@@ -230,7 +232,7 @@ def load_bundle(clip_id: str, feedback_dir: Path, analysis_dir: Path) -> dict[st
         "wide": wide,
         "feedback_dir": feedback_dir / clip_id,
         "analysis_dir": analysis_dir / clip_id,
-        "video_path": Path(clip["video_path"]),
+        "video_path": resolve_data_path(clip["video_path"]),
     }
 
 
@@ -989,6 +991,14 @@ def suppressed_html(issue_output: dict[str, Any]) -> str:
     return "<ul class=suppressed-list>" + "".join(items) + "</ul>"
 
 
+def asset_url(target: Path, start: Path) -> str:
+    """Return a link relative to ``start``, falling back to absolute across drives."""
+    try:
+        return Path(os.path.relpath(target, start)).as_posix()
+    except ValueError:
+        return Path(os.path.abspath(target)).as_posix()
+
+
 def build_report_html(
     bundle: dict[str, Any],
     templates: dict[str, Any],
@@ -1011,8 +1021,8 @@ def build_report_html(
     warnings = analysis.get("quality", {}).get("warnings", [])
     failures = analysis.get("quality", {}).get("failures", [])
     quality_text = "；".join(failures + warnings) if failures or warnings else "无质量警告"
-    feedback_rel = Path(os.path.relpath(bundle["feedback_dir"], output_dir)).as_posix()
-    analysis_rel = Path(os.path.relpath(bundle["analysis_dir"], output_dir)).as_posix()
+    feedback_rel = asset_url(bundle["feedback_dir"], output_dir)
+    analysis_rel = asset_url(bundle["analysis_dir"], output_dir)
     featured_html = "".join(
         card_html(
             issue,
@@ -1353,9 +1363,9 @@ def render_clip(
     web_video_path = output_dir / "media" / f"{bundle['clip_id']}_clip.webm"
     if not skip_video or not web_video_path.exists():
         web_video_path = build_web_video(bundle, output_dir)
-    video_url = Path(os.path.relpath(web_video_path, output_dir)).as_posix()
+    video_url = asset_url(web_video_path, output_dir)
     video_url = quote(video_url, safe="/:")
-    source_video_url = Path(os.path.relpath(bundle["video_path"], output_dir)).as_posix()
+    source_video_url = asset_url(bundle["video_path"], output_dir)
     source_video_url = quote(source_video_url, safe="/:")
     page = build_report_html(
         bundle,

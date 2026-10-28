@@ -21,9 +21,10 @@ from scipy.signal import find_peaks, savgol_filter
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
+from paths import DATA_ROOT
+
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA_ROOT = ROOT.parent / "dataset" / "QEVD-FIT" / "QEVD-FIT-COACH"
 DEFAULT_ANGLES_DIR = ROOT / "outputs" / "angles"
 DEFAULT_LANDMARKS_DIR = ROOT / "outputs" / "pose_landmarker_full"
 DEFAULT_FEEDBACK_JSON = DATA_ROOT / "feedbacks_long_range.json"

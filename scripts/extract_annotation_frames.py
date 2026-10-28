@@ -11,10 +11,12 @@ from pathlib import Path
 import cv2
 import numpy as np
 
+from paths import DATA_ROOT
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ANNOTATIONS = ROOT / "results" / "segmentation" / "annotation" / "annotation_template.csv"
-DEFAULT_VIDEOS = ROOT.parent / "dataset" / "QEVD-FIT" / "QEVD-FIT-COACH" / "long_range_videos"
+DEFAULT_VIDEOS = DATA_ROOT / "long_range_videos"
 DEFAULT_OUTPUT = ROOT / "results" / "segmentation" / "annotation" / "frames"
 COLORS = {
     "start": (60, 80, 230),

@@ -12,10 +12,12 @@ import cv2
 import mediapipe as mp
 import numpy as np
 
+from paths import DATA_ROOT
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ACTION_SEGMENTS = ROOT / "results" / "segmentation" / "action_segments.csv"
-DEFAULT_VIDEOS = ROOT.parent / "dataset" / "QEVD-FIT" / "QEVD-FIT-COACH" / "long_range_videos"
+DEFAULT_VIDEOS = DATA_ROOT / "long_range_videos"
 DEFAULT_MODEL = ROOT / "models" / "pose_landmarker_full.task"
 DEFAULT_OUTPUT = ROOT / "results" / "segmentation" / "annotation_blind" / "motion_signals.csv"
 

@@ -27,6 +27,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import extract_angles
 import extract_pose_landmarker
 import segment_reps
+from paths import resolve_data_path
 
 
 DEFAULT_MANIFEST = ROOT / "configs" / "task1_4_clips.json"
@@ -155,7 +156,7 @@ def extract_clip_pose(
     pose_source_dir: Path,
 ) -> tuple[Path, Path, dict[str, Any]]:
     clip_id = clip["clip_id"]
-    video_path = Path(clip["video_path"])
+    video_path = resolve_data_path(clip["video_path"])
     start_frame = int(clip["trim"]["start_frame"])
     end_frame = int(clip["trim"]["end_frame"])
     expected_frames = end_frame - start_frame + 1

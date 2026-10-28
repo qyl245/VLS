@@ -12,9 +12,10 @@ from pathlib import Path
 
 import numpy as np
 
+from paths import DATA_ROOT
+
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA_ROOT = ROOT.parent / "dataset" / "QEVD-FIT" / "QEVD-FIT-COACH"
 DEFAULT_OUTPUT = ROOT / "outputs" / "pose_landmarker_full"
 DEFAULT_FEEDBACK = DATA_ROOT / "feedbacks_long_range.json"
 
