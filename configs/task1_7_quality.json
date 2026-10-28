@@ -1,0 +1,31 @@
+{
+  "schema_version": "task1-7c-quality-config-v1",
+  "task": "T1-7C-lite",
+  "revision": "t1-7c-lite-quality-v1",
+  "frozen": true,
+  "core": {
+    "dataset_independent": true,
+    "evidence_scopes": [
+      "clip",
+      "set",
+      "rep"
+    ],
+    "reportable_statuses": [
+      "pass",
+      "warn"
+    ],
+    "set_warn_statuses": [
+      "partial_set"
+    ],
+    "rep_warn_statuses": [
+      "endpoint_partial",
+      "incomplete"
+    ],
+    "rep_warn_flags": [
+      "low_evidence",
+      "candidate_only"
+    ],
+    "inherit_base_quality_gate": true,
+    "add_new_blocking_rules": false
+  }
+}

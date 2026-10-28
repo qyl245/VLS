@@ -1,0 +1,37 @@
+{
+  "schema_version": "task1-7c-confidence-config-v1",
+  "task": "T1-7C-lite",
+  "revision": "t1-7c-lite-confidence-v1",
+  "frozen": true,
+  "core": {
+    "dataset_independent": true,
+    "calibrator_config": "configs/task1_6_confidence_frozen.json",
+    "calibrator_sha256": "795e24491dfec5e2f988f7a69abea626cbe7256295b226e17787ab04468bb612",
+    "input_score": "rep.confidence.combined",
+    "reported_layers": [
+      "complete",
+      "in_set",
+      "combined"
+    ],
+    "quality_multipliers": {
+      "pass": 1.0,
+      "warn": 0.75,
+      "reject": 0.0,
+      "unknown": 0.0
+    },
+    "action_multipliers": {
+      "supported": 1.0,
+      "ambiguous": 0.5,
+      "mismatch": 0.0,
+      "unsupported": 0.0
+    },
+    "minimum_reportable_confidence": 0.2,
+    "high_confidence_threshold": 0.5,
+    "abstention_is_allowed": true
+  },
+  "provenance": {
+    "fit_scope": "inherits_t1_6_dev_frozen_calibrator",
+    "refit_on_real_video": false,
+    "refit_on_qevd_sealed": false
+  }
+}

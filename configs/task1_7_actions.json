@@ -1,0 +1,47 @@
+{
+  "schema_version": "task1-7e-actions-config-v1",
+  "task": "T1-7E-lite",
+  "revision": "t1-7e-lite-actions-v1",
+  "frozen": true,
+  "core": {
+    "dataset_independent": true,
+    "supported_actions": [
+      "squat",
+      "pushup"
+    ],
+    "minimum_complete_reps": 3,
+    "full_rom_and_posture_checks": false,
+    "fail_closed_on_mismatch": true,
+    "fail_closed_on_unsupported": true,
+    "fail_closed_on_ambiguous": true
+  },
+  "actions": {
+    "squat": {
+      "action_display": "squats",
+      "rep_unit": "cycle",
+      "allowed_phase_families": [
+        "knee_flexion",
+        "knee_flexion_sagittal",
+        "hip_flexion",
+        "hip_flexion_sagittal"
+      ],
+      "minimum_complete_reps": 3,
+      "period_seconds_range": [
+        0.7,
+        5.0
+      ]
+    },
+    "pushup": {
+      "action_display": "pushups",
+      "rep_unit": "cycle",
+      "allowed_phase_families": [
+        "elbow_flexion"
+      ],
+      "minimum_complete_reps": 3,
+      "period_seconds_range": [
+        0.7,
+        5.0
+      ]
+    }
+  }
+}

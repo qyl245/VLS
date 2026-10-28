@@ -1,0 +1,440 @@
+{
+  "schema_version": "task1-7-protocol-v1",
+  "task": "T1-7",
+  "stage": "T1-7A",
+  "generated_at": "2026-10-27T04:57:51.266173+00:00",
+  "status": "protocol_locked",
+  "baseline": {
+    "baseline_id": "t1_6g_quality_motion",
+    "path": "/mnt/storage2/data_guest/VLS/V0/results/task1_7/manifest/baseline_t1_6g.json",
+    "sha256": "1ae60554136627d4e6414fc5ed01a40b1fd44cb63088792a7e259ec094e37d59",
+    "summary_path": "/mnt/storage2/data_guest/VLS/V0/results/task1_6/evaluation_quality_motion/summary.json",
+    "summary_sha256": "8a8a36404faf65eef47c150a0fd393892cc0300102f9028deedb60275779e0df",
+    "decision": "NO_GO",
+    "algorithm_configs": {
+      "segmenter": {
+        "path": "/mnt/storage2/data_guest/VLS/V0/configs/task1_6_segmenter.json",
+        "sha256": "2301099c15a94ec25ffa44b878c6b2b8989929cc8b8ba8ae1177598cda3d6633"
+      },
+      "chain": {
+        "path": "/mnt/storage2/data_guest/VLS/V0/configs/task1_6_chain.json",
+        "sha256": "724937cb16ba4c38b17af309fac8197a369d262ea10ca6bde32b13e8a25f6e2c"
+      },
+      "confidence": {
+        "path": "/mnt/storage2/data_guest/VLS/V0/configs/task1_6_confidence_frozen.json",
+        "sha256": "795e24491dfec5e2f988f7a69abea626cbe7256295b226e17787ab04468bb612"
+      }
+    }
+  },
+  "inherits": {
+    "t1_6_protocol": {
+      "path": "/mnt/storage2/data_guest/VLS/V0/configs/task1_6_eval_protocol.json",
+      "sha256": "71600e17e3a1ae39de6e3518f657f838fe8fe50837723aec56ee29401908ce6f",
+      "schema_version": "task1-6-eval-protocol-v1"
+    },
+    "sources": {
+      "path": "/mnt/storage2/data_guest/VLS/V0/results/task1_7/manifest/sources.json",
+      "sha256": "01fd03ebbca82e16a96d644d767f896bfaa46b6f2a4e7ccfd9bee84870fa877b",
+      "inherits": "/mnt/storage2/data_guest/VLS/V0/configs/task1_6_sources.json",
+      "inherits_sha256": "a7aa8a677490f15ec7c22cc0b655329519e2c6fc851457f9a8e9ce2b5ba70f48"
+    },
+    "split_lock": {
+      "path": "/mnt/storage2/data_guest/VLS/V0/results/task1_7/manifest/split_lock.json",
+      "sha256": "b85caa8f279b58b2c72c688802aadfb72466989b82f45dfce77fb1b01643f579",
+      "locked": true
+    }
+  },
+  "analysis_contract": {
+    "schema_version": "task1-7-clip-analysis-v3",
+    "schema_path": "/mnt/storage2/data_guest/VLS/V0/schemas/task1_7_clip_analysis_v3.schema.json",
+    "schema_sha256": "03cb6466a1584c8a5075f064dd5979b4a0591e22baef2a7fd7c59515d969e281",
+    "required_top_level_fields": [
+      "schema_version",
+      "clip_id",
+      "algorithm",
+      "status",
+      "timebase",
+      "signal_evidence",
+      "phase_hypotheses",
+      "action_verification",
+      "quality_evidence",
+      "confidence",
+      "sets",
+      "rejected_candidates",
+      "non_rep_intervals"
+    ],
+    "quality_statuses": [
+      "pass",
+      "warn",
+      "reject",
+      "unknown"
+    ],
+    "quality_scopes": [
+      "clip",
+      "set",
+      "rep",
+      "frame"
+    ],
+    "action_verification_statuses": [
+      "supported",
+      "mismatch",
+      "unsupported",
+      "ambiguous"
+    ],
+    "confidence_layers": [
+      "complete",
+      "in_set",
+      "combined"
+    ],
+    "abstention_required": true
+  },
+  "algorithm_core": {
+    "contract_version": "repchain-v3",
+    "dataset_independent": true,
+    "same_frozen_config_across_sources": true,
+    "prohibited_features": [
+      "dataset_name",
+      "source_id",
+      "video_id",
+      "subject_id",
+      "camera_id",
+      "clip_id",
+      "fixed_rep_count",
+      "fixed_frame_offset",
+      "fixed_plateau_width",
+      "camera_order_or_consensus",
+      "per_dataset_threshold",
+      "sealed_holdout_gt_tuning",
+      "coverage_reduction_as_improvement"
+    ],
+    "selection_inputs": [
+      "timebase",
+      "multi_scale_signal_evidence",
+      "phase_hypotheses",
+      "action_verification",
+      "state_intervals",
+      "chain_shape_cost",
+      "chain_timing_cost",
+      "endpoint_evidence",
+      "quality_evidence",
+      "calibrated_confidence"
+    ],
+    "observation_fusion_scope": "outside_core_only"
+  },
+  "timebase_contract": {
+    "preferred_input": "timestamps",
+    "fallback_input": "constant_fps",
+    "threshold_units": [
+      "seconds",
+      "phase_fraction"
+    ],
+    "preserve_source_frame_numbers": true,
+    "record_gap_and_interpolation": true,
+    "explicit_variable_fps": true,
+    "frame_only_thresholds_allowed": false
+  },
+  "quality_contract": {
+    "pass": "reportable",
+    "warn": "reportable_with_confidence_downgrade",
+    "reject": "fail_closed_for_scope",
+    "unknown": "fail_closed_and_not_evaluable",
+    "evidence_requires_span_source_value_threshold": true
+  },
+  "confidence_contract": {
+    "fit_scope": "dev_or_calibration_only",
+    "sealed_holdout_used_for_fit": false,
+    "component_scores_required": true,
+    "risk_coverage_required": true,
+    "high_confidence_threshold_frozen_before_holdout": true,
+    "abstention_is_allowed": true
+  },
+  "evaluation": {
+    "fit3d_primary_unit": "subject_action",
+    "fit3d_camera_observations": "repeated_observations_not_independent_samples",
+    "qevd_primary_unit": "segment_or_video",
+    "smoke_rule": "never_enter_error_statistics",
+    "event_matching": {
+      "method": "one_to_one_hungarian",
+      "prediction": "accepted_complete_rep_anchor_frame",
+      "gate": "0.25_x_median_gt_top_to_top_interval_round_half_up_min_1"
+    },
+    "high_confidence_threshold": 0.5,
+    "split": {
+      "schema_version": "task1-7-split-lock-v1",
+      "task": "T1-7",
+      "stage": "T1-7A",
+      "locked": true,
+      "sources": "/mnt/storage2/data_guest/VLS/V0/configs/task1_6_sources.json",
+      "sources_sha256": "a7aa8a677490f15ec7c22cc0b655329519e2c6fc851457f9a8e9ce2b5ba70f48",
+      "t1_6_protocol": "/mnt/storage2/data_guest/VLS/V0/configs/task1_6_eval_protocol.json",
+      "t1_6_protocol_sha256": "71600e17e3a1ae39de6e3518f657f838fe8fe50837723aec56ee29401908ce6f",
+      "fit3d": {
+        "unit": "subject",
+        "dev": {
+          "clip_count": 32,
+          "subject_count": 4,
+          "subject_ids": [
+            "s03",
+            "s04",
+            "s05",
+            "s07"
+          ],
+          "cluster_count": 8,
+          "action_counts": {
+            "squat": 16,
+            "pushup": 16
+          },
+          "selected_for_phase_count": 32,
+          "clip_ids": [
+            "fit3d_s03_pushup_50591643",
+            "fit3d_s03_pushup_58860488",
+            "fit3d_s03_pushup_60457274",
+            "fit3d_s03_pushup_65906101",
+            "fit3d_s03_squat_50591643",
+            "fit3d_s03_squat_58860488",
+            "fit3d_s03_squat_60457274",
+            "fit3d_s03_squat_65906101",
+            "fit3d_s04_pushup_50591643",
+            "fit3d_s04_pushup_58860488",
+            "fit3d_s04_pushup_60457274",
+            "fit3d_s04_pushup_65906101",
+            "fit3d_s04_squat_50591643",
+            "fit3d_s04_squat_58860488",
+            "fit3d_s04_squat_60457274",
+            "fit3d_s04_squat_65906101",
+            "fit3d_s05_pushup_50591643",
+            "fit3d_s05_pushup_58860488",
+            "fit3d_s05_pushup_60457274",
+            "fit3d_s05_pushup_65906101",
+            "fit3d_s05_squat_50591643",
+            "fit3d_s05_squat_58860488",
+            "fit3d_s05_squat_60457274",
+            "fit3d_s05_squat_65906101",
+            "fit3d_s07_pushup_50591643",
+            "fit3d_s07_pushup_58860488",
+            "fit3d_s07_pushup_60457274",
+            "fit3d_s07_pushup_65906101",
+            "fit3d_s07_squat_50591643",
+            "fit3d_s07_squat_58860488",
+            "fit3d_s07_squat_60457274",
+            "fit3d_s07_squat_65906101"
+          ]
+        },
+        "regression_holdout": {
+          "clip_count": 32,
+          "subject_count": 4,
+          "subject_ids": [
+            "s08",
+            "s09",
+            "s10",
+            "s11"
+          ],
+          "cluster_count": 8,
+          "action_counts": {
+            "squat": 16,
+            "pushup": 16
+          },
+          "selected_for_phase_count": 32,
+          "clip_ids": [
+            "fit3d_s08_pushup_50591643",
+            "fit3d_s08_pushup_58860488",
+            "fit3d_s08_pushup_60457274",
+            "fit3d_s08_pushup_65906101",
+            "fit3d_s08_squat_50591643",
+            "fit3d_s08_squat_58860488",
+            "fit3d_s08_squat_60457274",
+            "fit3d_s08_squat_65906101",
+            "fit3d_s09_pushup_50591643",
+            "fit3d_s09_pushup_58860488",
+            "fit3d_s09_pushup_60457274",
+            "fit3d_s09_pushup_65906101",
+            "fit3d_s09_squat_50591643",
+            "fit3d_s09_squat_58860488",
+            "fit3d_s09_squat_60457274",
+            "fit3d_s09_squat_65906101",
+            "fit3d_s10_pushup_50591643",
+            "fit3d_s10_pushup_58860488",
+            "fit3d_s10_pushup_60457274",
+            "fit3d_s10_pushup_65906101",
+            "fit3d_s10_squat_50591643",
+            "fit3d_s10_squat_58860488",
+            "fit3d_s10_squat_60457274",
+            "fit3d_s10_squat_65906101",
+            "fit3d_s11_pushup_50591643",
+            "fit3d_s11_pushup_58860488",
+            "fit3d_s11_pushup_60457274",
+            "fit3d_s11_pushup_65906101",
+            "fit3d_s11_squat_50591643",
+            "fit3d_s11_squat_58860488",
+            "fit3d_s11_squat_60457274",
+            "fit3d_s11_squat_65906101"
+          ]
+        },
+        "smoke": {
+          "clip_count": 6,
+          "subject_count": 3,
+          "subject_ids": [
+            "s02",
+            "s12",
+            "s13"
+          ],
+          "cluster_count": 6,
+          "action_counts": {
+            "squat": 3,
+            "pushup": 3
+          },
+          "selected_for_phase_count": 0,
+          "clip_ids": [
+            "fit3d_s02_pushup_smoke",
+            "fit3d_s02_squat_smoke",
+            "fit3d_s12_pushup_smoke",
+            "fit3d_s12_squat_smoke",
+            "fit3d_s13_pushup_smoke",
+            "fit3d_s13_squat_smoke"
+          ]
+        },
+        "holdout_is_observed": true,
+        "independent_holdout_available": false,
+        "claim": "regression_only_until_new_unseen_clips_are_locked"
+      },
+      "qevd_sealed": {
+        "segment_count": 6,
+        "annotation_status": "pending_human_labels",
+        "formal_metric_evaluable": false,
+        "segments": [
+          {
+            "clip_id": "0152_pushup_set01",
+            "video_id": "0152",
+            "action": "pushup",
+            "trim": {
+              "start_frame": 2313,
+              "end_frame": 2968
+            },
+            "annotation_status": "pending_human_labels"
+          },
+          {
+            "clip_id": "0159_pushup_set01",
+            "video_id": "0159",
+            "action": "pushup",
+            "trim": {
+              "start_frame": 1710,
+              "end_frame": 2474
+            },
+            "annotation_status": "pending_human_labels"
+          },
+          {
+            "clip_id": "0127_squat_set01",
+            "video_id": "0127",
+            "action": "squat",
+            "trim": {
+              "start_frame": 1840,
+              "end_frame": 2545
+            },
+            "annotation_status": "pending_human_labels"
+          },
+          {
+            "clip_id": "0177_squat_set01",
+            "video_id": "0177",
+            "action": "squat",
+            "trim": {
+              "start_frame": 2412,
+              "end_frame": 3090
+            },
+            "annotation_status": "pending_human_labels"
+          },
+          {
+            "clip_id": "qeud_0207_air_jump_rope_sealed01",
+            "video_id": "0207",
+            "action": "air_jump_rope",
+            "trim": {
+              "start_frame": 346,
+              "end_frame": 1053
+            },
+            "annotation_status": "pending_human_labels"
+          },
+          {
+            "clip_id": "qeud_0207_good_morning_sealed01",
+            "video_id": "0207",
+            "action": "good_morning",
+            "trim": {
+              "start_frame": 1054,
+              "end_frame": 1739
+            },
+            "annotation_status": "pending_human_labels"
+          }
+        ],
+        "holdout_artifacts": {
+          "manifest_path": "/mnt/storage2/data_guest/VLS/V0/results/task1_6/manifest/qevd_sealed_holdout_manifest.json",
+          "manifest_sha256": "8b71f9c9d97cf4138e9c84e94cc1796248d2625929256fcd835aa741bcb3665d",
+          "segments_path": "/mnt/storage2/data_guest/VLS/V0/results/task1_6/manifest/qevd_sealed_holdout_segments.csv",
+          "template_path": "/mnt/storage2/data_guest/VLS/V0/results/task1_6/manifest/qevd_sealed_holdout_template.csv",
+          "contact_sheet_path": "/mnt/storage2/data_guest/VLS/V0/results/task1_6/manifest/qevd_sealed_holdout_contact_sheet.jpg",
+          "status": "pending_human_annotation",
+          "segments": 6,
+          "actions": {
+            "air_jump_rope": 1,
+            "good_morning": 1,
+            "pushup": 2,
+            "squat": 2
+          }
+        }
+      },
+      "errors": []
+    }
+  },
+  "acceptance": {
+    "fit3d": {
+      "gated_clip_coverage_gte": 0.95,
+      "cluster_coverage": "8/8",
+      "count_mae_lte": 0.5,
+      "count_exact_at_least": "7/8",
+      "count_must_not_degrade_from_t1_6g": true,
+      "first_event_recall_gte": 0.75,
+      "last_event_recall_gte": 0.75,
+      "primary_event_median_abs_error_frames_lte": 5,
+      "primary_event_p90_abs_error_frames_lte": 12,
+      "primary_high_confidence_fp": 0,
+      "all_camera_high_confidence_fp": 0,
+      "complete_rep_high_confidence_fp": 0,
+      "top_to_top_interval_median_abs_error_frames_lte": 3.0,
+      "top_to_top_interval_must_not_degrade": true
+    },
+    "qevd_sealed": {
+      "count_exact_at_least": "5/6 segments",
+      "count_mae_lte": 0.25,
+      "boundary_abs_error_median_frames_lte": 5,
+      "boundary_abs_error_p95_frames_lte": 12,
+      "f1_at_iou_0_30_gte": 0.95,
+      "high_confidence_fp": 0,
+      "non_rep_output_as_complete_rep": 0,
+      "requires_completed_human_gt": true
+    },
+    "robustness": {
+      "eligible_count_baseline": 31,
+      "development_structure_match_min": "30/31",
+      "final_structure_match_target": "31/31",
+      "changed_clips_require_audit": true,
+      "quality_reject_is_not_success": true
+    },
+    "coverage": {
+      "raw_and_gated_must_both_be_reported": true,
+      "no_metric_improvement_by_new_exclusions": true
+    }
+  },
+  "generalization": {
+    "fit3d_split_claim": "observed_regression_holdout",
+    "qeud_sealed_formal_evaluable": false,
+    "qeud_sealed_annotation_status": "pending_human_labels",
+    "allow_cross_domain_claim": false,
+    "reason": "QEVD sealed human GT is incomplete."
+  },
+  "phase_status": {
+    "T1-7A": "protocol_locked",
+    "T1-7B": "not_started",
+    "T1-7C": "not_started",
+    "T1-7D": "not_started",
+    "T1-7E": "not_started",
+    "T1-7F": "not_started",
+    "T1-7G": "not_started"
+  }
+}

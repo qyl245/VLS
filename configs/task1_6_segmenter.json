@@ -1,0 +1,110 @@
+{
+  "schema_version": "task1-6-segmenter-config-v1",
+  "task": "T1-6B",
+  "frozen": true,
+  "core": {
+    "dataset_independent": true,
+    "phase_signal": {
+      "policy": "t1_6_bilateral_mean",
+      "auto_score": "periodicity * dynamic_range * valid_fraction",
+      "bilateral_mean": "nanmean(left, right) when either side is valid",
+      "fallback": "t1_6_auto_candidate_then_first_available_action_candidate"
+    },
+    "actions": {
+      "pushup": {
+        "action": "pushup",
+        "rep_unit": "cycle",
+        "phase_signal_candidates": [
+          "left_elbow_flexion",
+          "right_elbow_flexion"
+        ],
+        "phase_signal_pairs": [
+          {
+            "name": "elbow_flexion_bilateral_mean",
+            "left": "left_elbow_flexion",
+            "right": "right_elbow_flexion"
+          }
+        ],
+        "top_polarity": "peak",
+        "bottom_polarity": "trough",
+        "phase_landmark": "arms_extended_top",
+        "min_period_s": 0.7,
+        "max_period_s": 5.0
+      },
+      "squat": {
+        "action": "squat",
+        "rep_unit": "cycle",
+        "phase_signal_candidates": [
+          "left_knee_flexion",
+          "right_knee_flexion",
+          "left_hip_flexion_sagittal",
+          "right_hip_flexion_sagittal"
+        ],
+        "phase_signal_pairs": [
+          {
+            "name": "knee_flexion_bilateral_mean",
+            "left": "left_knee_flexion",
+            "right": "right_knee_flexion"
+          },
+          {
+            "name": "hip_flexion_bilateral_mean",
+            "left": "left_hip_flexion_sagittal",
+            "right": "right_hip_flexion_sagittal"
+          }
+        ],
+        "top_polarity": "peak",
+        "bottom_polarity": "trough",
+        "phase_landmark": "standing_knee_extended",
+        "min_period_s": 0.7,
+        "max_period_s": 5.0
+      }
+    },
+    "detector": {
+      "smoothing_seconds": 0.12,
+      "minimum_valid_fraction": 0.3,
+      "period_percentiles": [
+        5.0,
+        95.0
+      ],
+      "top_threshold_fraction": 0.55,
+      "bottom_threshold_fraction": 0.35,
+      "extrema_prominence_fraction": 0.35,
+      "extrema_min_distance_period_fraction": 0.55,
+      "cycle_chain_min_period_fraction": 0.6,
+      "cycle_chain_max_period_fraction": 1.5,
+      "minimum_state_period_fraction": 0.05,
+      "fallback_state_radius_period_fraction": 0.12,
+      "stable_derivative_fraction": 0.08,
+      "motion_min_dynamic_range_deg": 5.0,
+      "motion_min_dynamic_to_noise": 8.0,
+      "motion_min_state_amplitude_deg": 3.0
+    },
+    "anchor": {
+      "policy": "plateau_midpoint",
+      "candidates": [
+        "plateau_entry",
+        "plateau_midpoint",
+        "plateau_exit",
+        "phase_zero_crossing"
+      ],
+      "scope": "single_global_policy"
+    },
+    "endpoint_partial": {
+      "rule": "leading_or_trailing_top_plus_interior_bottom",
+      "requires_top_and_bottom": true,
+      "requires_period_and_amplitude_consistency": true
+    }
+  },
+  "provenance": {
+    "selected_on": "Fit3D dev",
+    "selection_scope": "global",
+    "selection_rule": "require first and last recall >= 0.50, then maximize all-camera recall, minimize median/p90 error, then first/last recall, precision and top-interval containment",
+    "dev_clip_count": 32,
+    "dev_cluster_count": 8,
+    "sources_sha256": "a7aa8a677490f15ec7c22cc0b655329519e2c6fc851457f9a8e9ce2b5ba70f48",
+    "specs_sha256": "497e052ca2fd05bf4cb3bc11de7b547376e878a1d2e967e21cfa8f3ea06e9bf8",
+    "fit3d_manifest_sha256": "1c598e00f966802b1a556088fceb3cd1cd0b2639490ed87acccc11418329f035",
+    "analysis_dir": "/mnt/storage2/data_guest/VLS/V0/results/task1_5/clip_analysis",
+    "generated_at": "2026-10-26T15:24:31.292568+00:00"
+  }
+}

@@ -6,10 +6,12 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import os
 import shutil
 import sys
 import time
 from collections import Counter
+from dataclasses import replace
 from datetime import datetime, timezone
 from pathlib import Path
 from types import SimpleNamespace
@@ -27,6 +29,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import extract_angles
 import extract_pose_landmarker
 import segment_reps
+import task1_5_metrics
 from paths import resolve_data_path
 
 
@@ -37,6 +40,8 @@ DEFAULT_OUTPUT = ROOT / "results" / "clip_analysis_v1"
 
 SCHEMA_VERSION = "task1-4-clip-analysis-v1"
 QUALITY_SCHEMA_VERSION = "task1-4-quality-v1"
+POSTURE_GATE_SCHEMA_VERSION = "task1-4-posture-gate-v1"
+SEGMENTATION_CANDIDATES_SCHEMA_VERSION = "task1-4-segmentation-candidates-v1"
 
 MIN_PERIOD_S = 0.40
 MAX_PERIOD_S = 5.00
@@ -328,6 +333,48 @@ def phase_guidance_for(exercise: str, specs: dict[str, Any]) -> segment_reps.Pha
     )
 
 
+def side_signal_visibility(exercise: str, landmarks_path: Path) -> dict[str, float]:
+    specs = task1_5_metrics.SIDE_SIGNAL_SPECS.get(exercise, {})
+    if not specs or not landmarks_path.is_file():
+        return {}
+    records = json.loads(landmarks_path.read_text())
+    values: dict[str, list[float]] = {side: [] for side in specs}
+    for record in records:
+        if not record.get("detected"):
+            continue
+        visibility = np.asarray(record.get("visibility") or [], dtype=np.float64)
+        for side, spec in specs.items():
+            indices = spec["mediapipe_joints"]
+            if len(visibility) <= max(indices):
+                continue
+            values[side].append(float(np.min(visibility[list(indices)])))
+    return {
+        side: float(np.median(samples)) if samples else 0.0
+        for side, samples in values.items()
+    }
+
+
+def select_view_phase_signal(
+    clip: dict[str, Any], angles_dir: Path
+) -> dict[str, Any] | None:
+    view = str(clip.get("view", "unknown"))
+    if view not in task1_5_metrics.SIDE_VIEWS:
+        return None
+    wide_path = angles_dir / "angles_wide.csv"
+    if not wide_path.is_file():
+        return None
+    _, wide = segment_reps.load_wide(wide_path)
+    visibility = side_signal_visibility(clip["exercise"], angles_dir / "landmarks.json")
+    geometry = clip.get("view_geometry") or {}
+    return task1_5_metrics.choose_side_phase_signal(
+        clip["exercise"],
+        view,
+        geometry.get("camera_side"),
+        wide,
+        visibility,
+    )
+
+
 def phase_level(value: float | None, p10: float, p90: float) -> float | None:
     """Normalize a joint angle into its clip-local low/high phase range."""
     if value is None or p90 - p10 < 1e-8:
@@ -603,10 +650,36 @@ def phase_cycle_method(
     return result, evidence
 
 
+def angle_selection_for(
+    wide: dict[str, np.ndarray],
+    segment: segment_reps.ActionSegment,
+    fps: float,
+    angle: str,
+) -> segment_reps.AngleSelection | None:
+    """Build an angle selection without the legacy whole-clip angle scorer."""
+    if angle not in wide:
+        return None
+    values = wide[angle][segment.start_frame : segment.end_frame + 1]
+    prepared = segment_reps.prepare_signal(values)
+    if prepared is None:
+        return None
+    period_result = segment_reps.estimate_period(
+        prepared.normalized, fps, MIN_PERIOD_S, MAX_PERIOD_S
+    )
+    return segment_reps.AngleSelection(
+        angle=angle,
+        prepared=prepared,
+        periodicity=float(period_result[1]) if period_result is not None else 0.0,
+        evidence={"method": "phase_signal_override"},
+    )
+
+
 def segment_clip(
     clip: dict[str, Any],
     specs: dict[str, Any],
     fps: float,
+    angle_override: str | None = None,
+    phase_signal_override: str | None = None,
 ) -> dict[str, Any]:
     angles_dir = Path(clip["_angles_dir"])
     timestamps_ms, wide = segment_reps.load_wide(angles_dir / "angles_wide.csv")
@@ -621,15 +694,25 @@ def segment_clip(
         end_time_s=(frame_count - 1) / fps if fps > 0 else 0.0,
     )
     guidance = phase_guidance_for(clip["exercise"], specs)
+    if phase_signal_override is not None:
+        guidance = replace(
+            guidance,
+            signal=segment_reps.PhaseSignalSpec(
+                source="angle", name=str(phase_signal_override)
+            ),
+        )
     phase_signal = wide.get(guidance.signal.name)
-    selection = segment_reps.choose_auto_angle(
-        wide,
-        segment,
-        fps,
-        MIN_PERIOD_S,
-        MAX_PERIOD_S,
-        scoring="legacy",
-    )
+    if angle_override is not None:
+        selection = angle_selection_for(wide, segment, fps, angle_override)
+    else:
+        selection = segment_reps.choose_auto_angle(
+            wide,
+            segment,
+            fps,
+            MIN_PERIOD_S,
+            MAX_PERIOD_S,
+            scoring="legacy",
+        )
     if selection is None:
         return {
             "status": "no_usable_angle",
@@ -882,6 +965,233 @@ def segment_clip(
     }
 
 
+def torso_vertical_span_by_frame(
+    landmarks_path: Path,
+    trim_start: int,
+) -> dict[int, float]:
+    values: dict[int, float] = {}
+    for record in json.loads(landmarks_path.read_text()):
+        landmarks = record.get("landmarks_world")
+        if not isinstance(landmarks, list) or len(landmarks) < 25:
+            continue
+        try:
+            shoulder_y = (float(landmarks[11][1]) + float(landmarks[12][1])) / 2.0
+            hip_y = (float(landmarks[23][1]) + float(landmarks[24][1])) / 2.0
+        except (TypeError, ValueError, IndexError):
+            continue
+        if not (np.isfinite(shoulder_y) and np.isfinite(hip_y)):
+            continue
+        source_frame = record.get("source_frame")
+        if source_frame is None:
+            source_frame = trim_start + int(record.get("frame_id", 0))
+        values[int(source_frame)] = abs(shoulder_y - hip_y)
+    return values
+
+
+def apply_exercise_posture_gate(
+    segmentation: dict[str, Any],
+    clip: dict[str, Any],
+    angles_dir: Path,
+    specs: dict[str, Any],
+) -> dict[str, Any]:
+    gate = specs["exercises"][clip["exercise"]].get("posture_gate")
+    if not gate:
+        return segmentation
+
+    trim_start = int(clip["trim"]["start_frame"])
+    values = torso_vertical_span_by_frame(angles_dir / "landmarks.json", trim_start)
+    rule = gate["rule"]
+    threshold = float(gate["threshold"])
+    kept = []
+    rejected = []
+    rep_evidence = []
+    old_to_new = {}
+
+    for rep in segmentation.get("reps", []):
+        old_rep_id = int(rep["rep_id"])
+        bottom_frame = int(rep["bottom_frame"])
+        rep_values = [
+            values[frame]
+            for frame in range(int(rep["start_frame"]), int(rep["end_frame"]) + 1)
+            if frame in values
+        ]
+        bottom_value = values.get(bottom_frame)
+        evidence = {
+            "metric": gate["metric"],
+            "rule": rule,
+            "threshold": threshold,
+            "bottom_frame": bottom_frame,
+            "bottom_value": None if bottom_value is None else round(float(bottom_value), 6),
+            "rep_median": None
+            if not rep_values
+            else round(float(np.median(rep_values)), 6),
+            "horizontal_fraction": None
+            if not rep_values
+            else round(float(np.mean(np.asarray(rep_values) <= threshold)), 6),
+            "valid_frames": len(rep_values),
+        }
+        if bottom_value is None:
+            accepted = True
+            reason = "posture_unavailable"
+        elif rule == "max":
+            accepted = float(bottom_value) <= threshold
+            reason = None if accepted else "exercise_posture_mismatch"
+        elif rule == "min":
+            accepted = float(bottom_value) >= threshold
+            reason = None if accepted else "exercise_posture_mismatch"
+        else:
+            raise ValueError(f"unsupported posture rule: {rule}")
+
+        rep_evidence.append(
+            {
+                "candidate_rep_id": old_rep_id,
+                "accepted": accepted,
+                "reason": reason,
+                **evidence,
+            }
+        )
+        if accepted:
+            new_id = len(kept) + 1
+            old_to_new[old_rep_id] = new_id
+            accepted_rep = dict(rep)
+            accepted_rep["rep_id"] = new_id
+            kept.append(accepted_rep)
+            continue
+
+        rejected.append(
+            {
+                "candidate_rep_id": old_rep_id,
+                "start_frame": int(rep["start_frame"]),
+                "end_frame": int(rep["end_frame"]),
+                "start_time_s": float(rep["start_time_s"]),
+                "end_time_s": float(rep["end_time_s"]),
+                "quality_flags": reason,
+                "reject_reasons": reason,
+                "evidence": evidence,
+            }
+        )
+
+    segmentation["reps"] = kept
+    segmentation["phases"] = [
+        {**phase, "rep_id": old_to_new[int(phase["rep_id"])]}
+        for phase in segmentation.get("phases", [])
+        if int(phase["rep_id"]) in old_to_new
+    ]
+    segmentation["rejected_reps"] = list(segmentation.get("rejected_reps", [])) + rejected
+    if not kept:
+        segmentation["status"] = "no_reps"
+    segmentation["candidate_sources"] = {
+        **segmentation.get("candidate_sources", {}),
+        "posture_rejected_rep_count": len(rejected),
+    }
+    segmentation["posture_gate"] = {
+        "schema_version": POSTURE_GATE_SCHEMA_VERSION,
+        "metric": gate["metric"],
+        "rule": rule,
+        "threshold": threshold,
+        "candidate_rep_count": len(rep_evidence),
+        "accepted_rep_count": len(kept),
+        "rejected_rep_count": len(rejected),
+        "reps": rep_evidence,
+    }
+    return segmentation
+
+
+def segment_with_posture_gate(
+    clip: dict[str, Any],
+    specs: dict[str, Any],
+    fps: float,
+    angles_dir: Path,
+) -> dict[str, Any]:
+    """Choose the posture-gated segmentation with the most valid reps.
+
+    The legacy scorer can lock onto a warm-up or floor-transition movement and
+    miss the actual exercise later in the clip.  Re-segmenting on the exercise
+    phase signal is a cheap second candidate; the posture gate decides whether
+    either candidate contains usable reps.
+    """
+    signal_selection = select_view_phase_signal(clip, angles_dir)
+    if signal_selection is not None:
+        signal_angle = signal_selection["selected_angle"]
+        if signal_angle is None:
+            return {
+                "status": "no_usable_side_signal",
+                "angle_selection": None,
+                "reps": [],
+                "rejected_reps": [],
+                "phases": [],
+                "non_rep_intervals": [],
+                "active_bouts": [],
+                "method": None,
+                "signal_selection": signal_selection,
+                "segmentation_candidates": {
+                    "schema_version": SEGMENTATION_CANDIDATES_SCHEMA_VERSION,
+                    "selection_rule": "view_aware_phase_signal",
+                    "view_aware": {
+                        "angle": None,
+                        "selected_side": None,
+                        "selection_reason": signal_selection["selection_reason"],
+                    },
+                },
+            }
+        selected = apply_exercise_posture_gate(
+            segment_clip(
+                clip,
+                specs,
+                fps,
+                angle_override=signal_angle,
+                phase_signal_override=signal_angle,
+            ),
+            clip,
+            angles_dir,
+            specs,
+        )
+        selected["signal_selection"] = signal_selection
+        selected["segmentation_candidates"] = {
+            "schema_version": SEGMENTATION_CANDIDATES_SCHEMA_VERSION,
+            "selection_rule": "view_aware_phase_signal",
+            "view_aware": {
+                "angle": signal_angle,
+                "selected_side": signal_selection["selected_side"],
+                "selection_reason": signal_selection["selection_reason"],
+            },
+        }
+        return selected
+
+    primary = apply_exercise_posture_gate(
+        segment_clip(clip, specs, fps), clip, angles_dir, specs
+    )
+    phase_angle = specs["exercises"][clip["exercise"]].get("phase", {}).get("signal")
+    if not phase_angle or phase_angle == primary.get("angle"):
+        return primary
+
+    alternative = apply_exercise_posture_gate(
+        segment_clip(clip, specs, fps, angle_override=str(phase_angle)),
+        clip,
+        angles_dir,
+        specs,
+    )
+    primary_count = len(primary.get("reps", []))
+    alternative_count = len(alternative.get("reps", []))
+    selected = alternative if alternative_count > primary_count else primary
+    selected["segmentation_candidates"] = {
+        "schema_version": SEGMENTATION_CANDIDATES_SCHEMA_VERSION,
+        "selection_rule": "max_posture_gated_valid_reps",
+        "primary": {
+            "angle": primary.get("angle"),
+            "valid_rep_count": primary_count,
+            "rejected_rep_count": len(primary.get("rejected_reps", [])),
+        },
+        "phase_signal": {
+            "angle": alternative.get("angle"),
+            "valid_rep_count": alternative_count,
+            "rejected_rep_count": len(alternative.get("rejected_reps", [])),
+        },
+        "selected": "phase_signal" if selected is alternative else "primary",
+    }
+    return selected
+
+
 def build_quality(
     clip: dict[str, Any],
     pose_quality: dict[str, Any],
@@ -908,16 +1218,28 @@ def build_quality(
     if not clip["usable_metrics"]:
         failures.append("no_usable_metrics")
     rep_count = len(segmentation.get("reps", []))
+    posture_rejected = int(
+        segmentation.get("posture_gate", {}).get("rejected_rep_count", 0)
+    )
+    if posture_rejected:
+        warnings.append("exercise_posture_reps_rejected")
     if rep_count == 0:
         warnings.append("no_complete_reps")
     elif rep_count < MIN_COMPLETE_REPS:
         warnings.append("fewer_than_three_complete_reps")
     status = "reject" if failures else ("warn" if warnings else "pass")
+    signal_selection = segmentation.get("signal_selection") or {}
+    side_signal_rejected = bool(
+        signal_selection and signal_selection.get("selected_angle") is None
+    )
+    if side_signal_rejected:
+        warnings.append("side_phase_signal_rejected")
     return {
         "schema_version": QUALITY_SCHEMA_VERSION,
         "status": status,
         "failures": failures,
         "warnings": warnings,
+        "side_signal_rejected": side_signal_rejected,
         "checks": {
             "frame_coverage": round(float(pose_quality["frame_coverage"]), 6),
             "pose_detection_rate": round(float(pose_quality["pose_detection_rate"]), 6),
@@ -1077,7 +1399,7 @@ def analyze_one(
             raise FileExistsError(f"output exists: {output_dir}")
         shutil.rmtree(output_dir)
     output_dir.mkdir(parents=True)
-    work_dir = output_dir / ".work"
+    work_dir = output_dir / ".work" / f"{clip['clip_id']}_{os.getpid()}"
     pose_source_dir = work_dir / "pose"
     angle_staging_parent = work_dir / "angles"
     angles_dir = output_dir / "angles"
@@ -1113,7 +1435,7 @@ def analyze_one(
         clip,
     )
     clip["_angles_dir"] = str(angles_dir)
-    segmentation = segment_clip(clip, specs, fps)
+    segmentation = segment_with_posture_gate(clip, specs, fps, angles_dir)
     quality = build_quality(clip, pose_quality, segmentation)
     rep_count = len(segmentation.get("reps", []))
     rejected_rep_count = len(segmentation.get("rejected_reps", []))

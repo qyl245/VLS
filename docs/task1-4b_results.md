@@ -2,10 +2,12 @@
 
 ## 1. 执行结论
 
-状态：**完成（2026-10-25）**
+状态：**完成（2026-10-26 更新）**
 
-- 新增 `scripts/analyze_clip.py`，按 manifest 读取 clip，完成 `MediaPipe → 角度 → 质量门控 → rep/相位 → 结构化输出`。
-- 在 13 个 dev clip 上跑通：12 个 `ok`、1 个 `partial`；共输出 114 个完整 rep，剔除 3 个不完整/错位 rep。
+- 新增 `scripts/analyze_clip.py`，按 manifest 读取 clip，完成 `MediaPipe → 角度 → 姿态门控 → rep/相位 → 结构化输出`。
+- 在 13 个 dev clip 上跑通：13 个 `ok`；共输出 118 个完整 rep，剔除 14 个不完整、错位或不符合目标动作姿态的 rep。
+- 新增动作姿态门控：俯卧撑在 bottom 帧必须接近水平，深蹲在 bottom 帧必须保持直立；热身、起身和站立过渡 rep 写入 `rejected_reps.csv`，不参与点评。
+- 新增相位信号候选分割：当整段角度评分被热身动作带偏时，用动作相位关节角（俯卧撑左肘、深蹲左膝）重新分割，经姿态门控后只保留有效 rep 更多的方案。`0004_pushup_set01` 因此从 0 个有效 rep 恢复为 5 个真实俯卧撑。
 - 所有输出写入 `results/clip_analysis_v1/<clip_id>/`，未覆盖 `results/segmentation_final/` 或 task1-1/1-2 的冻结输出。
 - 当前按“暂时无法补录侧视数据”执行，只完成纯正面垂直切片；深蹲深度、躯干前倾、俯卧撑身体直线等矢状面指标保持 disabled。
 - `0161_pushup_set01` 有 5 个已确认盲标 rep；本版本输出同样为 5 个，IoU@0.30 全部匹配，平均 IoU `0.681`。
@@ -15,7 +17,7 @@
 | 动作 | dev clip | 完整 rep | 视角 |
 |---|---:|---:|---|
 | 深蹲 | 5 | 53 | 全部 `front` |
-| 俯卧撑 | 8 | 61 | 全部 `front` |
+| 俯卧撑 | 8 | 65 | 全部 `front` |
 
 T1-4A 已确认 QEVD 入选集没有可靠侧/斜侧样本。因此本轮可以验收姿态/角度适配、质量门控、正面指标输入和 rep/相位；不能验收深蹲深度、膝/髋矢状面 ROM、躯干前倾、俯卧撑下放深度、身体直线或塌腰/撅臀。
 
@@ -65,7 +67,27 @@ end_time_s    = end_frame / fps
 
 被剔除记录写入 `rejected_reps.csv`，不会静默消失。
 
-### 3.4 质量门控
+### 3.4 动作姿态门控与相位信号候选
+
+俯卧撑与深蹲共用同一套 rep 边界逻辑，但热身、起身和站立过渡也可能产生周期性肘/膝信号。为避免把这些片段当成训练 rep，T1-4B 在 bottom 帧增加动作姿态门控：
+
+```text
+torso_vertical_span_bottom_m = abs(肩中点 Y - 髋中点 Y)   # MediaPipe world 坐标
+
+pushup: torso_vertical_span_bottom_m <= 0.30 m   # 接近水平
+squat:  torso_vertical_span_bottom_m >= 0.30 m   # 保持直立
+```
+
+不满足的 rep 以 `exercise_posture_mismatch` 写入 `rejected_reps.csv`；通过的 rep 重新编号，`phases.csv` 同步重映射。`analysis.json` 的 `segmentation.posture_gate` 记录每个候选的 bottom 帧、测量值、rep 中位数和水平帧比例。
+
+仅靠门控会消除误报，但可能把被热身带偏的真实 rep 一并清零。因此分割阶段同时生成两个候选：
+
+1. 原有整段角度评分 + AIFit/active-bout；
+2. 动作相位信号（俯卧撑 `left_elbow_flexion`、深蹲 `left_knee_flexion`）重新分割。
+
+两个候选都先经过姿态门控，再按 `max_posture_gated_valid_reps` 选择有效 rep 更多的方案；平票保留原候选。选择证据写入 `segmentation.segmentation_candidates`。
+
+### 3.5 质量门控
 
 当前硬门控使用帧覆盖率、姿态检出率、关键关节 visibility 的 10% 分位、身体在画面内比例、视角是否已知，以及是否存在至少一个可用指标。
 
@@ -81,21 +103,21 @@ end_time_s    = end_frame / fps
 
 | clip | 动作 | quality | 完整 rep | 剔除 | 方法 | mean vis | q10 vis | warnings |
 |---|---|---|---:|---:|---|---:|---:|---|
-| `0001_pushup_set01` | pushup | pass | 10 | 0 | aifit | 0.862 | 0.816 | - |
-| `0004_pushup_set01` | pushup | warn | 2 | 0 | aifit | 0.925 | 0.816 | `fewer_than_three_complete_reps` |
-| `0005_pushup_set01` | pushup | pass | 3 | 0 | aifit | 0.895 | 0.809 | - |
+| `0001_pushup_set01` | pushup | pass | 11 | 0 | phase_cycles | 0.862 | 0.816 | - |
+| `0004_pushup_set01` | pushup | warn | 5 | 10 | aifit | 0.925 | 0.816 | `exercise_posture_reps_rejected` |
+| `0005_pushup_set01` | pushup | warn | 3 | 1 | aifit | 0.895 | 0.809 | `exercise_posture_reps_rejected` |
 | `0007_pushup_set01` | pushup | pass | 8 | 2 | aifit | 0.852 | 0.815 | - |
 | `0020_pushup_set01` | pushup | pass | 13 | 0 | phase_cycles | 0.841 | 0.814 | - |
 | `0020_squat_set01` | squat | pass | 12 | 0 | aifit | 0.995 | 0.995 | - |
-| `0021_pushup_set01` | pushup | pass | 10 | 1 | aifit | 0.848 | 0.812 | - |
+| `0021_pushup_set01` | pushup | pass | 11 | 0 | aifit | 0.848 | 0.812 | - |
 | `0034_squat_set01` | squat | pass | 10 | 0 | phase_cycles | 0.991 | 0.989 | - |
 | `0046_squat_set01` | squat | pass | 9 | 0 | aifit | 0.996 | 0.994 | - |
 | `0104_squat_set01` | squat | pass | 9 | 0 | phase_cycles | 0.997 | 0.996 | - |
-| `0156_pushup_set01` | pushup | pass | 10 | 0 | aifit | 0.845 | 0.793 | - |
+| `0156_pushup_set01` | pushup | warn | 9 | 1 | aifit | 0.845 | 0.793 | `exercise_posture_reps_rejected` |
 | `0156_squat_set01` | squat | pass | 13 | 0 | aifit | 0.992 | 0.991 | - |
 | `0161_pushup_set01` | pushup | pass | 5 | 0 | phase_cycles | 0.844 | 0.794 | - |
 
-`0004_pushup_set01` 只有 2 个完整 rep，按规则输出 `partial` + `warn`，建议重录；这不是动作错误判断。
+`0004_pushup_set01` 的原始整段分割只找到前段热身的 2 个候选；姿态门控将二者剔除后，相位信号候选恢复出后段 5 个真实俯卧撑。剔除的 10 个 rep 中，5 个为热身姿态不匹配，5 个为内部不完整候选。`0005_pushup_set01` 保留 3 个跪姿俯卧撑，剔除 1 个起身 rep；`0156_pushup_set01` 保留 9 个俯卧撑，剔除 1 个起身 rep。
 
 ## 5. 盲标对照：0161_pushup
 
@@ -155,7 +177,7 @@ VLS/V0/.venv-mediapipe/bin/python -m unittest discover \
   -s VLS/V0/tests -p 'test_task1_4_clip.py' -v
 ```
 
-测试覆盖绝对时间、深蹲/俯卧撑边界极性、相位循环、尾部 rep 过滤、正面视角指标门控和 summary 重建。
+测试覆盖绝对时间、深蹲/俯卧撑边界极性、相位循环、尾部 rep 过滤、正面视角指标门控、姿态门控、相位信号候选择优和 summary 重建。全量测试 `54/54` 通过。
 
 ## 8. 已知限制
 
@@ -164,6 +186,7 @@ VLS/V0/.venv-mediapipe/bin/python -m unittest discover \
 - 多人场景未检测；当前 MediaPipe 固定 `num_poses=1`。
 - 当前只输出 rep/相位/质量，不包含 `features.csv`、`issues.json`、`report.html` 和圈画帧；这些属于 T1-4C/D。
 - 正面视角下不能把“深度不足”“身体直线破坏”等矢状面结论写入报告。
+- 姿态门控阈值 `0.30 m` 是首版工程值，尚未用更多受试者和机位校准；如果起身动作在下蹲/撑地阶段刚好呈水平，仍可能被误保留。
 
 ## 9. 下一步
 

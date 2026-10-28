@@ -1,0 +1,737 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vls.local/schemas/task1_7_clip_analysis_v3.schema.json",
+  "title": "T1-7 RepChain v3 clip analysis",
+  "description": "Output contract for timebase-aware signals, action verification, quality evidence and selective confidence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "clip_id",
+    "algorithm",
+    "status",
+    "timebase",
+    "signal_evidence",
+    "phase_hypotheses",
+    "action_verification",
+    "quality_evidence",
+    "confidence",
+    "sets",
+    "rejected_candidates",
+    "non_rep_intervals"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "task1-7-clip-analysis-v3"
+    },
+    "clip_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "algorithm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": {
+        "name": {
+          "const": "repchain"
+        },
+        "version": {
+          "const": "v3"
+        }
+      }
+    },
+    "status": {
+      "enum": [
+        "ok",
+        "partial",
+        "no_confident_set",
+        "no_motion",
+        "rejected_quality",
+        "not_evaluable_quality",
+        "phase_ambiguous",
+        "action_mismatch",
+        "unsupported_action"
+      ]
+    },
+    "anchor_policy": {
+      "enum": [
+        "plateau_entry",
+        "plateau_midpoint",
+        "plateau_exit",
+        "phase_zero_crossing",
+        "multi_hypothesis"
+      ]
+    },
+    "timebase": {
+      "$ref": "#/$defs/timebase"
+    },
+    "signal_evidence": {
+      "$ref": "#/$defs/signal_evidence"
+    },
+    "phase_hypotheses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/phase_hypothesis"
+      }
+    },
+    "action_verification": {
+      "$ref": "#/$defs/action_verification"
+    },
+    "quality_evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/quality_evidence"
+      }
+    },
+    "quality_gate": {
+      "$ref": "#/$defs/quality_gate"
+    },
+    "quality_gates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/quality_gate"
+      }
+    },
+    "confidence": {
+      "$ref": "#/$defs/output_confidence"
+    },
+    "sets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/set_candidate"
+      }
+    },
+    "rejected_candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rejected_candidate"
+      }
+    },
+    "non_rep_intervals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/non_rep_interval"
+      }
+    },
+    "diagnostics": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "nullable_number": {
+      "type": ["number", "null"]
+    },
+    "timebase": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "frame_count",
+        "timestamps_present",
+        "variable_fps",
+        "max_gap_seconds"
+      ],
+      "properties": {
+        "frame_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "source_fps": {
+          "$ref": "#/$defs/nullable_number"
+        },
+        "effective_fps": {
+          "$ref": "#/$defs/nullable_number"
+        },
+        "duration_seconds": {
+          "$ref": "#/$defs/nullable_number"
+        },
+        "timestamps_present": {
+          "type": "boolean"
+        },
+        "variable_fps": {
+          "type": "boolean"
+        },
+        "max_gap_seconds": {
+          "type": "number",
+          "minimum": 0
+        },
+        "interpolated_fraction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "source_frame_map": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "signal_candidate": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "phase_signal",
+        "score",
+        "status",
+        "periodicity",
+        "dynamic_range",
+        "noise_sigma",
+        "dynamic_to_noise",
+        "valid_fraction",
+        "max_gap_seconds",
+        "multiscale_agreement"
+      ],
+      "properties": {
+        "phase_signal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0
+        },
+        "status": {
+          "enum": ["ok", "no_motion", "insufficient_signal", "ambiguous"]
+        },
+        "periodicity": {
+          "$ref": "#/$defs/nullable_number"
+        },
+        "period_seconds": {
+          "$ref": "#/$defs/nullable_number"
+        },
+        "dynamic_range": {
+          "$ref": "#/$defs/nullable_number"
+        },
+        "noise_sigma": {
+          "$ref": "#/$defs/nullable_number"
+        },
+        "dynamic_to_noise": {
+          "$ref": "#/$defs/nullable_number"
+        },
+        "valid_fraction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "max_gap_seconds": {
+          "type": "number",
+          "minimum": 0
+        },
+        "multiscale_agreement": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "signal_evidence": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "selected_phase_signal",
+        "consensus_score",
+        "ambiguous",
+        "candidates"
+      ],
+      "properties": {
+        "selected_phase_signal": {
+          "type": ["string", "null"]
+        },
+        "consensus_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "ambiguous": {
+          "type": "boolean"
+        },
+        "candidates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/signal_candidate"
+          }
+        }
+      }
+    },
+    "phase_hypothesis": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "hypothesis_id",
+        "phase_signal",
+        "score",
+        "period_seconds",
+        "status"
+      ],
+      "properties": {
+        "hypothesis_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "phase_signal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0
+        },
+        "period_seconds": {
+          "$ref": "#/$defs/nullable_number"
+        },
+        "status": {
+          "enum": ["ok", "ambiguous", "rejected", "insufficient_signal"]
+        },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "action_verification": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "action",
+        "status",
+        "supported",
+        "confidence",
+        "reasons",
+        "evidence"
+      ],
+      "properties": {
+        "action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": ["supported", "mismatch", "unsupported", "ambiguous"]
+        },
+        "supported": {
+          "type": "boolean"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "quality_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "scope", "reasons", "source", "blocking"],
+      "properties": {
+        "schema_version": {
+          "type": "string"
+        },
+        "status": {
+          "enum": ["pass", "warn", "reject", "unknown"]
+        },
+        "scope": {
+          "enum": ["clip", "set", "rep", "frame"]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "blocking": {
+          "type": "boolean"
+        },
+        "target_id": {
+          "type": ["string", "integer", "null"]
+        }
+      }
+    },
+    "quality_evidence": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "evidence_id",
+        "status",
+        "scope",
+        "source",
+        "reasons",
+        "start_frame",
+        "end_frame"
+      ],
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": ["pass", "warn", "reject", "unknown"]
+        },
+        "scope": {
+          "enum": ["clip", "set", "rep", "frame"]
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "target_id": {
+          "type": ["string", "integer", "null"]
+        },
+        "start_frame": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        },
+        "end_frame": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        },
+        "value": {
+          "type": ["number", "string", "boolean", "null"]
+        },
+        "threshold": {
+          "type": ["number", "string", "boolean", "null"]
+        },
+        "severity": {
+          "type": ["number", "null"]
+        }
+      }
+    },
+    "confidence_layers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["complete", "in_set", "combined"],
+      "properties": {
+        "complete": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "in_set": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "combined": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "output_confidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["components", "calibrated", "abstained", "abstain_reason"],
+      "properties": {
+        "components": {
+          "type": "object",
+          "additionalProperties": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "calibrated": {
+          "$ref": "#/$defs/confidence_layers"
+        },
+        "abstained": {
+          "type": "boolean"
+        },
+        "abstain_reason": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "phase_state": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "start_frame",
+        "end_frame",
+        "anchor_frame",
+        "stable_fraction",
+        "boundary_slope"
+      ],
+      "properties": {
+        "state_id": {
+          "type": "string"
+        },
+        "start_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "anchor_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "start_seconds": {
+          "type": ["number", "null"]
+        },
+        "end_seconds": {
+          "type": ["number", "null"]
+        },
+        "anchor_seconds": {
+          "type": ["number", "null"]
+        },
+        "stable_fraction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "boundary_slope": {
+          "type": "number"
+        },
+        "mean_angle": {
+          "type": ["number", "null"]
+        },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "rep_candidate": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "rep_id",
+        "start_frame",
+        "end_frame",
+        "top",
+        "bottom",
+        "phase_signal",
+        "rep_unit",
+        "status",
+        "confidence",
+        "quality_flags"
+      ],
+      "properties": {
+        "rep_id": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "start_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "start_seconds": {
+          "type": ["number", "null"]
+        },
+        "end_seconds": {
+          "type": ["number", "null"]
+        },
+        "top": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/phase_state"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bottom": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/phase_state"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "phase_signal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rep_unit": {
+          "const": "cycle"
+        },
+        "status": {
+          "enum": ["complete", "endpoint_partial", "incomplete"]
+        },
+        "partial_side": {
+          "enum": ["start", "end", null]
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence_layers"
+        },
+        "endpoint_confidence": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "quality_flags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "quality_evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/quality_evidence"
+          }
+        }
+      }
+    },
+    "rejected_candidate": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["candidate_id", "start_frame", "end_frame", "reasons"],
+      "properties": {
+        "candidate_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "start_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reasons": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence_layers"
+        },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "non_rep_interval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start_frame", "end_frame", "kind"],
+      "properties": {
+        "start_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "kind": {
+          "enum": ["setup", "rest", "recovery", "transition", "other"]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "set_candidate": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "set_id",
+        "start_frame",
+        "end_frame",
+        "status",
+        "chain_confidence",
+        "is_default",
+        "reps",
+        "rejected_candidates",
+        "non_rep_intervals"
+      ],
+      "properties": {
+        "set_id": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "start_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "start_seconds": {
+          "type": ["number", "null"]
+        },
+        "end_seconds": {
+          "type": ["number", "null"]
+        },
+        "status": {
+          "enum": ["complete_set", "partial_set"]
+        },
+        "chain_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "is_default": {
+          "type": "boolean"
+        },
+        "reps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/rep_candidate"
+          }
+        },
+        "rejected_candidates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/rejected_candidate"
+          }
+        },
+        "non_rep_intervals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_rep_interval"
+          }
+        },
+        "endpoint_evidence": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    }
+  }
+}

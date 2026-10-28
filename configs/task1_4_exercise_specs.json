@@ -43,6 +43,12 @@
       "action_display": "squats",
       "rep_unit": "cycle",
       "min_complete_reps": 3,
+      "posture_gate": {
+        "metric": "torso_vertical_span_bottom_m",
+        "rule": "min",
+        "threshold": 0.3,
+        "description": "Bottom-frame absolute shoulder-midpoint to hip-midpoint vertical span in MediaPipe world coordinates; squats must remain upright."
+      },
       "phase": {
         "top": "standing, knee extended, rep boundary",
         "bottom": "minimum knee angle",
@@ -126,6 +132,12 @@
       "action_display": "pushups",
       "rep_unit": "cycle",
       "min_complete_reps": 3,
+      "posture_gate": {
+        "metric": "torso_vertical_span_bottom_m",
+        "rule": "max",
+        "threshold": 0.3,
+        "description": "Bottom-frame absolute shoulder-midpoint to hip-midpoint vertical span in MediaPipe world coordinates; pushups must be close to horizontal."
+      },
       "phase": {
         "top": "arms extended, rep boundary",
         "bottom": "minimum elbow angle",

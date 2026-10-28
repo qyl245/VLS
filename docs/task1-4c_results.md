@@ -2,11 +2,12 @@
 
 ## 1. 执行结论
 
-状态：**完成（2026-10-25）**
+状态：**完成（2026-10-26 更新）**
 
 - 新增 `scripts/build_issue_cards.py`，直接消费 T1-4B 的 `reps.csv`、`phases.csv`、`angles/`，不重跑 MediaPipe。
-- 13 个 dev clip 共 114 个完整 rep，输出 1031 行逐 rep 指标、43 张活动问题卡、35 条屏蔽/未评估记录。
-- 活动问题卡中 `high=7`、`medium=10`、`low=26`；17 张 medium/high 卡全部有合法 `anchor_frame`、`anchor_time_s` 和 `evidence_interval`，anchor 均位于代表 rep 内且落在证据区间内。
+- 13 个 dev clip 共 118 个完整 rep，输出 1063 行逐 rep 指标、47 张活动问题卡、34 条屏蔽/未评估记录。
+- 活动问题卡中 `high=3`、`medium=11`、`low=33`；14 张 medium/high 卡全部有合法 `anchor_frame`、`anchor_time_s` 和 `evidence_interval`，anchor 均位于代表 rep 内且落在证据区间内。
+- 姿态门控后的热身/起身 rep 不进入指标聚合；`0004_pushup_set01` 不再把热身段误判为俯卧撑，`0005_pushup_set01` 与 `0156_pushup_set01` 不再点评起身动作。
 - 所有正面视角不支持的矢状面指标均未生成 activity 卡，只输出 `suppressed=true` 的明确未评估记录。
 - 当前没有教练参考 clip 或专家问题级标签，阈值全部是 `provisional_engineering`，不能据此报告 precision/recall 或医学结论。
 
@@ -95,13 +96,13 @@ Dev 集实际分布：
 
 | 指标 | n | p10 | p50 | p90 | max |
 |---|---:|---:|---:|---:|---:|
-| `knee_valgus_bottom` | 53 | 13.17 | 20.03 | 30.77 | 49.47 |
-| `knee_asymmetry_bottom` | 53 | 0.55 | 1.71 | 4.93 | 9.50 |
-| `hip_asymmetry_bottom` | 53 | 0.86 | 2.88 | 5.89 | 8.88 |
-| `elbow_asymmetry_bottom` | 61 | 1.59 | 4.67 | 10.80 | 43.28 |
-| `shoulder_asymmetry_bottom` | 61 | 0.68 | 3.97 | 11.24 | 25.94 |
-| `rep_duration_cv` | 12 | 0.062 | 0.129 | 0.369 | 0.402 |
-| `spine_stability_bottom` | 114 | 0.006 | 0.015 | 0.045 | 0.113 |
+| `knee_valgus_bottom` | 53 | 13.31 | 20.03 | 30.71 | 49.47 |
+| `knee_asymmetry_bottom` | 53 | 0.55 | 1.71 | 4.80 | 9.50 |
+| `hip_asymmetry_bottom` | 53 | 0.88 | 2.88 | 5.87 | 8.88 |
+| `elbow_asymmetry_bottom` | 65 | 1.63 | 5.19 | 10.58 | 19.71 |
+| `shoulder_asymmetry_bottom` | 65 | 0.70 | 4.52 | 11.16 | 25.94 |
+| `rep_duration_cv` | 12 | 0.065 | 0.131 | 0.231 | 0.402 |
+| `spine_stability_bottom` | 118 | 0.006 | 0.016 | 0.045 | 0.091 |
 
 这些数值只用于初版工程分流和回放定位。尤其膝内扣、肩部不对称和躯干方差受 3D 姿态噪声影响明显，T1-4D 展示时必须保留低置信和相机运动警告。
 
@@ -112,7 +113,7 @@ Dev 集实际分布：
 - 同一 `issue_code` 的连续 rep 合并为一张卡；不相邻 rep 分开，避免把中间正常 rep 误算进同一问题。
 - `frequency` 使用“触发 rep 数 / 完整 rep 数”；组级节奏问题使用全部 rep，并以时长最异常的 rep 作为代表。
 - 排序依次为严重度、频率、置信度；每段 clip 最多 3 张 `show_by_default=true`，完整问题列表仍保留。
-- 置信度 `0.35–0.55` 最多降为 `low`；低于 `0.35` 不生成活动卡。当前 dev 中只有 2 行进入 `low_confidence`，没有低于最低置信度的活动问题。
+- 置信度 `0.35–0.55` 最多降为 `low`；低于 `0.35` 不生成活动卡。当前 dev 中有 3 行进入 `low_confidence`、1 行进入 `unusable_low_confidence`，没有低于最低置信度的活动问题。
 
 Anchor 规则：
 
@@ -135,24 +136,24 @@ Anchor 规则：
 
 | clip | 动作 | rep | 活动卡 | high | medium | low | 屏蔽记录 |
 |---|---|---:|---:|---:|---:|---:|---:|
-| `0001_pushup_set01` | pushup | 10 | 6 | 0 | 1 | 5 | 3 |
-| `0004_pushup_set01` | pushup | 2 | 1 | 1 | 0 | 0 | 4 |
-| `0005_pushup_set01` | pushup | 3 | 3 | 3 | 0 | 0 | 3 |
+| `0001_pushup_set01` | pushup | 11 | 8 | 0 | 1 | 7 | 3 |
+| `0004_pushup_set01` | pushup | 5 | 3 | 0 | 0 | 3 | 3 |
+| `0005_pushup_set01` | pushup | 3 | 2 | 0 | 1 | 1 | 3 |
 | `0007_pushup_set01` | pushup | 8 | 0 | 0 | 0 | 0 | 3 |
 | `0020_pushup_set01` | pushup | 13 | 5 | 0 | 1 | 4 | 3 |
 | `0020_squat_set01` | squat | 12 | 4 | 1 | 2 | 1 | 2 |
-| `0021_pushup_set01` | pushup | 10 | 4 | 0 | 0 | 4 | 3 |
+| `0021_pushup_set01` | pushup | 11 | 5 | 0 | 0 | 5 | 3 |
 | `0034_squat_set01` | squat | 10 | 4 | 1 | 0 | 3 | 2 |
 | `0046_squat_set01` | squat | 9 | 5 | 0 | 2 | 3 | 2 |
 | `0104_squat_set01` | squat | 9 | 3 | 0 | 1 | 2 | 2 |
-| `0156_pushup_set01` | pushup | 10 | 4 | 1 | 2 | 1 | 3 |
+| `0156_pushup_set01` | pushup | 9 | 4 | 1 | 2 | 1 | 3 |
 | `0156_squat_set01` | squat | 13 | 3 | 0 | 1 | 2 | 2 |
 | `0161_pushup_set01` | pushup | 5 | 1 | 0 | 0 | 1 | 3 |
-| **合计** | - | **114** | **43** | **7** | **10** | **26** | **35** |
+| **合计** | - | **118** | **47** | **3** | **11** | **33** | **34** |
 
-问题代码计数：`pushup_asymmetry=15`、`pushup_stability_low=5`、`pushup_tempo_inconsistent=4`、`squat_asymmetry=9`、`squat_knee_valgus=6`、`squat_stability_low=4`。
+问题代码计数：`pushup_asymmetry=16`、`pushup_stability_low=7`、`pushup_tempo_inconsistent=5`、`squat_asymmetry=9`、`squat_knee_valgus=6`、`squat_stability_low=4`。
 
-35 条屏蔽记录由 24 条俯卧撑矢状面禁用、10 条深蹲矢状面禁用和 1 条 2-rep 节奏不足组成。`0004_pushup_set01` 不评估组级节奏，但仍允许输出单 rep 可见的左右差问题。
+34 条屏蔽记录由 24 条俯卧撑矢状面禁用和 10 条深蹲矢状面禁用组成；本轮所有 clip 都至少有 3 个有效 rep，不再出现 2-rep 节奏不足记录。`0004_pushup_set01` 的 5 个有效 rep 全部来自后段真实俯卧撑，前段热身 rep 已在 T1-4B 剔除。
 
 ## 7. 复现与测试
 
@@ -172,7 +173,7 @@ VLS/V0/.venv-mediapipe/bin/python -m unittest discover \
 - 少于 3 rep 不判断节奏；
 - medium/high 问题必须有 anchor，且证据区间包含 anchor、不越出代表 rep。
 
-全量测试 39/39 通过。
+全量测试 `54/54` 通过。
 
 ## 8. 已知限制
 
@@ -181,6 +182,7 @@ VLS/V0/.venv-mediapipe/bin/python -m unittest discover \
 - 膝内扣由 MediaPipe 世界坐标推导，深蹲底部仍可能受深度估计误差和遮挡影响。
 - 相机运动仍为 `not_evaluated`，稳定性阈值可能在手持视频中偏敏感。
 - 问题卡当前只有文字、测量值和 overlay 指令，尚未生成 T1-4D 的实际圈画帧和 HTML 播放器。
+- 姿态门控阈值仍是 provisional；`0005_pushup_set01` 为跪姿俯卧撑，当前按同一套正面指标评估，尚未单独建立跪姿基线。
 
 ## 9. 下一步
 

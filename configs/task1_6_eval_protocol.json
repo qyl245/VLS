@@ -1,0 +1,254 @@
+{
+  "schema_version": "task1-6-eval-protocol-v1",
+  "task": "T1-6",
+  "stage": "T1-6A",
+  "generated_at": "2026-10-26T14:59:01.019946+00:00",
+  "sources_sha256": "7219cfa6ef711e20c347176f4971ad47c60a1eafafde4c13e895b4b2a12c33cc",
+  "source_manifest_sha256": {
+    "fit3d": {
+      "path": "/mnt/storage2/data_guest/VLS/V0/configs/task1_5_fit3d_clips.json",
+      "sha256": "1c598e00f966802b1a556088fceb3cd1cd0b2639490ed87acccc11418329f035",
+      "clip_count": 70
+    },
+    "qevd_fit_coach": {
+      "path": "/mnt/storage2/data_guest/VLS/V0/configs/task1_4_clips.json",
+      "sha256": "be8d67a05eaf26e5f80395c4158c97e11d3a443722dbb02fca896eaf4839862f",
+      "clip_count": 41
+    },
+    "qevd_feedback": {
+      "path": "/mnt/storage2/data_guest/VLS/dataset/QEVD-FIT/QEVD-FIT-COACH/feedbacks_long_range.json",
+      "sha256": "6047e7306420f893513e6317e386db8648aaf0707dd73a0493e0c7176a6c0d25"
+    }
+  },
+  "algorithm_core": {
+    "contract_version": "repchain-v2",
+    "rep_unit": "cycle",
+    "dataset_independent": true,
+    "prohibited_features": [
+      "dataset_name",
+      "video_id",
+      "subject_id",
+      "camera_id",
+      "fixed_rep_count",
+      "fixed_frame_offset",
+      "fixed_plateau_width",
+      "camera_order_or_consensus",
+      "sealed_holdout_gt_tuning"
+    ],
+    "selection_inputs": [
+      "phase_signal",
+      "state_intervals",
+      "chain_shape_cost",
+      "chain_timing_cost",
+      "chain_confidence"
+    ],
+    "forbidden_core_constants": [
+      "Fit3D",
+      "QEVD",
+      "s03",
+      "s11",
+      "50591643",
+      "58860488",
+      "60457274",
+      "65906101",
+      "+13",
+      "6_reps",
+      "camera_median"
+    ]
+  },
+  "boundary_semantics": {
+    "anchors": [
+      "plateau_entry",
+      "plateau_midpoint",
+      "plateau_exit",
+      "phase_zero_crossing"
+    ],
+    "default_anchor": "plateau_midpoint",
+    "selection_stage": "T1-6B",
+    "selection_scope": "single_global_policy",
+    "holdout_rule": "anchor_policy_cannot_change_after_holdout_start",
+    "fit3d_gt": "top_or_extension_event_only",
+    "fit3d_bottom_gt": "not_available",
+    "qeud_legacy_gt": "rep_interval_not_phase_state"
+  },
+  "evaluation": {
+    "fit3d_primary_unit": "subject_action",
+    "fit3d_camera_observations": "repeated_observations_not_independent_samples",
+    "qeud_primary_unit": "segment_or_video",
+    "smoke_rule": "never_enter_error_statistics",
+    "event_matching": {
+      "method": "one_to_one_hungarian",
+      "prediction": "accepted_complete_rep_anchor_frame",
+      "gate": "0.25_x_median_gt_top_to_top_interval_round_half_up_min_1"
+    },
+    "confidence_layers": [
+      "complete",
+      "in_set",
+      "combined"
+    ],
+    "high_confidence_threshold": 0.5,
+    "rejection_reasons": [
+      "insufficient_visibility",
+      "phase_ambiguous",
+      "incomplete_rep",
+      "outside_set",
+      "shape_mismatch",
+      "timing_outlier",
+      "no_confident_set"
+    ],
+    "split_policy": {
+      "fit3d": "subject",
+      "qeud": "video",
+      "question_action_segments_share_video_split": true,
+      "sealed_holdout_annotation_required_before_metrics": true
+    }
+  },
+  "acceptance": {
+    "fit3d": {
+      "count_mae_lte": 0.5,
+      "exact_count_at_least": "14/16",
+      "first_event_recall_gte": 0.75,
+      "last_event_recall_gte": 0.75,
+      "primary_event_median_abs_error_frames_lte": 5,
+      "primary_event_p90_abs_error_frames_lte": 12,
+      "primary_high_confidence_fp": 0,
+      "all_camera_high_confidence_fp": 0,
+      "top_to_top_interval_median_abs_error_must_not_degrade": true
+    },
+    "qeud_sealed": {
+      "count_exact_at_least": "5/6 segments",
+      "count_mae_lte": 0.25,
+      "boundary_abs_error_median_frames_lte": 5,
+      "boundary_abs_error_p95_frames_lte": 12,
+      "f1_at_iou_0_30_gte": 0.95,
+      "high_confidence_fp": 0,
+      "non_rep_output_as_complete_rep": 0
+    }
+  },
+  "t1_5d_baseline": {
+    "passed": true,
+    "checks": [
+      "t1_5d_baseline_values_match_frozen_contract"
+    ],
+    "errors": [],
+    "summary_path": "/mnt/storage2/data_guest/VLS/V0/results/task1_5/rep_evaluation/summary.json",
+    "summary_sha256": "23219fdfb9d3e18f4f00beb431465f62b41ef7a0c2e18628aed1db2df185d72d",
+    "expected": {
+      "manifest_clip_count": 64,
+      "action_instances": 16,
+      "unique_gt_reps": 96,
+      "consensus_count_mae": 0.625,
+      "consensus_exact_count_correct": 6,
+      "primary_event_median_abs_error_frames": 12.5,
+      "primary_event_p90_abs_error_frames": 25.8,
+      "primary_high_confidence_fp_count": 24,
+      "all_camera_high_confidence_fp_count": 80,
+      "top_to_top_interval_median_abs_error_frames": 3.0
+    },
+    "observed": {
+      "manifest_clip_count": 64,
+      "action_instances": 16,
+      "unique_gt_reps": 96,
+      "consensus_count_mae": 0.625,
+      "consensus_exact_count_correct": 6,
+      "primary_event_median_abs_error_frames": 12.5,
+      "primary_event_p90_abs_error_frames": 25.8,
+      "primary_high_confidence_fp_count": 24,
+      "all_camera_high_confidence_fp_count": 80,
+      "top_to_top_interval_median_abs_error_frames": 3.0
+    },
+    "source_manifest_sha256": "1c598e00f966802b1a556088fceb3cd1cd0b2639490ed87acccc11418329f035"
+  },
+  "sealed_holdout": {
+    "dataset": "QEVD-FIT-COACH",
+    "selection_scope": "video_ids_outside_t1_4_dev_and_holdout",
+    "target_segments": 4,
+    "non_target_segments": 2,
+    "segments": [
+      {
+        "clip_id": "0152_pushup_set01",
+        "video_id": "0152",
+        "action": "pushup",
+        "trim": {
+          "start_frame": 2313,
+          "end_frame": 2968
+        },
+        "annotation_status": "pending_human_labels"
+      },
+      {
+        "clip_id": "0159_pushup_set01",
+        "video_id": "0159",
+        "action": "pushup",
+        "trim": {
+          "start_frame": 1710,
+          "end_frame": 2474
+        },
+        "annotation_status": "pending_human_labels"
+      },
+      {
+        "clip_id": "0127_squat_set01",
+        "video_id": "0127",
+        "action": "squat",
+        "trim": {
+          "start_frame": 1840,
+          "end_frame": 2545
+        },
+        "annotation_status": "pending_human_labels"
+      },
+      {
+        "clip_id": "0177_squat_set01",
+        "video_id": "0177",
+        "action": "squat",
+        "trim": {
+          "start_frame": 2412,
+          "end_frame": 3090
+        },
+        "annotation_status": "pending_human_labels"
+      },
+      {
+        "clip_id": "qeud_0207_air_jump_rope_sealed01",
+        "video_id": "0207",
+        "action": "air_jump_rope",
+        "trim": {
+          "start_frame": 346,
+          "end_frame": 1053
+        },
+        "annotation_status": "pending_human_labels"
+      },
+      {
+        "clip_id": "qeud_0207_good_morning_sealed01",
+        "video_id": "0207",
+        "action": "good_morning",
+        "trim": {
+          "start_frame": 1054,
+          "end_frame": 1739
+        },
+        "annotation_status": "pending_human_labels"
+      }
+    ],
+    "annotation_status": "pending_human_labels",
+    "cross_domain_acceptance_complete": false,
+    "reason_not_complete": "sealed holdout GT has not been human-annotated",
+    "artifacts": {
+      "manifest_path": "/mnt/storage2/data_guest/VLS/V0/results/task1_6/manifest/qevd_sealed_holdout_manifest.json",
+      "manifest_sha256": "8b71f9c9d97cf4138e9c84e94cc1796248d2625929256fcd835aa741bcb3665d",
+      "segments_path": "/mnt/storage2/data_guest/VLS/V0/results/task1_6/manifest/qevd_sealed_holdout_segments.csv",
+      "template_path": "/mnt/storage2/data_guest/VLS/V0/results/task1_6/manifest/qevd_sealed_holdout_template.csv",
+      "contact_sheet_path": "/mnt/storage2/data_guest/VLS/V0/results/task1_6/manifest/qevd_sealed_holdout_contact_sheet.jpg",
+      "status": "pending_human_annotation",
+      "segments": 6,
+      "actions": {
+        "air_jump_rope": 1,
+        "good_morning": 1,
+        "pushup": 2,
+        "squat": 2
+      }
+    }
+  },
+  "generalization_claims": {
+    "baseline_reproduced": true,
+    "cross_domain_acceptance_complete": false,
+    "allowed_claim": "protocol_and_adapters_frozen_baseline_reproduced",
+    "disallowed_claim": "general_segmenter_has_passed_cross_dataset_acceptance"
+  }
+}

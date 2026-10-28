@@ -1,0 +1,266 @@
+{
+  "schema_version": "task1-5a-view-overrides-v2",
+  "reviewed_at": "2026-10-26",
+  "review_method": "T1-5A four-camera contact-sheet category review, followed by T1-5B GT camera-space depth audit for the left/right suffix. Front/rear labels unchanged.",
+  "reviewed_clips": 64,
+  "corrections": 37,
+  "overrides": {
+    "fit3d_s03_squat_50591643": {
+      "view": "rear",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s03_squat_58860488": {
+      "view": "rear",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s03_squat_60457274": {
+      "view": "oblique_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s03_squat_65906101": {
+      "view": "front",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s03_pushup_50591643": {
+      "view": "side_left",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s03_pushup_58860488": {
+      "view": "side_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s03_pushup_60457274": {
+      "view": "side_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s03_pushup_65906101": {
+      "view": "side_left",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s04_squat_50591643": {
+      "view": "rear",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s04_squat_58860488": {
+      "view": "rear",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s04_squat_60457274": {
+      "view": "front",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s04_squat_65906101": {
+      "view": "front",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s04_pushup_50591643": {
+      "view": "side_left",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s04_pushup_58860488": {
+      "view": "side_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s04_pushup_60457274": {
+      "view": "side_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s04_pushup_65906101": {
+      "view": "side_left",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s05_squat_50591643": {
+      "view": "rear",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s05_squat_58860488": {
+      "view": "rear",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s05_squat_60457274": {
+      "view": "front",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s05_squat_65906101": {
+      "view": "front",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s05_pushup_50591643": {
+      "view": "side_left",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s05_pushup_58860488": {
+      "view": "side_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s05_pushup_60457274": {
+      "view": "side_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s05_pushup_65906101": {
+      "view": "side_left",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s07_squat_50591643": {
+      "view": "rear",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s07_squat_58860488": {
+      "view": "rear",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s07_squat_60457274": {
+      "view": "front",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s07_squat_65906101": {
+      "view": "front",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s07_pushup_50591643": {
+      "view": "side_left",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s07_pushup_58860488": {
+      "view": "side_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s07_pushup_60457274": {
+      "view": "side_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s07_pushup_65906101": {
+      "view": "side_left",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s08_squat_50591643": {
+      "view": "rear",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s08_squat_58860488": {
+      "view": "rear",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s08_squat_60457274": {
+      "view": "front",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s08_squat_65906101": {
+      "view": "front",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s08_pushup_50591643": {
+      "view": "side_left",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s08_pushup_58860488": {
+      "view": "side_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s08_pushup_60457274": {
+      "view": "side_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s08_pushup_65906101": {
+      "view": "side_left",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s09_squat_50591643": {
+      "view": "rear",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s09_squat_58860488": {
+      "view": "rear",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s09_squat_60457274": {
+      "view": "oblique_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s09_squat_65906101": {
+      "view": "front",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s09_pushup_50591643": {
+      "view": "side_left",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s09_pushup_58860488": {
+      "view": "side_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s09_pushup_60457274": {
+      "view": "side_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s09_pushup_65906101": {
+      "view": "side_left",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s10_squat_50591643": {
+      "view": "rear",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s10_squat_58860488": {
+      "view": "rear",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s10_squat_60457274": {
+      "view": "front",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s10_squat_65906101": {
+      "view": "oblique_left",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s10_pushup_50591643": {
+      "view": "side_left",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s10_pushup_58860488": {
+      "view": "side_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s10_pushup_60457274": {
+      "view": "side_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s10_pushup_65906101": {
+      "view": "side_left",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s11_squat_50591643": {
+      "view": "oblique_left",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s11_squat_58860488": {
+      "view": "rear",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s11_squat_60457274": {
+      "view": "oblique_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s11_squat_65906101": {
+      "view": "front",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s11_pushup_50591643": {
+      "view": "side_left",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s11_pushup_58860488": {
+      "view": "oblique_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s11_pushup_60457274": {
+      "view": "side_right",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    },
+    "fit3d_s11_pushup_65906101": {
+      "view": "side_left",
+      "source": "t1_5a_contact_sheet_plus_t1_5b_camera_depth_side_correction"
+    }
+  },
+  "correction_note": "32 side/oblique suffixes swapped after all 64 clips showed camera_side opposite the GT near-side depth."
+}
