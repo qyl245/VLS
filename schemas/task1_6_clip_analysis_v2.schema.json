@@ -1,0 +1,370 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vls.local/schemas/task1_6_clip_analysis_v2.schema.json",
+  "title": "T1-6 RepChain v2 clip analysis",
+  "description": "Frozen output contract for state intervals, rep chains and set candidates.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "clip_id",
+    "algorithm",
+    "anchor_policy",
+    "status",
+    "sets",
+    "rejected_candidates",
+    "non_rep_intervals"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "task1-6-clip-analysis-v2"
+    },
+    "clip_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "algorithm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": {
+        "name": {
+          "const": "repchain"
+        },
+        "version": {
+          "const": "v2"
+        }
+      }
+    },
+    "anchor_policy": {
+      "enum": [
+        "plateau_entry",
+        "plateau_midpoint",
+        "plateau_exit",
+        "phase_zero_crossing"
+      ]
+    },
+    "status": {
+      "enum": [
+        "ok",
+        "partial",
+        "no_confident_set",
+        "rejected_quality"
+      ]
+    },
+    "sets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/set_candidate"
+      }
+    },
+    "rejected_candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rejected_candidate"
+      }
+    },
+    "non_rep_intervals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/non_rep_interval"
+      }
+    },
+    "diagnostics": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "phase_signal_candidates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "selected_phase_signal": {
+          "type": ["string", "null"]
+        },
+        "quality_notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "frame_range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start_frame", "end_frame"],
+      "properties": {
+        "start_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_frame": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "phase_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "start_frame",
+        "end_frame",
+        "anchor_frame",
+        "stable_fraction",
+        "boundary_slope"
+      ],
+      "properties": {
+        "start_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "anchor_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "stable_fraction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "boundary_slope": {
+          "type": "number"
+        },
+        "mean_angle": {
+          "type": ["number", "null"]
+        },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "confidence_layers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["complete", "in_set", "combined"],
+      "properties": {
+        "complete": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "in_set": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "combined": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "rep_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rep_id",
+        "start_frame",
+        "end_frame",
+        "top",
+        "bottom",
+        "phase_signal",
+        "rep_unit",
+        "status",
+        "confidence",
+        "quality_flags"
+      ],
+      "properties": {
+        "rep_id": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "start_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "top": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/phase_state"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bottom": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/phase_state"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "phase_signal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rep_unit": {
+          "const": "cycle"
+        },
+        "status": {
+          "enum": ["complete", "endpoint_partial", "incomplete"]
+        },
+        "partial_side": {
+          "enum": ["start", "end", null]
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence_layers"
+        },
+        "quality_flags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "rejected_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidate_id", "start_frame", "end_frame", "reasons"],
+      "properties": {
+        "candidate_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "start_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reasons": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "insufficient_visibility",
+              "phase_ambiguous",
+              "incomplete_rep",
+              "outside_set",
+              "shape_mismatch",
+              "timing_outlier",
+              "no_confident_set"
+            ]
+          }
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence_layers"
+        },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "non_rep_interval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start_frame", "end_frame", "kind"],
+      "properties": {
+        "start_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "kind": {
+          "enum": ["setup", "rest", "recovery", "transition", "other"]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "set_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "set_id",
+        "start_frame",
+        "end_frame",
+        "status",
+        "chain_confidence",
+        "is_default",
+        "reps",
+        "rejected_candidates",
+        "non_rep_intervals"
+      ],
+      "properties": {
+        "set_id": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "start_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_frame": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "status": {
+          "enum": ["complete_set", "partial_set"]
+        },
+        "chain_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "is_default": {
+          "type": "boolean"
+        },
+        "reps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/rep_candidate"
+          }
+        },
+        "rejected_candidates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/rejected_candidate"
+          }
+        },
+        "non_rep_intervals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_rep_interval"
+          }
+        }
+      }
+    }
+  }
+}

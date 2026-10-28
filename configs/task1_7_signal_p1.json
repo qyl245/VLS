@@ -1,0 +1,142 @@
+{
+  "schema_version": "task1-7-signal-config-v1",
+  "task": "T1-7B",
+  "revision": "t1-7b-p1-local-context-v1",
+  "frozen": true,
+  "core": {
+    "dataset_independent": true,
+    "selection_policy": "bilateral_preferred_multiscale_consensus",
+    "smoothing_scales_seconds": [
+      0.12,
+      0.2,
+      0.32,
+      0.48
+    ],
+    "timebase": {
+      "minimum_analysis_fps": 10.0,
+      "maximum_analysis_fps": 60.0,
+      "variable_fps_cv_threshold": 0.05
+    },
+    "gaps": {
+      "maximum_short_gap_seconds": 0.2,
+      "maximum_unresolved_gap_seconds": 0.6,
+      "maximum_missing_fraction": 0.25,
+      "minimum_original_valid_fraction": 0.3
+    },
+    "top_k_hypotheses": 5,
+    "minimum_periodicity": 0.15,
+    "minimum_candidate_score": 0.2,
+    "target_dynamic_to_noise": 30.0,
+    "period_agreement_fraction": 0.2,
+    "minimum_multiscale_agreement": 0.3,
+    "minimum_consensus_score": 0.25,
+    "motion_gate": {
+      "sampling_aware_state_amplitude": {
+        "enabled": true,
+        "maximum_analysis_fps": 20.0,
+        "minimum_amplitude_fraction": 0.75,
+        "minimum_periodicity": 0.35,
+        "minimum_dynamic_range_multiple": 2.0,
+        "minimum_dynamic_to_noise_multiple": 1.5
+      }
+    },
+    "event_consensus": {
+      "period_cluster_tolerance_fraction": 0.2,
+      "anchor_tolerance_period_fraction": 0.2,
+      "minimum_interior_scale_support": 2,
+      "minimum_edge_scale_support": 1,
+      "include_edge_singletons": true,
+      "preserve_selected_scale_anchors": true,
+      "duplicate_spacing_period_fraction": 0.55,
+      "arbitration_match_tolerance_period_fraction": 0.45,
+      "arbitration_single_rep_max_confidence_drop": 0.1,
+      "minimum_chain_consensus_events": 2,
+      "edge_closure_gap_period_range": [
+        0.65,
+        1.35
+      ],
+      "half_cycle_recovery": {
+        "gap_period_range": [
+          1.55,
+          2.45
+        ],
+        "predicted_anchor_tolerance_period_fraction": 0.28,
+        "neighbor_gap_period_range": [
+          0.5,
+          1.5
+        ],
+        "minimum_recovery_confidence": 0.35,
+        "minimum_bottom_recovery_confidence": 0.15,
+        "near_boundary_rejected_top": {
+          "enabled": true,
+          "gap_period_range": [
+            2.45,
+            2.65
+          ],
+          "minimum_relative_peak_fraction": 0.4,
+          "minimum_stability": 0.5,
+          "minimum_scale_support": 3,
+          "maximum_anchor_spread_period_fraction": 0.2
+        }
+      },
+      "low_sampling_endpoint_pruning": {
+        "maximum_analysis_fps": 20.0,
+        "minimum_retained_events": 4,
+        "maximum_pruned_endpoint_stability": 0.6
+      },
+      "endpoint_timing_model": {
+        "enabled": true,
+        "context_intervals": 4,
+        "minimum_context_intervals": 3,
+        "maximum_context_relative_mad": 0.25,
+        "minimum_retained_events": 4,
+        "retain_partial_gap_period_range": [
+          0.9,
+          1.1
+        ],
+        "retain_partial_local_gap_ratio_range": [
+          0.72,
+          1.08
+        ],
+        "short_partial_local_gap_ratio": 0.75,
+        "long_partial_local_gap_ratio": 1.45
+      },
+      "local_extrema_stability": {
+        "enabled": true,
+        "gap_period_range": [
+          0.75,
+          1.35
+        ],
+        "minimum_relative_amplitude": 0.9,
+        "minimum_top_stability": 0.7,
+        "minimum_bottom_stability": 0.4,
+        "minimum_bottom_scale_support": 2
+      },
+      "low_amplitude_context_bridge": {
+        "maximum_analysis_fps": 20.0,
+        "minimum_relative_amplitude": 0.2,
+        "minimum_top_stability": 0.4,
+        "minimum_bottom_stability": 0.2,
+        "minimum_scale_support_fraction": 0.5,
+        "minimum_bridge_confidence": 0.45
+      },
+      "local_period_gap": {
+        "enabled": true,
+        "context_intervals_per_side": 2,
+        "minimum_context_intervals": 3,
+        "maximum_relative_mad": 0.25
+      }
+    },
+    "ambiguity_score_ratio": 0.95,
+    "scale_selection_tolerance": 0.05,
+    "scale_prior_bonus": 0.08,
+    "scale_prior_log_sigma": 0.8,
+    "prior_signal_bonus": 0.4
+  },
+  "provenance": {
+    "protocol": "configs/task1_7_protocol.json",
+    "predecessor": "configs/task1_7_signal.json",
+    "analysis_schema": "schemas/task1_7_clip_analysis_v3.schema.json",
+    "selection_scope": "global"
+  }
+}

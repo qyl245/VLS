@@ -107,6 +107,31 @@ COLOR_DARK = (18, 24, 38)
 SEVERITY_LABELS = {"high": "高", "medium": "中", "low": "低", "none": "无"}
 SEVERITY_COLORS = {"high": "#dc2626", "medium": "#ea580c", "low": "#ca8a04", "none": "#64748b"}
 EXERCISE_LABELS = {"squat": "深蹲", "pushup": "俯卧撑"}
+POSE_KEY_JOINTS = {
+    "pushup": (
+        "left_shoulder",
+        "right_shoulder",
+        "left_elbow",
+        "right_elbow",
+        "left_wrist",
+        "right_wrist",
+        "left_hip",
+        "right_hip",
+    ),
+    "squat": (
+        "left_shoulder",
+        "right_shoulder",
+        "left_hip",
+        "right_hip",
+        "left_knee",
+        "right_knee",
+        "left_ankle",
+        "right_ankle",
+    ),
+}
+MIN_KEY_JOINT_VISIBILITY = 0.5
+MIN_PUSHUP_SHOULDER_WRIST_SPAN = 0.05
+MIN_SQUAT_SEGMENT_SPAN = 0.03
 VIEW_LABELS = {
     "front": "正面",
     "rear": "背面",
@@ -122,6 +147,15 @@ REASON_LABELS = {
     "low_confidence": "置信度不足",
     "metric_unavailable": "指标不可用",
     "quality_gate_failed": "质量门控失败",
+}
+
+QUALITY_WARNING_LABELS = {
+    "exercise_posture_reps_rejected": "已剔除不符合动作姿态的热身/起身 rep",
+    "no_complete_reps": "没有可评估的完整有效 rep",
+    "fewer_than_three_complete_reps": "完整有效 rep 少于 3 个，组级指标不评估",
+    "pose_detection_rate_below_pass_threshold": "姿态检出率低于通过阈值",
+    "key_visibility_q10_below_pass_threshold": "关键关节可见性偏低",
+    "body_in_frame_rate_below_pass_threshold": "人体完整入镜率偏低",
 }
 
 FONT_CANDIDATES = (
@@ -258,6 +292,18 @@ def rotate_frame(frame: np.ndarray, rotation: str) -> np.ndarray:
     if code is None:
         return frame
     return cv2.rotate(frame, code)
+
+
+def prune_stale_annotated_frames(frame_dir: Path, keep_names: set[str]) -> int:
+    """Remove evidence frames left behind by suppressed or renumbered issues."""
+    removed = 0
+    if not frame_dir.exists():
+        return removed
+    for path in frame_dir.glob("*.png"):
+        if path.name not in keep_names:
+            path.unlink()
+            removed += 1
+    return removed
 
 
 class VideoFrameReader:
@@ -417,6 +463,38 @@ def normalized_to_pixels(landmarks: list[dict[str, float]], width: int, height: 
 
 def visibility_array(landmarks: list[dict[str, float]]) -> np.ndarray:
     return np.asarray([point["visibility"] for point in landmarks], dtype=np.float64)
+
+
+def landmarks_are_plausible(
+    landmarks: list[dict[str, float]] | None,
+    exercise: str,
+) -> bool:
+    """Reject collapsed or low-visibility poses before drawing an overlay."""
+    if not landmarks:
+        return False
+    names = POSE_KEY_JOINTS.get(exercise)
+    if not names:
+        return True
+    for name in names:
+        if float(landmarks[JOINT_INDEX[name]].get("visibility", 0.0)) < MIN_KEY_JOINT_VISIBILITY:
+            return False
+    if exercise == "pushup":
+        for side in ("left", "right"):
+            shoulder = landmarks[JOINT_INDEX[f"{side}_shoulder"]]
+            wrist = landmarks[JOINT_INDEX[f"{side}_wrist"]]
+            span = math.hypot(shoulder["x"] - wrist["x"], shoulder["y"] - wrist["y"])
+            if span < MIN_PUSHUP_SHOULDER_WRIST_SPAN:
+                return False
+    elif exercise == "squat":
+        for side in ("left", "right"):
+            hip = landmarks[JOINT_INDEX[f"{side}_hip"]]
+            knee = landmarks[JOINT_INDEX[f"{side}_knee"]]
+            ankle = landmarks[JOINT_INDEX[f"{side}_ankle"]]
+            if math.hypot(hip["x"] - knee["x"], hip["y"] - knee["y"]) < MIN_SQUAT_SEGMENT_SPAN:
+                return False
+            if math.hypot(knee["x"] - ankle["x"], knee["y"] - ankle["y"]) < MIN_SQUAT_SEGMENT_SPAN:
+                return False
+    return True
 
 
 def draw_dashed_line(
@@ -1010,7 +1088,10 @@ def build_report_html(
     disabled_text = "、".join(metric_labels.get(metric, metric) for metric in disabled_metrics) or "无"
     warnings = analysis.get("quality", {}).get("warnings", [])
     failures = analysis.get("quality", {}).get("failures", [])
-    quality_text = "；".join(failures + warnings) if failures or warnings else "无质量警告"
+    quality_items = [
+        QUALITY_WARNING_LABELS.get(item, item) for item in failures + warnings
+    ]
+    quality_text = "；".join(quality_items) if quality_items else "无质量警告"
     feedback_rel = Path(os.path.relpath(bundle["feedback_dir"], output_dir)).as_posix()
     analysis_rel = Path(os.path.relpath(bundle["analysis_dir"], output_dir)).as_posix()
     featured_html = "".join(
@@ -1038,7 +1119,12 @@ def build_report_html(
         if others
         else ""
     )
-    if not active_issues:
+    if not active_issues and not reps:
+        no_issue_block = (
+            '<p class="no-issue">本 clip 没有识别到符合目标动作姿态的完整 rep；'
+            '热身、起身和过渡动作已从点评中剔除，因此本段不生成动作问题卡。</p>'
+        )
+    elif not active_issues:
         no_issue_block = '<p class="no-issue">本段未检测到超过初版阈值的活动问题；未评估项仍不表示动作正常。</p>'
     else:
         no_issue_block = ""
@@ -1077,13 +1163,13 @@ def build_report_html(
 
     <section class="viewer panel">
       <div class="panel-title"><h2>clip 回放</h2><span id="player-time">00:00.0</span></div>
-      <video id="player" controls preload="metadata" poster="{html_escape(poster)}" src="{html_escape(video_url)}"></video>
+      <video id="player" controls preload="auto" poster="{html_escape(poster)}" src="{html_escape(video_url)}"></video>
       <div class="viewer-actions">
         <button type="button" onclick="seekRelative(0)">回到 clip 起点</button>
         <button type="button" id="play-evidence" disabled>播放当前证据区间</button>
         <span id="selection-note" class="muted">点击问题卡定位代表帧</span>
       </div>
-      <p class="muted">视频已裁剪并转为浏览器兼容的 VP8/WebM，播放器时间与时间线均为 clip 相对时间；问题卡中的 frame 编号仍对应原始视频。</p>
+      <p class="muted">视频已裁剪并转为浏览器兼容的 VP8/WebM，播放器时间与时间线均为 clip 相对时间；问题卡中的 frame 编号仍对应原始视频。若跳转或拖动失败，请通过 <code>scripts/serve_reports.py</code> 启动服务；<code>python -m http.server</code> 不支持 Range。</p>
     </section>
 
     <section class="panel">
@@ -1205,8 +1291,16 @@ function formatTime(seconds) {
 
 function seekRelative(time, pause = true) {
   if (!player) return;
-  player.currentTime = Math.max(0, Number(time));
-  if (pause) player.pause();
+  const target = Math.max(0, Number(time));
+  const applySeek = () => {
+    player.currentTime = target;
+    if (pause) player.pause();
+  };
+  if (player.readyState >= 1) {
+    applySeek();
+  } else {
+    player.addEventListener('loadedmetadata', applySeek, {once: true});
+  }
   player.scrollIntoView({behavior: 'smooth', block: 'center'});
 }
 
@@ -1300,6 +1394,10 @@ def render_clip(
     frame_dir.mkdir(parents=True, exist_ok=True)
     issue_output = bundle["issue_output"]
     active_issues = [issue for issue in issue_output["issues"] if not issue.get("suppressed")]
+    expected_frame_names = {
+        f"{issue['issue_id']}_frame_{int(issue['anchor_frame'])}.png"
+        for issue in active_issues
+    }
     issue_images = {}
     pose_failures = 0
     pose_fallbacks = 0
@@ -1324,15 +1422,20 @@ def render_clip(
                 anchor = int(issue["anchor_frame"])
                 frame = reader.read(anchor)
                 landmarks = detect_normalized_landmarks(landmarker, frame)
-                if landmarks is None:
-                    landmarks = detect_video_tracked_landmarks(
+                exercise = bundle["analysis"]["exercise"]
+                if not landmarks_are_plausible(landmarks, exercise):
+                    tracked = detect_video_tracked_landmarks(
                         bundle["video_path"],
                         bundle["analysis"].get("rotation", "none"),
                         anchor,
                         float(bundle["analysis"]["fps"]),
                         model_path,
                     )
-                    pose_fallbacks += int(landmarks is not None)
+                    if tracked is not None and landmarks_are_plausible(tracked, exercise):
+                        landmarks = tracked
+                        pose_fallbacks += 1
+                    else:
+                        landmarks = None
                 wide_row = bundle["wide"].get(
                     anchor - int(bundle["analysis"]["trim"]["start_frame"]), {}
                 )
@@ -1350,6 +1453,7 @@ def render_clip(
                 generated_frames += 1
                 pose_failures += int(not detected)
 
+    stale_frames_removed = prune_stale_annotated_frames(frame_dir, expected_frame_names)
     web_video_path = output_dir / "media" / f"{bundle['clip_id']}_clip.webm"
     if not skip_video or not web_video_path.exists():
         web_video_path = build_web_video(bundle, output_dir)
@@ -1383,6 +1487,7 @@ def render_clip(
         "frame_count": generated_frames,
         "pose_fallback_count": pose_fallbacks,
         "pose_detection_failures": pose_failures,
+        "stale_frames_removed": stale_frames_removed,
         "video": str(web_video_path.resolve()),
         "video_codec": "vp8/webm",
         "report": str((output_dir / "report.html").resolve()),

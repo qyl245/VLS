@@ -1,0 +1,6225 @@
+{
+  "schema_version": "task1-4-v1",
+  "artifact_schema_version": "task1-5a-fit3d-clips-v1",
+  "task": "task1-5a",
+  "generated_at": "2026-10-26T13:51:34.016049+00:00",
+  "dataset": "Fit3D",
+  "dataset_root": "/mnt/storage2/data_guest/VLS/dataset/Fit3D",
+  "specs": "/mnt/storage2/data_guest/VLS/V0/configs/task1_4_exercise_specs.json",
+  "split_policy": {
+    "unit": "subject",
+    "dev": [
+      "s03",
+      "s04",
+      "s05",
+      "s07"
+    ],
+    "holdout": [
+      "s08",
+      "s09",
+      "s10",
+      "s11"
+    ],
+    "smoke": [
+      "s02",
+      "s12",
+      "s13"
+    ]
+  },
+  "screening_findings": {
+    "train_action_instances": 16,
+    "train_camera_clips": 64,
+    "unique_rep_count": 96,
+    "view_counts_by_exercise": {
+      "squat": {
+        "front": 12,
+        "oblique_left": 2,
+        "oblique_right": 3,
+        "rear": 15
+      },
+      "pushup": {
+        "oblique_right": 1,
+        "side_left": 16,
+        "side_right": 15
+      }
+    },
+    "view_angle_ranges": {
+      "squat": {
+        "min_deg": 17.848,
+        "median_deg": 26.26,
+        "max_deg": 34.903,
+        "true_side_clip_count": 0
+      },
+      "pushup": {
+        "min_deg": 59.261,
+        "median_deg": 76.465,
+        "max_deg": 89.522,
+        "true_side_clip_count": 31
+      }
+    },
+    "action_variants": {
+      "squat": "barbell_back_squat",
+      "pushup": "standard_floor_pushup"
+    },
+    "notes": [
+      "Fit3D squat is a barbell back squat and does not replace the T1-4 bodyweight squat domain.",
+      "Fit3D squat views are frontal/rear/shallow-oblique; no true side view was found.",
+      "Fit3D pushup views are side/oblique and can support T1-5B side-view validation.",
+      "Side metrics remain disabled in T1-5A pending T1-5B/C validation."
+    ]
+  },
+  "clips": [
+    {
+      "clip_id": "fit3d_s03_squat_50591643",
+      "video_id": "s03_squat_50591643",
+      "subject_id": "s03",
+      "camera_id": "50591643",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/videos/50591643/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1396
+      },
+      "fps": 50.0,
+      "frame_count": 1398,
+      "annotation_frames": 1397,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "rear",
+      "auto_view": "rear",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "rear",
+        "angle_from_frontal_normal_deg": 29.242,
+        "angle_iqr_deg": 0.575,
+        "angle_min_deg": 28.29,
+        "angle_max_deg": 30.922,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.872561,
+        "lateral_axis_dot": -0.479802,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9885,
+        "camera_center": [
+          -4.003571,
+          1.770132,
+          1.552188
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/joints3d_25/squat.json",
+        "rep_frames": [
+          405,
+          528,
+          663,
+          807,
+          952,
+          1090
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/camera_parameters/50591643/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 457.062
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s03_squat_58860488",
+      "video_id": "s03_squat_58860488",
+      "subject_id": "s03",
+      "camera_id": "58860488",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/videos/58860488/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1396
+      },
+      "fps": 50.0,
+      "frame_count": 1401,
+      "annotation_frames": 1397,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "rear",
+      "auto_view": "rear",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "rear",
+        "angle_from_frontal_normal_deg": 18.191,
+        "angle_iqr_deg": 1.067,
+        "angle_min_deg": 16.546,
+        "angle_max_deg": 19.73,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.950018,
+        "lateral_axis_dot": 0.311411,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9787,
+        "camera_center": [
+          -4.099927,
+          -1.729979,
+          1.608338
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/joints3d_25/squat.json",
+        "rep_frames": [
+          405,
+          528,
+          663,
+          807,
+          952,
+          1090
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/camera_parameters/58860488/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 4,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 409.611
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s03_squat_60457274",
+      "video_id": "s03_squat_60457274",
+      "subject_id": "s03",
+      "camera_id": "60457274",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/videos/60457274/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1396
+      },
+      "fps": 50.0,
+      "frame_count": 1398,
+      "annotation_frames": 1397,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "oblique_right",
+      "auto_view": "oblique_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "oblique_right",
+        "angle_from_frontal_normal_deg": 31.907,
+        "angle_iqr_deg": 1.119,
+        "angle_min_deg": 30.638,
+        "angle_max_deg": 33.015,
+        "frame_count": 42,
+        "frontal_axis_dot": -0.848907,
+        "lateral_axis_dot": 0.499177,
+        "front_rear": "front",
+        "camera_side": "right",
+        "view_confidence": 0.9776,
+        "camera_center": [
+          4.016845,
+          -1.590467,
+          1.539976
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/joints3d_25/squat.json",
+        "rep_frames": [
+          405,
+          528,
+          663,
+          807,
+          952,
+          1090
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/camera_parameters/60457274/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 453.119
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s03_squat_65906101",
+      "video_id": "s03_squat_65906101",
+      "subject_id": "s03",
+      "camera_id": "65906101",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/videos/65906101/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1396
+      },
+      "fps": 50.0,
+      "frame_count": 1401,
+      "annotation_frames": 1397,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "front",
+        "angle_from_frontal_normal_deg": 21.257,
+        "angle_iqr_deg": 0.472,
+        "angle_min_deg": 20.223,
+        "angle_max_deg": 25.997,
+        "frame_count": 42,
+        "frontal_axis_dot": -0.931965,
+        "lateral_axis_dot": -0.289943,
+        "front_rear": "front",
+        "camera_side": "left",
+        "view_confidence": 0.9906,
+        "camera_center": [
+          3.914111,
+          1.944161,
+          1.460652
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/joints3d_25/squat.json",
+        "rep_frames": [
+          405,
+          528,
+          663,
+          807,
+          952,
+          1090
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/camera_parameters/65906101/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 4,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 426.263
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s03_pushup_50591643",
+      "video_id": "s03_pushup_50591643",
+      "subject_id": "s03",
+      "camera_id": "50591643",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/videos/50591643/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 963
+      },
+      "fps": 50.0,
+      "frame_count": 965,
+      "annotation_frames": 964,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "auto_view": "side_left",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_left",
+        "angle_from_frontal_normal_deg": 71.509,
+        "angle_iqr_deg": 1.709,
+        "angle_min_deg": 70.092,
+        "angle_max_deg": 74.539,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.31716,
+        "lateral_axis_dot": -0.427577,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9658,
+        "camera_center": [
+          -4.003571,
+          1.770132,
+          1.552188
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/joints3d_25/pushup.json",
+        "rep_frames": [
+          244,
+          348,
+          451,
+          550,
+          658,
+          764
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/camera_parameters/50591643/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 365.455
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s03_pushup_58860488",
+      "video_id": "s03_pushup_58860488",
+      "subject_id": "s03",
+      "camera_id": "58860488",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/videos/58860488/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 963
+      },
+      "fps": 50.0,
+      "frame_count": 967,
+      "annotation_frames": 964,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_right",
+      "auto_view": "side_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_right",
+        "angle_from_frontal_normal_deg": 72.298,
+        "angle_iqr_deg": 1.43,
+        "angle_min_deg": 70.323,
+        "angle_max_deg": 76.769,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.304062,
+        "lateral_axis_dot": 0.3467,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9714,
+        "camera_center": [
+          -4.099927,
+          -1.729979,
+          1.608338
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/joints3d_25/pushup.json",
+        "rep_frames": [
+          244,
+          348,
+          451,
+          550,
+          658,
+          764
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/camera_parameters/58860488/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 3,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 336.857
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s03_pushup_60457274",
+      "video_id": "s03_pushup_60457274",
+      "subject_id": "s03",
+      "camera_id": "60457274",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/videos/60457274/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 963
+      },
+      "fps": 50.0,
+      "frame_count": 965,
+      "annotation_frames": 964,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_right",
+      "auto_view": "side_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_right",
+        "angle_from_frontal_normal_deg": 82.217,
+        "angle_iqr_deg": 1.557,
+        "angle_min_deg": 79.843,
+        "angle_max_deg": 83.271,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.135422,
+        "lateral_axis_dot": 0.452956,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9689,
+        "camera_center": [
+          4.016845,
+          -1.590467,
+          1.539976
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/joints3d_25/pushup.json",
+        "rep_frames": [
+          244,
+          348,
+          451,
+          550,
+          658,
+          764
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/camera_parameters/60457274/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 302.161
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s03_pushup_65906101",
+      "video_id": "s03_pushup_65906101",
+      "subject_id": "s03",
+      "camera_id": "65906101",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/videos/65906101/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 963
+      },
+      "fps": 50.0,
+      "frame_count": 967,
+      "annotation_frames": 964,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "auto_view": "side_left",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_left",
+        "angle_from_frontal_normal_deg": 82.117,
+        "angle_iqr_deg": 1.273,
+        "angle_min_deg": 78.264,
+        "angle_max_deg": 83.705,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.137149,
+        "lateral_axis_dot": -0.33665,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9745,
+        "camera_center": [
+          3.914111,
+          1.944161,
+          1.460652
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/joints3d_25/pushup.json",
+        "rep_frames": [
+          244,
+          348,
+          451,
+          550,
+          658,
+          764
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s03/camera_parameters/65906101/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 3,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 289.697
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s04_squat_50591643",
+      "video_id": "s04_squat_50591643",
+      "subject_id": "s04",
+      "camera_id": "50591643",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/videos/50591643/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1273
+      },
+      "fps": 50.0,
+      "frame_count": 1275,
+      "annotation_frames": 1274,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "rear",
+      "auto_view": "rear",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "rear",
+        "angle_from_frontal_normal_deg": 28.926,
+        "angle_iqr_deg": 1.66,
+        "angle_min_deg": 26.841,
+        "angle_max_deg": 30.645,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.875243,
+        "lateral_axis_dot": -0.467263,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9668,
+        "camera_center": [
+          -4.075194,
+          1.63409,
+          1.555429
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/joints3d_25/squat.json",
+        "rep_frames": [
+          335,
+          450,
+          579,
+          692,
+          825,
+          954
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/camera_parameters/50591643/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 470.288
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s04_squat_58860488",
+      "video_id": "s04_squat_58860488",
+      "subject_id": "s04",
+      "camera_id": "58860488",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/videos/58860488/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1273
+      },
+      "fps": 50.0,
+      "frame_count": 1277,
+      "annotation_frames": 1274,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "rear",
+      "auto_view": "rear",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "rear",
+        "angle_from_frontal_normal_deg": 21.006,
+        "angle_iqr_deg": 1.25,
+        "angle_min_deg": 18.776,
+        "angle_max_deg": 22.012,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.933543,
+        "lateral_axis_dot": 0.349661,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.975,
+        "camera_center": [
+          -4.032143,
+          -1.872008,
+          1.60213
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/joints3d_25/squat.json",
+        "rep_frames": [
+          335,
+          450,
+          579,
+          692,
+          825,
+          954
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/camera_parameters/58860488/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 3,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 421.042
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s04_squat_60457274",
+      "video_id": "s04_squat_60457274",
+      "subject_id": "s04",
+      "camera_id": "60457274",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/videos/60457274/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1273
+      },
+      "fps": 50.0,
+      "frame_count": 1275,
+      "annotation_frames": 1274,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "front",
+        "angle_from_frontal_normal_deg": 28.316,
+        "angle_iqr_deg": 1.542,
+        "angle_min_deg": 27.047,
+        "angle_max_deg": 30.362,
+        "frame_count": 42,
+        "frontal_axis_dot": -0.880342,
+        "lateral_axis_dot": 0.459383,
+        "front_rear": "front",
+        "camera_side": "right",
+        "view_confidence": 0.9692,
+        "camera_center": [
+          4.086555,
+          -1.442275,
+          1.542049
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/joints3d_25/squat.json",
+        "rep_frames": [
+          335,
+          450,
+          579,
+          692,
+          825,
+          954
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/camera_parameters/60457274/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 449.914
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s04_squat_65906101",
+      "video_id": "s04_squat_65906101",
+      "subject_id": "s04",
+      "camera_id": "65906101",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/videos/65906101/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1273
+      },
+      "fps": 50.0,
+      "frame_count": 1277,
+      "annotation_frames": 1274,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "front",
+        "angle_from_frontal_normal_deg": 20.089,
+        "angle_iqr_deg": 2.376,
+        "angle_min_deg": 18.323,
+        "angle_max_deg": 22.798,
+        "frame_count": 42,
+        "frontal_axis_dot": -0.939162,
+        "lateral_axis_dot": -0.314223,
+        "front_rear": "front",
+        "camera_side": "left",
+        "view_confidence": 0.9525,
+        "camera_center": [
+          3.902394,
+          2.121436,
+          1.483635
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/joints3d_25/squat.json",
+        "rep_frames": [
+          335,
+          450,
+          579,
+          692,
+          825,
+          954
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/camera_parameters/65906101/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 3,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 426.382
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s04_pushup_50591643",
+      "video_id": "s04_pushup_50591643",
+      "subject_id": "s04",
+      "camera_id": "50591643",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/videos/50591643/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 915
+      },
+      "fps": 50.0,
+      "frame_count": 918,
+      "annotation_frames": 916,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "auto_view": "side_left",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_left",
+        "angle_from_frontal_normal_deg": 65.192,
+        "angle_iqr_deg": 3.606,
+        "angle_min_deg": 62.09,
+        "angle_max_deg": 76.22,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.419574,
+        "lateral_axis_dot": -0.460023,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9279,
+        "camera_center": [
+          -4.075194,
+          1.63409,
+          1.555429
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/joints3d_25/pushup.json",
+        "rep_frames": [
+          191,
+          297,
+          408,
+          522,
+          624,
+          721
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/camera_parameters/50591643/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 2,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 317.151
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s04_pushup_58860488",
+      "video_id": "s04_pushup_58860488",
+      "subject_id": "s04",
+      "camera_id": "58860488",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/videos/58860488/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 915
+      },
+      "fps": 50.0,
+      "frame_count": 920,
+      "annotation_frames": 916,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_right",
+      "auto_view": "side_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_right",
+        "angle_from_frontal_normal_deg": 62.013,
+        "angle_iqr_deg": 2.87,
+        "angle_min_deg": 57.918,
+        "angle_max_deg": 65.999,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.469273,
+        "lateral_axis_dot": 0.268996,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9426,
+        "camera_center": [
+          -4.032143,
+          -1.872008,
+          1.60213
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/joints3d_25/pushup.json",
+        "rep_frames": [
+          191,
+          297,
+          408,
+          522,
+          624,
+          721
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/camera_parameters/58860488/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 4,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 288.496
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s04_pushup_60457274",
+      "video_id": "s04_pushup_60457274",
+      "subject_id": "s04",
+      "camera_id": "60457274",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/videos/60457274/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 915
+      },
+      "fps": 50.0,
+      "frame_count": 918,
+      "annotation_frames": 916,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_right",
+      "auto_view": "side_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_right",
+        "angle_from_frontal_normal_deg": 86.184,
+        "angle_iqr_deg": 2.61,
+        "angle_min_deg": 76.944,
+        "angle_max_deg": 88.481,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.06656,
+        "lateral_axis_dot": 0.486047,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9478,
+        "camera_center": [
+          4.086555,
+          -1.442275,
+          1.542049
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/joints3d_25/pushup.json",
+        "rep_frames": [
+          191,
+          297,
+          408,
+          522,
+          624,
+          721
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/camera_parameters/60457274/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 2,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 287.06
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s04_pushup_65906101",
+      "video_id": "s04_pushup_65906101",
+      "subject_id": "s04",
+      "camera_id": "65906101",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/videos/65906101/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 915
+      },
+      "fps": 50.0,
+      "frame_count": 920,
+      "annotation_frames": 916,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "auto_view": "side_left",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_left",
+        "angle_from_frontal_normal_deg": 89.35,
+        "angle_iqr_deg": 1.451,
+        "angle_min_deg": 86.82,
+        "angle_max_deg": 89.975,
+        "frame_count": 42,
+        "frontal_axis_dot": -0.002754,
+        "lateral_axis_dot": -0.338745,
+        "front_rear": "front",
+        "camera_side": "left",
+        "view_confidence": 0.971,
+        "camera_center": [
+          3.902394,
+          2.121436,
+          1.483635
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/joints3d_25/pushup.json",
+        "rep_frames": [
+          191,
+          297,
+          408,
+          522,
+          624,
+          721
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s04/camera_parameters/65906101/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 4,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 269.338
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s05_squat_50591643",
+      "video_id": "s05_squat_50591643",
+      "subject_id": "s05",
+      "camera_id": "50591643",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/videos/50591643/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1270
+      },
+      "fps": 50.0,
+      "frame_count": 1272,
+      "annotation_frames": 1271,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "rear",
+      "auto_view": "rear",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "rear",
+        "angle_from_frontal_normal_deg": 28.415,
+        "angle_iqr_deg": 2.645,
+        "angle_min_deg": 26.149,
+        "angle_max_deg": 31.47,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.879526,
+        "lateral_axis_dot": -0.456409,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9471,
+        "camera_center": [
+          -3.953525,
+          1.853178,
+          1.534646
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/joints3d_25/squat.json",
+        "rep_frames": [
+          354,
+          469,
+          571,
+          677,
+          781,
+          899
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/camera_parameters/50591643/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 449.33
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s05_squat_58860488",
+      "video_id": "s05_squat_58860488",
+      "subject_id": "s05",
+      "camera_id": "58860488",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/videos/58860488/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1270
+      },
+      "fps": 50.0,
+      "frame_count": 1274,
+      "annotation_frames": 1271,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "rear",
+      "auto_view": "rear",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "rear",
+        "angle_from_frontal_normal_deg": 21.0,
+        "angle_iqr_deg": 1.585,
+        "angle_min_deg": 19.445,
+        "angle_max_deg": 24.073,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.933579,
+        "lateral_axis_dot": 0.353477,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9683,
+        "camera_center": [
+          -4.152958,
+          -1.638042,
+          1.603131
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/joints3d_25/squat.json",
+        "rep_frames": [
+          354,
+          469,
+          571,
+          677,
+          781,
+          899
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/camera_parameters/58860488/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 3,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 401.005
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s05_squat_60457274",
+      "video_id": "s05_squat_60457274",
+      "subject_id": "s05",
+      "camera_id": "60457274",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/videos/60457274/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1270
+      },
+      "fps": 50.0,
+      "frame_count": 1272,
+      "annotation_frames": 1271,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "front",
+        "angle_from_frontal_normal_deg": 28.955,
+        "angle_iqr_deg": 1.52,
+        "angle_min_deg": 26.085,
+        "angle_max_deg": 30.15,
+        "frame_count": 42,
+        "frontal_axis_dot": -0.875002,
+        "lateral_axis_dot": 0.465105,
+        "front_rear": "front",
+        "camera_side": "right",
+        "view_confidence": 0.9696,
+        "camera_center": [
+          4.000446,
+          -1.684367,
+          1.55458
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/joints3d_25/squat.json",
+        "rep_frames": [
+          354,
+          469,
+          571,
+          677,
+          781,
+          899
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/camera_parameters/60457274/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 428.311
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s05_squat_65906101",
+      "video_id": "s05_squat_65906101",
+      "subject_id": "s05",
+      "camera_id": "65906101",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/videos/65906101/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1270
+      },
+      "fps": 50.0,
+      "frame_count": 1274,
+      "annotation_frames": 1271,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "front",
+        "angle_from_frontal_normal_deg": 21.162,
+        "angle_iqr_deg": 2.12,
+        "angle_min_deg": 17.869,
+        "angle_max_deg": 24.474,
+        "frame_count": 42,
+        "frontal_axis_dot": -0.932564,
+        "lateral_axis_dot": -0.310951,
+        "front_rear": "front",
+        "camera_side": "left",
+        "view_confidence": 0.9576,
+        "camera_center": [
+          3.959089,
+          1.868637,
+          1.466272
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/joints3d_25/squat.json",
+        "rep_frames": [
+          354,
+          469,
+          571,
+          677,
+          781,
+          899
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/camera_parameters/65906101/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 3,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 407.651
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s05_pushup_50591643",
+      "video_id": "s05_pushup_50591643",
+      "subject_id": "s05",
+      "camera_id": "50591643",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/videos/50591643/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 793
+      },
+      "fps": 50.0,
+      "frame_count": 794,
+      "annotation_frames": 794,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "auto_view": "side_left",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_left",
+        "angle_from_frontal_normal_deg": 65.605,
+        "angle_iqr_deg": 2.516,
+        "angle_min_deg": 63.56,
+        "angle_max_deg": 68.968,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.413,
+        "lateral_axis_dot": -0.455409,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9497,
+        "camera_center": [
+          -3.953525,
+          1.853178,
+          1.534646
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/joints3d_25/pushup.json",
+        "rep_frames": [
+          242,
+          320,
+          388,
+          454,
+          524,
+          592
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/camera_parameters/50591643/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 0,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 311.692
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s05_pushup_58860488",
+      "video_id": "s05_pushup_58860488",
+      "subject_id": "s05",
+      "camera_id": "58860488",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/videos/58860488/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 793
+      },
+      "fps": 50.0,
+      "frame_count": 796,
+      "annotation_frames": 794,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_right",
+      "auto_view": "side_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_right",
+        "angle_from_frontal_normal_deg": 65.59,
+        "angle_iqr_deg": 0.566,
+        "angle_min_deg": 64.042,
+        "angle_max_deg": 71.149,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.413267,
+        "lateral_axis_dot": 0.253351,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9887,
+        "camera_center": [
+          -4.152958,
+          -1.638042,
+          1.603131
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/joints3d_25/pushup.json",
+        "rep_frames": [
+          242,
+          320,
+          388,
+          454,
+          524,
+          592
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/camera_parameters/58860488/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 2,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 296.728
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s05_pushup_60457274",
+      "video_id": "s05_pushup_60457274",
+      "subject_id": "s05",
+      "camera_id": "60457274",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/videos/60457274/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 793
+      },
+      "fps": 50.0,
+      "frame_count": 794,
+      "annotation_frames": 794,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_right",
+      "auto_view": "side_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_right",
+        "angle_from_frontal_normal_deg": 84.4,
+        "angle_iqr_deg": 2.814,
+        "angle_min_deg": 82.374,
+        "angle_max_deg": 86.225,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.097573,
+        "lateral_axis_dot": 0.535822,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9437,
+        "camera_center": [
+          4.000446,
+          -1.684367,
+          1.55458
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/joints3d_25/pushup.json",
+        "rep_frames": [
+          242,
+          320,
+          388,
+          454,
+          524,
+          592
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/camera_parameters/60457274/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 0,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 284.342
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s05_pushup_65906101",
+      "video_id": "s05_pushup_65906101",
+      "subject_id": "s05",
+      "camera_id": "65906101",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/videos/65906101/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 793
+      },
+      "fps": 50.0,
+      "frame_count": 796,
+      "annotation_frames": 794,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "auto_view": "side_left",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_left",
+        "angle_from_frontal_normal_deg": 84.932,
+        "angle_iqr_deg": 0.784,
+        "angle_min_deg": 80.601,
+        "angle_max_deg": 86.341,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.088342,
+        "lateral_axis_dot": -0.310489,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9843,
+        "camera_center": [
+          3.959089,
+          1.868637,
+          1.466272
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/joints3d_25/pushup.json",
+        "rep_frames": [
+          242,
+          320,
+          388,
+          454,
+          524,
+          592
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s05/camera_parameters/65906101/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 2,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 273.543
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s07_squat_50591643",
+      "video_id": "s07_squat_50591643",
+      "subject_id": "s07",
+      "camera_id": "50591643",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/videos/50591643/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 977
+      },
+      "fps": 50.0,
+      "frame_count": 979,
+      "annotation_frames": 978,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "rear",
+      "auto_view": "rear",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "rear",
+        "angle_from_frontal_normal_deg": 23.524,
+        "angle_iqr_deg": 2.731,
+        "angle_min_deg": 21.992,
+        "angle_max_deg": 27.547,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.916891,
+        "lateral_axis_dot": -0.383361,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9454,
+        "camera_center": [
+          -4.01153,
+          1.790016,
+          1.547655
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/joints3d_25/squat.json",
+        "rep_frames": [
+          275,
+          393,
+          474,
+          556,
+          633,
+          710
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/camera_parameters/50591643/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 416.429
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s07_squat_58860488",
+      "video_id": "s07_squat_58860488",
+      "subject_id": "s07",
+      "camera_id": "58860488",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/videos/58860488/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 977
+      },
+      "fps": 50.0,
+      "frame_count": 980,
+      "annotation_frames": 978,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "rear",
+      "auto_view": "rear",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "rear",
+        "angle_from_frontal_normal_deg": 25.473,
+        "angle_iqr_deg": 2.399,
+        "angle_min_deg": 21.472,
+        "angle_max_deg": 26.573,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.902785,
+        "lateral_axis_dot": 0.429099,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.952,
+        "camera_center": [
+          -4.116989,
+          -1.715747,
+          1.590945
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/joints3d_25/squat.json",
+        "rep_frames": [
+          275,
+          393,
+          474,
+          556,
+          633,
+          710
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/camera_parameters/58860488/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 2,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 365.582
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s07_squat_60457274",
+      "video_id": "s07_squat_60457274",
+      "subject_id": "s07",
+      "camera_id": "60457274",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/videos/60457274/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 977
+      },
+      "fps": 50.0,
+      "frame_count": 979,
+      "annotation_frames": 978,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "front",
+        "angle_from_frontal_normal_deg": 26.032,
+        "angle_iqr_deg": 2.2,
+        "angle_min_deg": 24.636,
+        "angle_max_deg": 30.284,
+        "frame_count": 42,
+        "frontal_axis_dot": -0.898546,
+        "lateral_axis_dot": 0.406152,
+        "front_rear": "front",
+        "camera_side": "right",
+        "view_confidence": 0.956,
+        "camera_center": [
+          4.031174,
+          -1.629996,
+          1.554701
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/joints3d_25/squat.json",
+        "rep_frames": [
+          275,
+          393,
+          474,
+          556,
+          633,
+          710
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/camera_parameters/60457274/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 390.932
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s07_squat_65906101",
+      "video_id": "s07_squat_65906101",
+      "subject_id": "s07",
+      "camera_id": "65906101",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/videos/65906101/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 977
+      },
+      "fps": 50.0,
+      "frame_count": 980,
+      "annotation_frames": 978,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "front",
+        "angle_from_frontal_normal_deg": 25.3,
+        "angle_iqr_deg": 4.078,
+        "angle_min_deg": 21.983,
+        "angle_max_deg": 28.574,
+        "frame_count": 42,
+        "frontal_axis_dot": -0.904075,
+        "lateral_axis_dot": -0.366115,
+        "front_rear": "front",
+        "camera_side": "left",
+        "view_confidence": 0.9184,
+        "camera_center": [
+          3.935358,
+          1.918504,
+          1.477594
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/joints3d_25/squat.json",
+        "rep_frames": [
+          275,
+          393,
+          474,
+          556,
+          633,
+          710
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/camera_parameters/65906101/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 2,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 365.431
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s07_pushup_50591643",
+      "video_id": "s07_pushup_50591643",
+      "subject_id": "s07",
+      "camera_id": "50591643",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/videos/50591643/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 770
+      },
+      "fps": 50.0,
+      "frame_count": 772,
+      "annotation_frames": 771,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "auto_view": "side_left",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_left",
+        "angle_from_frontal_normal_deg": 75.639,
+        "angle_iqr_deg": 3.967,
+        "angle_min_deg": 69.945,
+        "angle_max_deg": 88.024,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.248025,
+        "lateral_axis_dot": -0.496712,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9207,
+        "camera_center": [
+          -4.01153,
+          1.790016,
+          1.547655
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/joints3d_25/pushup.json",
+        "rep_frames": [
+          257,
+          355,
+          411,
+          467,
+          527,
+          585
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/camera_parameters/50591643/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 283.487
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s07_pushup_58860488",
+      "video_id": "s07_pushup_58860488",
+      "subject_id": "s07",
+      "camera_id": "58860488",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/videos/58860488/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 770
+      },
+      "fps": 50.0,
+      "frame_count": 774,
+      "annotation_frames": 771,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_right",
+      "auto_view": "side_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_right",
+        "angle_from_frontal_normal_deg": 74.937,
+        "angle_iqr_deg": 3.049,
+        "angle_min_deg": 68.6,
+        "angle_max_deg": 82.048,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.259876,
+        "lateral_axis_dot": 0.233194,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.939,
+        "camera_center": [
+          -4.116989,
+          -1.715747,
+          1.590945
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/joints3d_25/pushup.json",
+        "rep_frames": [
+          257,
+          355,
+          411,
+          467,
+          527,
+          585
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/camera_parameters/58860488/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 3,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 254.499
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s07_pushup_60457274",
+      "video_id": "s07_pushup_60457274",
+      "subject_id": "s07",
+      "camera_id": "60457274",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/videos/60457274/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 770
+      },
+      "fps": 50.0,
+      "frame_count": 772,
+      "annotation_frames": 771,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_right",
+      "auto_view": "side_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_right",
+        "angle_from_frontal_normal_deg": 77.292,
+        "angle_iqr_deg": 3.613,
+        "angle_min_deg": 66.158,
+        "angle_max_deg": 81.495,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.21999,
+        "lateral_axis_dot": 0.54141,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9277,
+        "camera_center": [
+          4.031174,
+          -1.629996,
+          1.554701
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/joints3d_25/pushup.json",
+        "rep_frames": [
+          257,
+          355,
+          411,
+          467,
+          527,
+          585
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/camera_parameters/60457274/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 285.789
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s07_pushup_65906101",
+      "video_id": "s07_pushup_65906101",
+      "subject_id": "s07",
+      "camera_id": "65906101",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/videos/65906101/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 770
+      },
+      "fps": 50.0,
+      "frame_count": 774,
+      "annotation_frames": 771,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "auto_view": "side_left",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_left",
+        "angle_from_frontal_normal_deg": 78.861,
+        "angle_iqr_deg": 2.719,
+        "angle_min_deg": 73.984,
+        "angle_max_deg": 83.736,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.193182,
+        "lateral_axis_dot": -0.276886,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9456,
+        "camera_center": [
+          3.935358,
+          1.918504,
+          1.477594
+        ]
+      },
+      "split": "dev",
+      "phase_role": "dev",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/joints3d_25/pushup.json",
+        "rep_frames": [
+          257,
+          355,
+          411,
+          467,
+          527,
+          585
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s07/camera_parameters/65906101/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 3,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 262.775
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s08_squat_50591643",
+      "video_id": "s08_squat_50591643",
+      "subject_id": "s08",
+      "camera_id": "50591643",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/videos/50591643/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1245
+      },
+      "fps": 50.0,
+      "frame_count": 1247,
+      "annotation_frames": 1246,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "rear",
+      "auto_view": "rear",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "rear",
+        "angle_from_frontal_normal_deg": 29.373,
+        "angle_iqr_deg": 2.183,
+        "angle_min_deg": 25.984,
+        "angle_max_deg": 31.262,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.871444,
+        "lateral_axis_dot": -0.452527,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9563,
+        "camera_center": [
+          -4.07729,
+          1.575392,
+          1.543258
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/joints3d_25/squat.json",
+        "rep_frames": [
+          363,
+          465,
+          577,
+          696,
+          810,
+          909
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/camera_parameters/50591643/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 421.335
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s08_squat_58860488",
+      "video_id": "s08_squat_58860488",
+      "subject_id": "s08",
+      "camera_id": "58860488",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/videos/58860488/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1245
+      },
+      "fps": 50.0,
+      "frame_count": 1248,
+      "annotation_frames": 1246,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "rear",
+      "auto_view": "rear",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "rear",
+        "angle_from_frontal_normal_deg": 23.12,
+        "angle_iqr_deg": 1.611,
+        "angle_min_deg": 21.384,
+        "angle_max_deg": 26.836,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.919683,
+        "lateral_axis_dot": 0.377867,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9678,
+        "camera_center": [
+          -4.006146,
+          -1.923246,
+          1.592184
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/joints3d_25/squat.json",
+        "rep_frames": [
+          363,
+          465,
+          577,
+          696,
+          810,
+          909
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/camera_parameters/58860488/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 2,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 375.265
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s08_squat_60457274",
+      "video_id": "s08_squat_60457274",
+      "subject_id": "s08",
+      "camera_id": "60457274",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/videos/60457274/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1245
+      },
+      "fps": 50.0,
+      "frame_count": 1247,
+      "annotation_frames": 1246,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "front",
+        "angle_from_frontal_normal_deg": 27.532,
+        "angle_iqr_deg": 1.498,
+        "angle_min_deg": 23.585,
+        "angle_max_deg": 29.462,
+        "frame_count": 42,
+        "frontal_axis_dot": -0.886752,
+        "lateral_axis_dot": 0.447968,
+        "front_rear": "front",
+        "camera_side": "right",
+        "view_confidence": 0.97,
+        "camera_center": [
+          4.1166,
+          -1.393164,
+          1.548353
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/joints3d_25/squat.json",
+        "rep_frames": [
+          363,
+          465,
+          577,
+          696,
+          810,
+          909
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/camera_parameters/60457274/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 368.713
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s08_squat_65906101",
+      "video_id": "s08_squat_65906101",
+      "subject_id": "s08",
+      "camera_id": "65906101",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/videos/65906101/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1245
+      },
+      "fps": 50.0,
+      "frame_count": 1248,
+      "annotation_frames": 1246,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "front",
+        "angle_from_frontal_normal_deg": 21.262,
+        "angle_iqr_deg": 2.558,
+        "angle_min_deg": 18.681,
+        "angle_max_deg": 23.952,
+        "frame_count": 42,
+        "frontal_axis_dot": -0.931929,
+        "lateral_axis_dot": -0.303746,
+        "front_rear": "front",
+        "camera_side": "left",
+        "view_confidence": 0.9488,
+        "camera_center": [
+          3.853701,
+          2.154083,
+          1.482318
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/joints3d_25/squat.json",
+        "rep_frames": [
+          363,
+          465,
+          577,
+          696,
+          810,
+          909
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/camera_parameters/65906101/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 2,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 354.622
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s08_pushup_50591643",
+      "video_id": "s08_pushup_50591643",
+      "subject_id": "s08",
+      "camera_id": "50591643",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/videos/50591643/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 693
+      },
+      "fps": 50.0,
+      "frame_count": 696,
+      "annotation_frames": 694,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "auto_view": "side_left",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_left",
+        "angle_from_frontal_normal_deg": 63.225,
+        "angle_iqr_deg": 1.144,
+        "angle_min_deg": 61.607,
+        "angle_max_deg": 82.826,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.450491,
+        "lateral_axis_dot": -0.502376,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9771,
+        "camera_center": [
+          -4.07729,
+          1.575392,
+          1.543258
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/joints3d_25/pushup.json",
+        "rep_frames": [
+          163,
+          260,
+          325,
+          399,
+          476,
+          550
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/camera_parameters/50591643/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 2,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 319.907
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s08_pushup_58860488",
+      "video_id": "s08_pushup_58860488",
+      "subject_id": "s08",
+      "camera_id": "58860488",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/videos/58860488/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 693
+      },
+      "fps": 50.0,
+      "frame_count": 698,
+      "annotation_frames": 694,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_right",
+      "auto_view": "side_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_right",
+        "angle_from_frontal_normal_deg": 60.204,
+        "angle_iqr_deg": 1.526,
+        "angle_min_deg": 56.983,
+        "angle_max_deg": 84.819,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.496912,
+        "lateral_axis_dot": 0.227036,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9695,
+        "camera_center": [
+          -4.006146,
+          -1.923246,
+          1.592184
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/joints3d_25/pushup.json",
+        "rep_frames": [
+          163,
+          260,
+          325,
+          399,
+          476,
+          550
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/camera_parameters/58860488/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 4,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 290.557
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s08_pushup_60457274",
+      "video_id": "s08_pushup_60457274",
+      "subject_id": "s08",
+      "camera_id": "60457274",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/videos/60457274/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 693
+      },
+      "fps": 50.0,
+      "frame_count": 696,
+      "annotation_frames": 694,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_right",
+      "auto_view": "side_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_right",
+        "angle_from_frontal_normal_deg": 86.291,
+        "angle_iqr_deg": 0.763,
+        "angle_min_deg": 70.558,
+        "angle_max_deg": 87.356,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.064691,
+        "lateral_axis_dot": 0.530363,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9847,
+        "camera_center": [
+          4.1166,
+          -1.393164,
+          1.548353
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/joints3d_25/pushup.json",
+        "rep_frames": [
+          163,
+          260,
+          325,
+          399,
+          476,
+          550
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/camera_parameters/60457274/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 2,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 299.712
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s08_pushup_65906101",
+      "video_id": "s08_pushup_65906101",
+      "subject_id": "s08",
+      "camera_id": "65906101",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/videos/65906101/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 693
+      },
+      "fps": 50.0,
+      "frame_count": 698,
+      "annotation_frames": 694,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "auto_view": "side_left",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_left",
+        "angle_from_frontal_normal_deg": 89.522,
+        "angle_iqr_deg": 1.405,
+        "angle_min_deg": 68.958,
+        "angle_max_deg": 89.997,
+        "frame_count": 42,
+        "frontal_axis_dot": 3.6e-05,
+        "lateral_axis_dot": -0.273346,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9719,
+        "camera_center": [
+          3.853701,
+          2.154083,
+          1.482318
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/joints3d_25/pushup.json",
+        "rep_frames": [
+          163,
+          260,
+          325,
+          399,
+          476,
+          550
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s08/camera_parameters/65906101/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 4,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 276.257
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s09_squat_50591643",
+      "video_id": "s09_squat_50591643",
+      "subject_id": "s09",
+      "camera_id": "50591643",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/videos/50591643/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1212
+      },
+      "fps": 50.0,
+      "frame_count": 1214,
+      "annotation_frames": 1213,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "rear",
+      "auto_view": "rear",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "rear",
+        "angle_from_frontal_normal_deg": 26.918,
+        "angle_iqr_deg": 3.6,
+        "angle_min_deg": 23.854,
+        "angle_max_deg": 28.699,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.891546,
+        "lateral_axis_dot": -0.451342,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.928,
+        "camera_center": [
+          -3.967588,
+          1.860534,
+          1.540121
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/joints3d_25/squat.json",
+        "rep_frames": [
+          370,
+          484,
+          609,
+          724,
+          832,
+          931
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/camera_parameters/50591643/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 415.046
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s09_squat_58860488",
+      "video_id": "s09_squat_58860488",
+      "subject_id": "s09",
+      "camera_id": "58860488",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/videos/58860488/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1212
+      },
+      "fps": 50.0,
+      "frame_count": 1216,
+      "annotation_frames": 1213,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "rear",
+      "auto_view": "rear",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "rear",
+        "angle_from_frontal_normal_deg": 22.657,
+        "angle_iqr_deg": 3.455,
+        "angle_min_deg": 20.059,
+        "angle_max_deg": 25.824,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.922831,
+        "lateral_axis_dot": 0.367627,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9309,
+        "camera_center": [
+          -4.136529,
+          -1.631597,
+          1.59529
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/joints3d_25/squat.json",
+        "rep_frames": [
+          370,
+          484,
+          609,
+          724,
+          832,
+          931
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/camera_parameters/58860488/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 3,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 372.696
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s09_squat_60457274",
+      "video_id": "s09_squat_60457274",
+      "subject_id": "s09",
+      "camera_id": "60457274",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/videos/60457274/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1212
+      },
+      "fps": 50.0,
+      "frame_count": 1214,
+      "annotation_frames": 1213,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "oblique_right",
+      "auto_view": "oblique_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "oblique_right",
+        "angle_from_frontal_normal_deg": 31.525,
+        "angle_iqr_deg": 4.071,
+        "angle_min_deg": 25.99,
+        "angle_max_deg": 36.184,
+        "frame_count": 42,
+        "frontal_axis_dot": -0.852409,
+        "lateral_axis_dot": 0.449145,
+        "front_rear": "front",
+        "camera_side": "right",
+        "view_confidence": 0.9186,
+        "camera_center": [
+          3.989562,
+          -1.690712,
+          1.552104
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/joints3d_25/squat.json",
+        "rep_frames": [
+          370,
+          484,
+          609,
+          724,
+          832,
+          931
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/camera_parameters/60457274/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 377.211
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s09_squat_65906101",
+      "video_id": "s09_squat_65906101",
+      "subject_id": "s09",
+      "camera_id": "65906101",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/videos/65906101/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1212
+      },
+      "fps": 50.0,
+      "frame_count": 1216,
+      "annotation_frames": 1213,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "front",
+        "angle_from_frontal_normal_deg": 27.969,
+        "angle_iqr_deg": 3.514,
+        "angle_min_deg": 23.958,
+        "angle_max_deg": 31.781,
+        "frame_count": 42,
+        "frontal_axis_dot": -0.883198,
+        "lateral_axis_dot": -0.315794,
+        "front_rear": "front",
+        "camera_side": "left",
+        "view_confidence": 0.9297,
+        "camera_center": [
+          3.968585,
+          1.858509,
+          1.472699
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/joints3d_25/squat.json",
+        "rep_frames": [
+          370,
+          484,
+          609,
+          724,
+          832,
+          931
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/camera_parameters/65906101/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 3,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 359.237
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s09_pushup_50591643",
+      "video_id": "s09_pushup_50591643",
+      "subject_id": "s09",
+      "camera_id": "50591643",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/videos/50591643/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 694
+      },
+      "fps": 50.0,
+      "frame_count": 696,
+      "annotation_frames": 695,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "auto_view": "side_left",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_left",
+        "angle_from_frontal_normal_deg": 72.017,
+        "angle_iqr_deg": 5.298,
+        "angle_min_deg": 68.382,
+        "angle_max_deg": 83.767,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.308733,
+        "lateral_axis_dot": -0.350138,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.894,
+        "camera_center": [
+          -3.967588,
+          1.860534,
+          1.540121
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/joints3d_25/pushup.json",
+        "rep_frames": [
+          202,
+          280,
+          343,
+          399,
+          453,
+          511
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/camera_parameters/50591643/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 256.611
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s09_pushup_58860488",
+      "video_id": "s09_pushup_58860488",
+      "subject_id": "s09",
+      "camera_id": "58860488",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/videos/58860488/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 694
+      },
+      "fps": 50.0,
+      "frame_count": 697,
+      "annotation_frames": 695,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_right",
+      "auto_view": "side_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_right",
+        "angle_from_frontal_normal_deg": 74.266,
+        "angle_iqr_deg": 2.598,
+        "angle_min_deg": 72.371,
+        "angle_max_deg": 87.002,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.27117,
+        "lateral_axis_dot": 0.355993,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.948,
+        "camera_center": [
+          -4.136529,
+          -1.631597,
+          1.59529
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/joints3d_25/pushup.json",
+        "rep_frames": [
+          202,
+          280,
+          343,
+          399,
+          453,
+          511
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/camera_parameters/58860488/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 2,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 249.059
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s09_pushup_60457274",
+      "video_id": "s09_pushup_60457274",
+      "subject_id": "s09",
+      "camera_id": "60457274",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/videos/60457274/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 694
+      },
+      "fps": 50.0,
+      "frame_count": 696,
+      "annotation_frames": 695,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_right",
+      "auto_view": "side_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_right",
+        "angle_from_frontal_normal_deg": 80.221,
+        "angle_iqr_deg": 5.509,
+        "angle_min_deg": 72.179,
+        "angle_max_deg": 84.19,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.169843,
+        "lateral_axis_dot": 0.47298,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.8898,
+        "camera_center": [
+          3.989562,
+          -1.690712,
+          1.552104
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/joints3d_25/pushup.json",
+        "rep_frames": [
+          202,
+          280,
+          343,
+          399,
+          453,
+          511
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/camera_parameters/60457274/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 303.386
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s09_pushup_65906101",
+      "video_id": "s09_pushup_65906101",
+      "subject_id": "s09",
+      "camera_id": "65906101",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/videos/65906101/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 694
+      },
+      "fps": 50.0,
+      "frame_count": 697,
+      "annotation_frames": 695,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "auto_view": "side_left",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_left",
+        "angle_from_frontal_normal_deg": 78.308,
+        "angle_iqr_deg": 2.022,
+        "angle_min_deg": 68.452,
+        "angle_max_deg": 80.247,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.202654,
+        "lateral_axis_dot": -0.40029,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9596,
+        "camera_center": [
+          3.968585,
+          1.858509,
+          1.472699
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/joints3d_25/pushup.json",
+        "rep_frames": [
+          202,
+          280,
+          343,
+          399,
+          453,
+          511
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s09/camera_parameters/65906101/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 2,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 297.993
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s10_squat_50591643",
+      "video_id": "s10_squat_50591643",
+      "subject_id": "s10",
+      "camera_id": "50591643",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/videos/50591643/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1479
+      },
+      "fps": 50.0,
+      "frame_count": 1481,
+      "annotation_frames": 1480,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "rear",
+      "auto_view": "rear",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "rear",
+        "angle_from_frontal_normal_deg": 23.763,
+        "angle_iqr_deg": 1.704,
+        "angle_min_deg": 22.096,
+        "angle_max_deg": 25.726,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.91522,
+        "lateral_axis_dot": -0.402814,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9659,
+        "camera_center": [
+          -3.958731,
+          1.900525,
+          1.545448
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/joints3d_25/squat.json",
+        "rep_frames": [
+          376,
+          531,
+          676,
+          816,
+          979,
+          1128
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/camera_parameters/50591643/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 479.314
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s10_squat_58860488",
+      "video_id": "s10_squat_58860488",
+      "subject_id": "s10",
+      "camera_id": "58860488",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/videos/58860488/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1479
+      },
+      "fps": 50.0,
+      "frame_count": 1485,
+      "annotation_frames": 1480,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "rear",
+      "auto_view": "rear",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "rear",
+        "angle_from_frontal_normal_deg": 26.696,
+        "angle_iqr_deg": 1.584,
+        "angle_min_deg": 26.101,
+        "angle_max_deg": 28.412,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.893392,
+        "lateral_axis_dot": 0.436905,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9683,
+        "camera_center": [
+          -4.153219,
+          -1.595476,
+          1.603549
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/joints3d_25/squat.json",
+        "rep_frames": [
+          376,
+          531,
+          676,
+          816,
+          979,
+          1128
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/camera_parameters/58860488/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 5,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 426.341
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s10_squat_60457274",
+      "video_id": "s10_squat_60457274",
+      "subject_id": "s10",
+      "camera_id": "60457274",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/videos/60457274/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1479
+      },
+      "fps": 50.0,
+      "frame_count": 1481,
+      "annotation_frames": 1480,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "front",
+        "angle_from_frontal_normal_deg": 26.488,
+        "angle_iqr_deg": 2.553,
+        "angle_min_deg": 21.334,
+        "angle_max_deg": 30.726,
+        "frame_count": 42,
+        "frontal_axis_dot": -0.895029,
+        "lateral_axis_dot": 0.375972,
+        "front_rear": "front",
+        "camera_side": "right",
+        "view_confidence": 0.9489,
+        "camera_center": [
+          3.981445,
+          -1.716896,
+          1.553866
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/joints3d_25/squat.json",
+        "rep_frames": [
+          376,
+          531,
+          676,
+          816,
+          979,
+          1128
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/camera_parameters/60457274/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 438.834
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s10_squat_65906101",
+      "video_id": "s10_squat_65906101",
+      "subject_id": "s10",
+      "camera_id": "65906101",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/videos/65906101/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1479
+      },
+      "fps": 50.0,
+      "frame_count": 1485,
+      "annotation_frames": 1480,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "oblique_left",
+      "auto_view": "oblique_left",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "oblique_left",
+        "angle_from_frontal_normal_deg": 30.239,
+        "angle_iqr_deg": 2.042,
+        "angle_min_deg": 26.15,
+        "angle_max_deg": 31.396,
+        "frame_count": 42,
+        "frontal_axis_dot": -0.863931,
+        "lateral_axis_dot": -0.375327,
+        "front_rear": "front",
+        "camera_side": "left",
+        "view_confidence": 0.9592,
+        "camera_center": [
+          3.997751,
+          1.836603,
+          1.46639
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/joints3d_25/squat.json",
+        "rep_frames": [
+          376,
+          531,
+          676,
+          816,
+          979,
+          1128
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/camera_parameters/65906101/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 5,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 412.814
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s10_pushup_50591643",
+      "video_id": "s10_pushup_50591643",
+      "subject_id": "s10",
+      "camera_id": "50591643",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/videos/50591643/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1040
+      },
+      "fps": 50.0,
+      "frame_count": 1042,
+      "annotation_frames": 1041,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "auto_view": "side_left",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_left",
+        "angle_from_frontal_normal_deg": 65.371,
+        "angle_iqr_deg": 0.935,
+        "angle_min_deg": 62.324,
+        "angle_max_deg": 74.575,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.416742,
+        "lateral_axis_dot": -0.432701,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9813,
+        "camera_center": [
+          -3.958731,
+          1.900525,
+          1.545448
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/joints3d_25/pushup.json",
+        "rep_frames": [
+          250,
+          345,
+          444,
+          537,
+          644,
+          750
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/camera_parameters/50591643/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 325.022
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s10_pushup_58860488",
+      "video_id": "s10_pushup_58860488",
+      "subject_id": "s10",
+      "camera_id": "58860488",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/videos/58860488/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1040
+      },
+      "fps": 50.0,
+      "frame_count": 1043,
+      "annotation_frames": 1041,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_right",
+      "auto_view": "side_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_right",
+        "angle_from_frontal_normal_deg": 68.59,
+        "angle_iqr_deg": 0.972,
+        "angle_min_deg": 64.965,
+        "angle_max_deg": 77.174,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.365042,
+        "lateral_axis_dot": 0.2892,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9806,
+        "camera_center": [
+          -4.153219,
+          -1.595476,
+          1.603549
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/joints3d_25/pushup.json",
+        "rep_frames": [
+          250,
+          345,
+          444,
+          537,
+          644,
+          750
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/camera_parameters/58860488/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 2,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 295.752
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s10_pushup_60457274",
+      "video_id": "s10_pushup_60457274",
+      "subject_id": "s10",
+      "camera_id": "60457274",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/videos/60457274/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1040
+      },
+      "fps": 50.0,
+      "frame_count": 1042,
+      "annotation_frames": 1041,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_right",
+      "auto_view": "side_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_right",
+        "angle_from_frontal_normal_deg": 86.769,
+        "angle_iqr_deg": 0.786,
+        "angle_min_deg": 79.648,
+        "angle_max_deg": 88.912,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.056362,
+        "lateral_axis_dot": 0.549481,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9843,
+        "camera_center": [
+          3.981445,
+          -1.716896,
+          1.553866
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/joints3d_25/pushup.json",
+        "rep_frames": [
+          250,
+          345,
+          444,
+          537,
+          644,
+          750
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/camera_parameters/60457274/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 350.849
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s10_pushup_65906101",
+      "video_id": "s10_pushup_65906101",
+      "subject_id": "s10",
+      "camera_id": "65906101",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/videos/65906101/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1040
+      },
+      "fps": 50.0,
+      "frame_count": 1043,
+      "annotation_frames": 1041,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "auto_view": "side_left",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_left",
+        "angle_from_frontal_normal_deg": 84.325,
+        "angle_iqr_deg": 0.768,
+        "angle_min_deg": 77.446,
+        "angle_max_deg": 87.179,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.098879,
+        "lateral_axis_dot": -0.278513,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9846,
+        "camera_center": [
+          3.997751,
+          1.836603,
+          1.46639
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/joints3d_25/pushup.json",
+        "rep_frames": [
+          250,
+          345,
+          444,
+          537,
+          644,
+          750
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s10/camera_parameters/65906101/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 2,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 328.032
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s11_squat_50591643",
+      "video_id": "s11_squat_50591643",
+      "subject_id": "s11",
+      "camera_id": "50591643",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/videos/50591643/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1966
+      },
+      "fps": 50.0,
+      "frame_count": 1968,
+      "annotation_frames": 1967,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "oblique_left",
+      "auto_view": "oblique_left",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "oblique_left",
+        "angle_from_frontal_normal_deg": 33.493,
+        "angle_iqr_deg": 4.066,
+        "angle_min_deg": 30.034,
+        "angle_max_deg": 40.119,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.833955,
+        "lateral_axis_dot": -0.524892,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9187,
+        "camera_center": [
+          -3.994451,
+          1.817903,
+          1.545352
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/joints3d_25/squat.json",
+        "rep_frames": [
+          635,
+          816,
+          997,
+          1184,
+          1368,
+          1543
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/camera_parameters/50591643/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 442.173
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s11_squat_58860488",
+      "video_id": "s11_squat_58860488",
+      "subject_id": "s11",
+      "camera_id": "58860488",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/videos/58860488/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1966
+      },
+      "fps": 50.0,
+      "frame_count": 1970,
+      "annotation_frames": 1967,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "rear",
+      "auto_view": "rear",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "rear",
+        "angle_from_frontal_normal_deg": 17.848,
+        "angle_iqr_deg": 4.56,
+        "angle_min_deg": 9.132,
+        "angle_max_deg": 20.327,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.951871,
+        "lateral_axis_dot": 0.294743,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9088,
+        "camera_center": [
+          -4.113893,
+          -1.680244,
+          1.590974
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/joints3d_25/squat.json",
+        "rep_frames": [
+          635,
+          816,
+          997,
+          1184,
+          1368,
+          1543
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/camera_parameters/58860488/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 3,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 396.989
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s11_squat_60457274",
+      "video_id": "s11_squat_60457274",
+      "subject_id": "s11",
+      "camera_id": "60457274",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/videos/60457274/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1966
+      },
+      "fps": 50.0,
+      "frame_count": 1968,
+      "annotation_frames": 1967,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "oblique_right",
+      "auto_view": "oblique_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "oblique_right",
+        "angle_from_frontal_normal_deg": 34.903,
+        "angle_iqr_deg": 3.807,
+        "angle_min_deg": 31.986,
+        "angle_max_deg": 41.327,
+        "frame_count": 42,
+        "frontal_axis_dot": -0.820109,
+        "lateral_axis_dot": 0.528442,
+        "front_rear": "front",
+        "camera_side": "right",
+        "view_confidence": 0.9239,
+        "camera_center": [
+          4.017769,
+          -1.646166,
+          1.551816
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/joints3d_25/squat.json",
+        "rep_frames": [
+          635,
+          816,
+          997,
+          1184,
+          1368,
+          1543
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/camera_parameters/60457274/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 411.882
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s11_squat_65906101",
+      "video_id": "s11_squat_65906101",
+      "subject_id": "s11",
+      "camera_id": "65906101",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/videos/65906101/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1966
+      },
+      "fps": 50.0,
+      "frame_count": 1970,
+      "annotation_frames": 1967,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "front",
+      "auto_view": "front",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "front",
+        "angle_from_frontal_normal_deg": 19.706,
+        "angle_iqr_deg": 5.597,
+        "angle_min_deg": 17.062,
+        "angle_max_deg": 27.153,
+        "frame_count": 42,
+        "frontal_axis_dot": -0.941436,
+        "lateral_axis_dot": -0.219696,
+        "front_rear": "front",
+        "camera_side": "left",
+        "view_confidence": 0.8881,
+        "camera_center": [
+          3.955812,
+          1.90726,
+          1.473309
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "hip_asymmetry_bottom",
+        "knee_asymmetry_bottom",
+        "knee_valgus_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_flexion_rom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "view_unsupported"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/joints3d_25/squat.json",
+        "rep_frames": [
+          635,
+          816,
+          997,
+          1184,
+          1368,
+          1543
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/camera_parameters/65906101/squat.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 3,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 384.142
+      },
+      "notes": "Fit3D squat uses a barbell; it is not the bodyweight squat targeted by T1-4."
+    },
+    {
+      "clip_id": "fit3d_s11_pushup_50591643",
+      "video_id": "s11_pushup_50591643",
+      "subject_id": "s11",
+      "camera_id": "50591643",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/videos/50591643/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1062
+      },
+      "fps": 50.0,
+      "frame_count": 1064,
+      "annotation_frames": 1063,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "auto_view": "side_left",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_left",
+        "angle_from_frontal_normal_deg": 65.391,
+        "angle_iqr_deg": 4.062,
+        "angle_min_deg": 63.782,
+        "angle_max_deg": 70.63,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.416429,
+        "lateral_axis_dot": -0.533007,
+        "front_rear": "rear",
+        "camera_side": "left",
+        "view_confidence": 0.9188,
+        "camera_center": [
+          -3.994451,
+          1.817903,
+          1.545352
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/joints3d_25/pushup.json",
+        "rep_frames": [
+          283,
+          390,
+          489,
+          594,
+          692,
+          802
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/camera_parameters/50591643/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 332.311
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s11_pushup_58860488",
+      "video_id": "s11_pushup_58860488",
+      "subject_id": "s11",
+      "camera_id": "58860488",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/videos/58860488/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1062
+      },
+      "fps": 50.0,
+      "frame_count": 1065,
+      "annotation_frames": 1063,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "oblique_right",
+      "auto_view": "oblique_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "oblique_right",
+        "angle_from_frontal_normal_deg": 59.261,
+        "angle_iqr_deg": 3.393,
+        "angle_min_deg": 57.729,
+        "angle_max_deg": 68.387,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.511126,
+        "lateral_axis_dot": 0.185751,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9321,
+        "camera_center": [
+          -4.113893,
+          -1.680244,
+          1.590974
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "elbow_asymmetry_bottom",
+        "rep_duration_cv",
+        "rep_duration_s",
+        "shoulder_asymmetry_bottom",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/joints3d_25/pushup.json",
+        "rep_frames": [
+          283,
+          390,
+          489,
+          594,
+          692,
+          802
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/camera_parameters/58860488/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 2,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 285.058
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s11_pushup_60457274",
+      "video_id": "s11_pushup_60457274",
+      "subject_id": "s11",
+      "camera_id": "60457274",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/videos/60457274/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1062
+      },
+      "fps": 50.0,
+      "frame_count": 1064,
+      "annotation_frames": 1063,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_right",
+      "auto_view": "side_right",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_right",
+        "angle_from_frontal_normal_deg": 85.193,
+        "angle_iqr_deg": 3.288,
+        "angle_min_deg": 81.6,
+        "angle_max_deg": 86.259,
+        "frame_count": 42,
+        "frontal_axis_dot": 0.083808,
+        "lateral_axis_dot": 0.551247,
+        "front_rear": "rear",
+        "camera_side": "right",
+        "view_confidence": 0.9342,
+        "camera_center": [
+          4.017769,
+          -1.646166,
+          1.551816
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/joints3d_25/pushup.json",
+        "rep_frames": [
+          283,
+          390,
+          489,
+          594,
+          692,
+          802
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/camera_parameters/60457274/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 1,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 297.387
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s11_pushup_65906101",
+      "video_id": "s11_pushup_65906101",
+      "subject_id": "s11",
+      "camera_id": "65906101",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/videos/65906101/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1062
+      },
+      "fps": 50.0,
+      "frame_count": 1065,
+      "annotation_frames": 1063,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "auto_view": "side_left",
+      "view_source": "camera_geometry",
+      "view_geometry": {
+        "view": "side_left",
+        "angle_from_frontal_normal_deg": 87.507,
+        "angle_iqr_deg": 1.122,
+        "angle_min_deg": 85.094,
+        "angle_max_deg": 89.91,
+        "frame_count": 42,
+        "frontal_axis_dot": -0.041505,
+        "lateral_axis_dot": -0.255989,
+        "front_rear": "front",
+        "camera_side": "left",
+        "view_confidence": 0.9776,
+        "camera_center": [
+          3.955812,
+          1.90726,
+          1.473309
+        ]
+      },
+      "split": "holdout",
+      "phase_role": "holdout",
+      "selected_for_phase": true,
+      "smoke_only": false,
+      "has_gt": true,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_flexion_rom",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "pending_t1_5b_validation"
+      },
+      "gt": {
+        "joints3d_25": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/joints3d_25/pushup.json",
+        "rep_frames": [
+          283,
+          390,
+          489,
+          594,
+          692,
+          802
+        ],
+        "rep_frame_unit": "frame_index",
+        "camera_parameters": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/train/s11/camera_parameters/65906101/pushup.json",
+        "camera_model": "opencv_world_to_camera_t_equals_minus_R_center"
+      },
+      "quality": {
+        "video_minus_annotation_frames": 2,
+        "projection_in_frame_rate": 1.0,
+        "projection_depth_valid_rate": 1.0,
+        "projection_median_visible_joint_span_px": 253.474
+      },
+      "notes": "Fit3D pushup is a standard floor pushup."
+    },
+    {
+      "clip_id": "fit3d_s02_squat_smoke",
+      "video_id": "s02_squat_smoke",
+      "subject_id": "s02",
+      "camera_id": "test_single",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/test/s02/videos/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1735
+      },
+      "fps": 50.0,
+      "frame_count": 1736,
+      "annotation_frames": null,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "unknown",
+      "auto_view": "unknown",
+      "view_source": "unavailable_no_gt",
+      "view_geometry": null,
+      "split": "smoke",
+      "phase_role": "smoke",
+      "selected_for_phase": false,
+      "smoke_only": true,
+      "has_gt": false,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_asymmetry_bottom",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_asymmetry_bottom",
+        "knee_flexion_rom",
+        "knee_valgus_bottom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "smoke_only_no_gt"
+      },
+      "gt": null,
+      "quality": {
+        "projection_in_frame_rate": null
+      },
+      "notes": "Fit3D test has no 3D or rep GT; smoke test only."
+    },
+    {
+      "clip_id": "fit3d_s02_pushup_smoke",
+      "video_id": "s02_pushup_smoke",
+      "subject_id": "s02",
+      "camera_id": "test_single",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/test/s02/videos/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1144
+      },
+      "fps": 50.0,
+      "frame_count": 1145,
+      "annotation_frames": null,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "unknown",
+      "auto_view": "unknown",
+      "view_source": "unavailable_no_gt",
+      "view_geometry": null,
+      "split": "smoke",
+      "phase_role": "smoke",
+      "selected_for_phase": false,
+      "smoke_only": true,
+      "has_gt": false,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "smoke_only_no_gt"
+      },
+      "gt": null,
+      "quality": {
+        "projection_in_frame_rate": null
+      },
+      "notes": "Fit3D test has no 3D or rep GT; smoke test only."
+    },
+    {
+      "clip_id": "fit3d_s12_squat_smoke",
+      "video_id": "s12_squat_smoke",
+      "subject_id": "s12",
+      "camera_id": "test_single",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/test/s12/videos/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1306
+      },
+      "fps": 50.0,
+      "frame_count": 1307,
+      "annotation_frames": null,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "unknown",
+      "auto_view": "unknown",
+      "view_source": "unavailable_no_gt",
+      "view_geometry": null,
+      "split": "smoke",
+      "phase_role": "smoke",
+      "selected_for_phase": false,
+      "smoke_only": true,
+      "has_gt": false,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_asymmetry_bottom",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_asymmetry_bottom",
+        "knee_flexion_rom",
+        "knee_valgus_bottom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "smoke_only_no_gt"
+      },
+      "gt": null,
+      "quality": {
+        "projection_in_frame_rate": null
+      },
+      "notes": "Fit3D test has no 3D or rep GT; smoke test only."
+    },
+    {
+      "clip_id": "fit3d_s12_pushup_smoke",
+      "video_id": "s12_pushup_smoke",
+      "subject_id": "s12",
+      "camera_id": "test_single",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/test/s12/videos/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 861
+      },
+      "fps": 50.0,
+      "frame_count": 862,
+      "annotation_frames": null,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "unknown",
+      "auto_view": "unknown",
+      "view_source": "unavailable_no_gt",
+      "view_geometry": null,
+      "split": "smoke",
+      "phase_role": "smoke",
+      "selected_for_phase": false,
+      "smoke_only": true,
+      "has_gt": false,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "smoke_only_no_gt"
+      },
+      "gt": null,
+      "quality": {
+        "projection_in_frame_rate": null
+      },
+      "notes": "Fit3D test has no 3D or rep GT; smoke test only."
+    },
+    {
+      "clip_id": "fit3d_s13_squat_smoke",
+      "video_id": "s13_squat_smoke",
+      "subject_id": "s13",
+      "camera_id": "test_single",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/test/s13/videos/squat.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "action_variant": "barbell_back_squat",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 1444
+      },
+      "fps": 50.0,
+      "frame_count": 1445,
+      "annotation_frames": null,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "unknown",
+      "auto_view": "unknown",
+      "view_source": "unavailable_no_gt",
+      "view_geometry": null,
+      "split": "smoke",
+      "phase_role": "smoke",
+      "selected_for_phase": false,
+      "smoke_only": true,
+      "has_gt": false,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "bottom_knee_angle",
+        "hip_asymmetry_bottom",
+        "hip_depth_ratio",
+        "hip_flexion_rom",
+        "knee_asymmetry_bottom",
+        "knee_flexion_rom",
+        "knee_valgus_bottom",
+        "torso_lean_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "smoke_only_no_gt"
+      },
+      "gt": null,
+      "quality": {
+        "projection_in_frame_rate": null
+      },
+      "notes": "Fit3D test has no 3D or rep GT; smoke test only."
+    },
+    {
+      "clip_id": "fit3d_s13_pushup_smoke",
+      "video_id": "s13_pushup_smoke",
+      "subject_id": "s13",
+      "camera_id": "test_single",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Fit3D/test/s13/videos/pushup.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "action_variant": "standard_floor_pushup",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 843
+      },
+      "fps": 50.0,
+      "frame_count": 844,
+      "annotation_frames": null,
+      "source_size": {
+        "width": 900,
+        "height": 900
+      },
+      "rotation": "none",
+      "view": "unknown",
+      "auto_view": "unknown",
+      "view_source": "unavailable_no_gt",
+      "view_geometry": null,
+      "split": "smoke",
+      "phase_role": "smoke",
+      "selected_for_phase": false,
+      "smoke_only": true,
+      "has_gt": false,
+      "usable_metrics": [
+        "rep_duration_cv",
+        "rep_duration_s",
+        "spine_stability_bottom"
+      ],
+      "side_metric_candidates": [],
+      "disabled_metrics": [
+        "body_line_angle",
+        "bottom_elbow_angle",
+        "elbow_asymmetry_bottom",
+        "elbow_flexion_rom",
+        "hip_sag_ratio",
+        "shoulder_asymmetry_bottom"
+      ],
+      "metric_policy": {
+        "side_metrics_enabled": false,
+        "side_metrics_status": "smoke_only_no_gt"
+      },
+      "gt": null,
+      "quality": {
+        "projection_in_frame_rate": null
+      },
+      "notes": "Fit3D test has no 3D or rep GT; smoke test only."
+    }
+  ]
+}

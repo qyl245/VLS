@@ -1,0 +1,56 @@
+{
+  "schema_version": "task1-6-confidence-config-v1",
+  "task": "T1-6D",
+  "frozen": true,
+  "core": {
+    "dataset_independent": true,
+    "method": "binned_beta_lower_bound",
+    "input_score": "rep.confidence.combined",
+    "reported_layers": [
+      "complete",
+      "in_set",
+      "combined"
+    ],
+    "evaluation_unit": "default_set_complete_rep",
+    "accepted_rep_status": "complete",
+    "endpoint_partial_policy": "candidate_only_not_accepted_complete_rep",
+    "bin_edges": [
+      0.0,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1.0
+    ],
+    "lower_bound_alpha": 0.1,
+    "raw_beta_lower_bounds": [
+      0.025996253575,
+      0.239661828899,
+      0.794328234724,
+      0.967179864298,
+      0.825404185268
+    ],
+    "lower_bounds": [
+      0.025996253575,
+      0.239661828899,
+      0.794328234724,
+      0.967179864298,
+      0.967179864298
+    ],
+    "monotonic_enforced": true,
+    "high_confidence_threshold": 0.5,
+    "ece_bins": 10,
+    "ece_relative_improvement_min": 0.5
+  },
+  "provenance": {
+    "generated_at": "2026-10-26T15:50:47.897480+00:00",
+    "fit_scope": "fit3d_dev_default_complete_rep_only",
+    "sample_count": 103,
+    "positive_count": 96,
+    "negative_count": 7,
+    "cluster_count": 8,
+    "sources_sha256": "a7aa8a677490f15ec7c22cc0b655329519e2c6fc851457f9a8e9ce2b5ba70f48",
+    "chain_config_sha256": "99c44bbe61bf8a6411009c8867bfc622f04c4e439e4e50ea1b634a931c23732d",
+    "segmenter_config_sha256": "355dabb217c8048d942a66e1e5bc774d46fd7656d03a2828d2959113a0efdf27"
+  }
+}

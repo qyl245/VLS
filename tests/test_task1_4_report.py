@@ -159,6 +159,49 @@ class TimelineTests(unittest.TestCase):
 
 
 class FrameRenderingTests(unittest.TestCase):
+    def test_landmarks_are_plausible_rejects_collapsed_or_missing_pose(self) -> None:
+        collapsed = [
+            {"x": 0.5, "y": 0.5, "z": 0.0, "visibility": 0.99}
+            for _ in range(33)
+        ]
+        self.assertFalse(
+            render_clip_report.landmarks_are_plausible(collapsed, "pushup")
+        )
+        self.assertFalse(render_clip_report.landmarks_are_plausible(None, "pushup"))
+
+        plausible = [
+            {"x": 0.5, "y": 0.5, "z": 0.0, "visibility": 0.95}
+            for _ in range(33)
+        ]
+        for side, sign in (("left", 1.0), ("right", -1.0)):
+            plausible[render_clip_report.JOINT_INDEX[f"{side}_shoulder"]] = {
+                "x": 0.5 + 0.10 * sign,
+                "y": 0.40,
+                "z": 0.0,
+                "visibility": 0.95,
+            }
+            plausible[render_clip_report.JOINT_INDEX[f"{side}_elbow"]] = {
+                "x": 0.5 + 0.20 * sign,
+                "y": 0.45,
+                "z": 0.0,
+                "visibility": 0.95,
+            }
+            plausible[render_clip_report.JOINT_INDEX[f"{side}_wrist"]] = {
+                "x": 0.5 + 0.25 * sign,
+                "y": 0.55,
+                "z": 0.0,
+                "visibility": 0.95,
+            }
+            plausible[render_clip_report.JOINT_INDEX[f"{side}_hip"]] = {
+                "x": 0.5 + 0.05 * sign,
+                "y": 0.55,
+                "z": 0.0,
+                "visibility": 0.95,
+            }
+        self.assertTrue(
+            render_clip_report.landmarks_are_plausible(plausible, "pushup")
+        )
+
     def test_skeleton_and_text_overlay_change_frame(self) -> None:
         frame = np.full((640, 480, 3), 240, dtype=np.uint8)
         landmarks = []
@@ -206,6 +249,18 @@ class FrameRenderingTests(unittest.TestCase):
             self.assertEqual(int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), 320)
             self.assertEqual(int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)), 240)
             cap.release()
+
+    def test_prune_stale_annotated_frames_removes_orphans(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            frame_dir = Path(temp_dir)
+            (frame_dir / "keep_frame_10.png").write_bytes(b"keep")
+            (frame_dir / "stale_frame_20.png").write_bytes(b"stale")
+            removed = render_clip_report.prune_stale_annotated_frames(
+                frame_dir, {"keep_frame_10.png"}
+            )
+            self.assertEqual(removed, 1)
+            self.assertTrue((frame_dir / "keep_frame_10.png").exists())
+            self.assertFalse((frame_dir / "stale_frame_20.png").exists())
 
 
 class TextLayoutTests(unittest.TestCase):
@@ -272,6 +327,43 @@ class HtmlTests(unittest.TestCase):
         page = render_clip_report.build_index_html(summary)
         self.assertIn('href="synthetic_squat/report.html"', page)
         self.assertIn("动作反馈报告索引", page)
+
+    def test_no_rep_report_explains_posture_rejections(self) -> None:
+        bundle = make_bundle()
+        bundle["analysis"]["quality"]["warnings"] = ["exercise_posture_reps_rejected"]
+        bundle["analysis"]["segmentation"]["reps"] = []
+        bundle["issue_output"]["issues"] = []
+        bundle["issue_output"]["summary"] = {
+            "active_issue_count": 0,
+            "suppressed_issue_count": 0,
+        }
+        with tempfile.TemporaryDirectory() as temp_dir:
+            page = render_clip_report.build_report_html(
+                bundle,
+                json.loads((ROOT / "configs" / "task1_4_feedback_templates.json").read_text()),
+                {},
+                "video.mp4",
+                "source.mp4",
+                Path(temp_dir),
+            )
+        self.assertIn("已剔除不符合动作姿态的热身/起身 rep", page)
+        self.assertIn("没有识别到符合目标动作姿态的完整 rep", page)
+        self.assertNotIn("本段未检测到超过初版阈值的活动问题", page)
+
+    def test_report_preloads_video_and_queues_seek_before_metadata(self) -> None:
+        bundle = make_bundle()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            page = render_clip_report.build_report_html(
+                bundle,
+                json.loads((ROOT / "configs" / "task1_4_feedback_templates.json").read_text()),
+                {"squat_knee_valgus_01": "annotated_frames/test.png"},
+                "video.mp4",
+                "source.mp4",
+                Path(temp_dir),
+            )
+        self.assertIn('preload="auto"', page)
+        self.assertIn("player.addEventListener('loadedmetadata', applySeek", page)
+        self.assertIn("serve_reports.py", page)
 
 
 if __name__ == "__main__":

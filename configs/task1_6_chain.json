@@ -1,0 +1,45 @@
+{
+  "schema_version": "task1-6-chain-config-v1",
+  "task": "T1-6C",
+  "revision": "t1-6f-tail-anchor-v1",
+  "frozen": true,
+  "core": {
+    "dataset_independent": true,
+    "minimum_relative_amplitude": 0.5,
+    "minimum_edge_quality": 0.2,
+    "minimum_chain_reps": 3,
+    "gap_period_range": [
+      0.55,
+      1.55
+    ],
+    "period_log_sigma": 0.2,
+    "bottom_duration_sigma": 0.15,
+    "edge_quality_weights": {
+      "period": 0.55,
+      "relative_amplitude": 0.25,
+      "bottom_duration": 0.2
+    },
+    "node_quality_weights": {
+      "top_stability": 0.45,
+      "bottom_stability": 0.25,
+      "relative_amplitude": 0.3
+    },
+    "edge_support_weight": 0.3,
+    "tail_anchor": {
+      "dataset_independent": true,
+      "scope": "last_selected_event_per_chain",
+      "policy": "earlier_of_plateau_midpoint_and_phase_zero_crossing",
+      "rationale": "terminal top plateaus may include post-set holds; report the plateau entry-side anchor while preserving midpoint graph timing"
+    },
+    "default_set_order": [
+      "chain_length_desc",
+      "chain_confidence_desc",
+      "start_frame_asc"
+    ],
+    "low_evidence": {
+      "minimum_phase_periodicity": 0.2,
+      "fallback": "legacy_reps_if_available_else_no_confident_set"
+    },
+    "high_confidence_threshold": 0.5
+  }
+}
