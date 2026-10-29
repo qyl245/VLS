@@ -83,28 +83,30 @@ defineExpose({ seek, togglePlay })
 <template>
   <div class="player card">
     <div class="stage">
-      <video
-        ref="video"
-        :src="src"
-        preload="metadata"
-        playsinline
-        controls
-        @loadedmetadata="onLoaded"
-        @seeked="(e) => emit('time', (e.target as HTMLVideoElement).currentTime)"
-        @play="startLoop"
-        @pause="stopLoop"
-        @ended="stopLoop"
-      />
-      <div v-if="overlayUrl" class="overlay">
-        <div class="overlay-head">
-          <span class="overlay-title">{{ overlayTitle }}</span>
-          <span v-if="overlayTime !== null" class="overlay-time">
+      <div class="video-wrap">
+        <video
+          ref="video"
+          :src="src"
+          preload="metadata"
+          playsinline
+          controls
+          @loadedmetadata="onLoaded"
+          @seeked="(e) => emit('time', (e.target as HTMLVideoElement).currentTime)"
+          @play="startLoop"
+          @pause="stopLoop"
+          @ended="stopLoop"
+        />
+      </div>
+      <aside v-if="overlayUrl" class="evidence">
+        <div class="evidence-head">
+          <span class="evidence-title">{{ overlayTitle }}</span>
+          <span v-if="overlayTime !== null" class="evidence-time">
             t={{ overlayTime.toFixed(2) }}s · 证据帧
           </span>
-          <button class="overlay-close" title="关闭证据帧" @click="emit('overlay-close')">×</button>
+          <button class="evidence-close" title="关闭证据帧" @click="emit('overlay-close')">×</button>
         </div>
         <img :src="overlayUrl" :alt="overlayTitle" />
-      </div>
+      </aside>
     </div>
   </div>
 </template>
@@ -118,9 +120,16 @@ defineExpose({ seek, togglePlay })
   position: relative;
   background: #050809;
   display: flex;
+  align-items: stretch;
+  min-height: 260px;
+}
+
+.video-wrap {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 260px;
 }
 
 video {
@@ -130,18 +139,16 @@ video {
   background: #050809;
 }
 
-.overlay {
-  position: absolute;
-  inset: auto 12px 12px auto;
-  width: min(46%, 380px);
-  background: rgba(10, 14, 16, 0.94);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+.evidence {
+  flex: 0 0 clamp(220px, 30%, 360px);
+  display: flex;
+  flex-direction: column;
+  background: #0a0e10;
+  border-left: 1px solid var(--border);
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
 }
 
-.overlay-head {
+.evidence-head {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -150,26 +157,39 @@ video {
   border-bottom: 1px solid var(--border);
 }
 
-.overlay-title {
+.evidence-title {
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.overlay-time {
+.evidence-time {
   color: var(--text-dim);
   font-family: var(--mono);
 }
 
-.overlay-close {
+.evidence-close {
   padding: 0 6px;
   line-height: 1.2;
   border-radius: 6px;
 }
 
-.overlay img {
+.evidence img {
   display: block;
   width: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 860px) {
+  .stage {
+    flex-direction: column;
+  }
+
+  .evidence {
+    flex: none;
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
 }
 </style>
