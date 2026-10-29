@@ -1,0 +1,6 @@
+# Web 层附加依赖 —— 需叠加在既有分析环境之上安装，不是独立完整环境。
+# 目标解释器：D:\anaconda\envs\VLS\python.exe（已含 mediapipe / opencv / numpy / scipy）
+fastapi==0.162.0
+uvicorn[standard]==0.54.0
+python-multipart==0.0.32
+httpx==0.28.1
