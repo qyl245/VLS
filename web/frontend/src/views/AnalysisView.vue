@@ -137,6 +137,16 @@ function closeOverlay() {
   selectedIssueId.value = null
 }
 
+function playIssueEvidence(issue: IssueItem) {
+  const interval = issue.evidence_interval_s
+  if (!interval || interval.length < 2 || interval[1] <= interval[0]) {
+    selectIssue(issue)
+    return
+  }
+  selectedIssueId.value = issue.issue_id
+  player.value?.playRange(interval[0], interval[1])
+}
+
 watch(
   resourceId,
   () => {
@@ -236,6 +246,7 @@ onBeforeUnmount(() => {
           :issues="detail.issues"
           :selected-id="selectedIssueId"
           @select="selectIssue"
+          @play-evidence="playIssueEvidence"
         />
       </div>
 

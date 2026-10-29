@@ -8,7 +8,10 @@ const props = defineProps<{
   selectedId: string | null
 }>()
 
-const emit = defineEmits<{ select: [issue: IssueItem] }>()
+const emit = defineEmits<{
+  select: [issue: IssueItem]
+  'play-evidence': [issue: IssueItem]
+}>()
 
 const showSuppressed = ref(false)
 
@@ -20,6 +23,16 @@ const suppressedCount = computed(() => props.issues.filter((issue) => issue.supp
 
 function severityLabel(severity: string) {
   return { high: '高', medium: '中', low: '低' }[severity] ?? severity
+}
+
+function hasInterval(issue: IssueItem) {
+  const interval = issue.evidence_interval_s
+  return Boolean(interval && interval.length >= 2 && interval[1] > interval[0])
+}
+
+function intervalTitle(issue: IssueItem) {
+  const [start, end] = issue.evidence_interval_s ?? []
+  return `播放 ${start.toFixed(2)}–${end.toFixed(2)}s`
 }
 </script>
 
@@ -62,8 +75,18 @@ function severityLabel(severity: string) {
         <p class="cue">提示：{{ issue.cue }}</p>
 
         <div class="issue-foot">
-          <span v-if="issue.frame_url" class="badge pass">证据帧可用</span>
-          <span v-else class="dim">无证据帧</span>
+          <span class="foot-left">
+            <span v-if="issue.frame_url" class="badge pass">证据帧可用</span>
+            <span v-else class="dim">无证据帧</span>
+            <button
+              v-if="hasInterval(issue)"
+              class="play-evidence"
+              :title="intervalTitle(issue)"
+              @click.stop="emit('play-evidence', issue)"
+            >
+              ▶ 播放证据区间
+            </button>
+          </span>
           <span v-if="issue.confidence !== null" class="dim">
             置信度 {{ issue.confidence.toFixed(2) }}
           </span>
@@ -194,6 +217,19 @@ function severityLabel(severity: string) {
   align-items: center;
   margin-top: 8px;
   font-size: 11px;
+}
+
+.foot-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.play-evidence {
+  padding: 2px 8px;
+  font-size: 11px;
+  border-radius: 6px;
 }
 
 .mono {
