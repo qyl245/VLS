@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 
 import { ApiError, api } from '../api/client'
 import type { SampleSummary } from '../api/types'
@@ -10,8 +10,25 @@ import UploadPanel from '../components/UploadPanel.vue'
 const samples = ref<SampleSummary[]>([])
 const loading = ref(true)
 const error = ref('')
-const exerciseFilter = ref('all')
+const route = useRoute()
+const router = useRouter()
 const showUpload = ref(false)
+
+const EXERCISE_OPTIONS = ['all', 'pushup', 'squat']
+
+// 筛选值以 URL query 为唯一事实源，刷新或返回样本库时都能按地址还原
+const exerciseFilter = computed<string>({
+  get() {
+    const value = route.query.exercise
+    return typeof value === 'string' && EXERCISE_OPTIONS.includes(value) ? value : 'all'
+  },
+  set(value) {
+    const query = { ...route.query }
+    if (value === 'all') delete query.exercise
+    else query.exercise = value
+    void router.replace({ path: '/', query })
+  },
+})
 
 const filtered = computed(() =>
   samples.value.filter((item) => exerciseFilter.value === 'all' || item.exercise === exerciseFilter.value),
@@ -60,7 +77,11 @@ onMounted(load)
       <RouterLink
         v-for="item in filtered"
         :key="item.sample_id"
-        :to="`/samples/${item.sample_id}`"
+        :to="{
+          name: 'sample',
+          params: { sampleId: item.sample_id },
+          query: exerciseFilter === 'all' ? {} : { exercise: exerciseFilter },
+        }"
         class="tile card"
       >
         <div class="tile-head">

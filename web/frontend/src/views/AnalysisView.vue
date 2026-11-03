@@ -108,12 +108,12 @@ function syncQuery() {
   if (queryTimer !== undefined) return
   queryTimer = window.setTimeout(() => {
     queryTimer = undefined
-    void router.replace({
-      query: {
-        ...(activeRepId.value ? { rep: String(activeRepId.value) } : {}),
-        t: currentTime.value.toFixed(2),
-      },
-    })
+    // 合并原 query，避免覆盖样本库带过来的筛选等参数
+    const query = { ...route.query }
+    if (activeRepId.value) query.rep = String(activeRepId.value)
+    else delete query.rep
+    query.t = currentTime.value.toFixed(2)
+    void router.replace({ query })
   }, 400)
 }
 
@@ -145,6 +145,17 @@ function playIssueEvidence(issue: IssueItem) {
   }
   selectedIssueId.value = issue.issue_id
   player.value?.playRange(interval[0], interval[1])
+}
+
+function goBack() {
+  const back = router.options.history.state.back
+  if (typeof back === 'string' && back) {
+    void router.back()
+    return
+  }
+  // 无历史记录（如直接打开详情链接）时回退到样本库，并保留筛选条件
+  const exercise = typeof route.query.exercise === 'string' ? route.query.exercise : undefined
+  void router.push({ path: '/', query: exercise ? { exercise } : {} })
 }
 
 watch(
@@ -191,7 +202,7 @@ onBeforeUnmount(() => {
       <div class="bar-actions">
         <span v-if="props.kind === 'job' && job" class="badge">{{ job.status }} · {{ job.stage }}</span>
         <a v-if="detail?.report_url" :href="detail.report_url" target="_blank" rel="noopener">原始报告 ↗</a>
-        <RouterLink to="/">← 样本库</RouterLink>
+        <button type="button" class="back-button" @click="goBack">← 返回</button>
       </div>
     </header>
 
@@ -297,6 +308,20 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 12px;
   font-size: 12px;
+}
+
+.back-button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--concentric);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  border-color: transparent;
+  text-decoration: underline;
 }
 
 .id {
