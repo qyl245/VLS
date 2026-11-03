@@ -13,6 +13,11 @@ __pycache__/
 outputs/
 results/
 
+# 本地调研产物与系统结构图（不参与构建与运行）
+/reports/
+/vls_overview.excalidraw
+/vls_overview.html
+
 # Local dataset and reference papers
 rawdata/
 reference/

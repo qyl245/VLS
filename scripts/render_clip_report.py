@@ -194,16 +194,16 @@ def utc_now() -> str:
 
 
 def read_json(path: Path) -> Any:
-    return json.loads(path.read_text())
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:
-    with path.open(newline="") as handle:
+    with path.open(newline="", encoding="utf-8") as handle:
         return list(csv.DictReader(handle))
 
 
@@ -1479,7 +1479,7 @@ def render_clip(
         source_video_url,
         output_dir,
     )
-    (output_dir / "report.html").write_text(page)
+    (output_dir / "report.html").write_text(page, encoding="utf-8")
     severity_counts = Counter(
         issue["severity"] for issue in active_issues if issue.get("severity") in SEVERITY_LABELS
     )
@@ -1562,7 +1562,7 @@ def main() -> None:
         "index": str((args.output_dir / "index.html").resolve()),
     }
     write_json(args.output_dir / "summary.json", summary)
-    (args.output_dir / "index.html").write_text(build_index_html(summary))
+    (args.output_dir / "index.html").write_text(build_index_html(summary), encoding="utf-8")
     print(
         f"wrote {summary['clip_count']} reports and {summary['frame_count']} frames to {args.output_dir}",
         flush=True,
