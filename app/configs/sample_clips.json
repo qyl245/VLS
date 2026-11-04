@@ -1,0 +1,115 @@
+{
+  "schema_version": "vls-sample-clips-v1",
+  "clips": [
+    {
+      "clip_id": "demo_pushup_good_side",
+      "video_id": "demo_pushup_good_side",
+      "video_path": "webdata/jobs/ac3cc8a20b9f/input/source.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 449
+      },
+      "fps": 15.0,
+      "frame_count": 450,
+      "source_size": {
+        "width": 1440,
+        "height": 810
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "auto_view": "side_left",
+      "view_source": "user_selected",
+      "split": "demo",
+      "phase_role": "demo",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "quality": {
+        "rotation_confidence": 0.0,
+        "rotation_margin": 0.0,
+        "pose_detection_rate": 0.0,
+        "mean_visible_fraction": 0.0,
+        "view_confidence": 0.0,
+        "width_ratio": 0.0,
+        "shoulder_tilt": 0.0,
+        "nose_offset": 0.0,
+        "quality_flags": [
+          "upload_rotation_not_evaluated"
+        ]
+      },
+      "notes": "demo sample imported from V0-web/webdata job ac3cc8a20b9f",
+      "processed_trim": {
+        "start_frame": 0,
+        "end_frame": 449
+      }
+    },
+    {
+      "clip_id": "demo_pushup_bad_side",
+      "video_id": "demo_pushup_bad_side",
+      "video_path": "webdata/jobs/e5262f87fc84/input/source.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 457
+      },
+      "fps": 15.0,
+      "frame_count": 458,
+      "source_size": {
+        "width": 1440,
+        "height": 810
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "auto_view": "side_left",
+      "view_source": "user_selected",
+      "split": "demo",
+      "phase_role": "demo",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "quality": {
+        "rotation_confidence": 0.0,
+        "rotation_margin": 0.0,
+        "pose_detection_rate": 0.0,
+        "mean_visible_fraction": 0.0,
+        "view_confidence": 0.0,
+        "width_ratio": 0.0,
+        "shoulder_tilt": 0.0,
+        "nose_offset": 0.0,
+        "quality_flags": [
+          "upload_rotation_not_evaluated"
+        ]
+      },
+      "notes": "demo sample imported from V0-web/webdata job e5262f87fc84",
+      "processed_trim": {
+        "start_frame": 0,
+        "end_frame": 457
+      }
+    }
+  ]
+}

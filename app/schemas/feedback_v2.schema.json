@@ -1,0 +1,217 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vls.local/schemas/feedback_v2.schema.json",
+  "title": "VLS prioritized feedback and evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "component",
+    "generated_at",
+    "clip_id",
+    "exercise",
+    "view",
+    "state",
+    "state_message",
+    "runtime_contract",
+    "assessment_summary",
+    "cards",
+    "limitations",
+    "policy"
+  ],
+  "properties": {
+    "schema_version": {"const": "vls-feedback-v2"},
+    "component": {"const": "feedback_builder"},
+    "generated_at": {"type": "string", "minLength": 1},
+    "clip_id": {"type": "string", "minLength": 1},
+    "exercise": {"enum": ["squat", "pushup"]},
+    "view": {
+      "enum": [
+        "front",
+        "rear",
+        "side_left",
+        "side_right",
+        "oblique_left",
+        "oblique_right",
+        "unknown"
+      ]
+    },
+    "state": {
+      "enum": ["active_issues", "no_reliable_issue", "low_confidence", "quality_reject", "no_reps"]
+    },
+    "state_message": {"type": "string", "minLength": 1},
+    "runtime_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["runtime_adapter", "source_assessment_schema", "source_split"],
+      "properties": {
+        "runtime_adapter": {"type": "boolean"},
+        "source_assessment_schema": {"type": "string", "minLength": 1},
+        "source_split": {"type": "string", "minLength": 1},
+        "benchmark_path": {"type": ["string", "null"]},
+        "benchmark_sha256": {"type": ["string", "null"]}
+      }
+    },
+    "assessment_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conclusion",
+        "quality_status",
+        "rep_count",
+        "evaluable_metric_count",
+        "candidate_issue_count",
+        "reportable_issue_count",
+        "diagnostic_issue_count",
+        "suppressed_issue_count",
+        "abstained",
+        "abstain_reason",
+        "shadow_only",
+        "product_actions_enabled"
+      ],
+      "properties": {
+        "conclusion": {"type": "string", "minLength": 1},
+        "quality_status": {"type": "string", "minLength": 1},
+        "rep_count": {"type": "integer", "minimum": 0},
+        "evaluable_metric_count": {"type": "integer", "minimum": 0},
+        "candidate_issue_count": {"type": "integer", "minimum": 0},
+        "reportable_issue_count": {"type": "integer", "minimum": 0},
+        "diagnostic_issue_count": {"type": "integer", "minimum": 0},
+        "suppressed_issue_count": {"type": "integer", "minimum": 0},
+        "abstained": {"type": "boolean"},
+        "abstain_reason": {"type": ["string", "null"]},
+        "shadow_only": {"const": true},
+        "product_actions_enabled": {"const": false}
+      }
+    },
+    "cards": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/card"}
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "message", "count"],
+        "properties": {
+          "code": {"type": "string", "minLength": 1},
+          "message": {"type": "string", "minLength": 1},
+          "count": {"type": "integer", "minimum": 1}
+        }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "top_k",
+        "max_one_per_family",
+        "shadow_only",
+        "product_actions_enabled",
+        "expert_calibrated"
+      ],
+      "properties": {
+        "top_k": {"type": "integer", "minimum": 1},
+        "max_one_per_family": {"type": "boolean"},
+        "shadow_only": {"const": true},
+        "product_actions_enabled": {"const": false},
+        "expert_calibrated": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "issue_id",
+        "issue_code",
+        "issue_family",
+        "decision",
+        "severity",
+        "confidence",
+        "priority",
+        "priority_components",
+        "title",
+        "detail",
+        "cue",
+        "limitation",
+        "support_rep_ids",
+        "representative_rep_id",
+        "support_measurement_ids",
+        "frequency",
+        "frequency_ratio",
+        "primary_metric",
+        "primary_value",
+        "unit",
+        "thresholds",
+        "highlight_joints",
+        "anchor_frame",
+        "anchor_source_frame",
+        "anchor_time_s",
+        "evidence_interval_frames",
+        "evidence_interval_s",
+        "anchor_fallback",
+        "frame_filename",
+        "frame_available",
+        "shadow_only",
+        "product_actions_enabled"
+      ],
+      "properties": {
+        "issue_id": {"type": "string", "minLength": 1},
+        "issue_code": {"type": "string", "minLength": 1},
+        "issue_family": {"type": "string", "minLength": 1},
+        "decision": {"enum": ["candidate", "reportable"]},
+        "severity": {"enum": ["low", "medium", "high"]},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "priority": {"type": "number", "minimum": 0},
+        "priority_components": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["severity", "frequency", "confidence", "actionability"],
+          "properties": {
+            "severity": {"type": "number", "minimum": 0},
+            "frequency": {"type": "number", "minimum": 0, "maximum": 1},
+            "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+            "actionability": {"type": "number", "minimum": 0, "maximum": 1}
+          }
+        },
+        "title": {"type": "string", "minLength": 1},
+        "detail": {"type": "string", "minLength": 1},
+        "cue": {"type": "string", "minLength": 1},
+        "limitation": {"type": "string", "minLength": 1},
+        "support_rep_ids": {"type": "array", "items": {"type": "integer", "minimum": 1}},
+        "representative_rep_id": {"type": ["integer", "null"], "minimum": 1},
+        "support_measurement_ids": {"type": "array", "items": {"type": "string"}},
+        "frequency": {"type": "string", "minLength": 1},
+        "frequency_ratio": {"type": "number", "minimum": 0, "maximum": 1},
+        "primary_metric": {"type": ["string", "null"]},
+        "primary_value": {"type": ["number", "null"]},
+        "unit": {"type": ["string", "null"]},
+        "thresholds": {"type": "object", "additionalProperties": true},
+        "highlight_joints": {"type": "array", "items": {"type": "string"}},
+        "anchor_frame": {"type": "integer", "minimum": 0},
+        "anchor_source_frame": {"type": "integer", "minimum": 0},
+        "anchor_time_s": {"type": "number", "minimum": 0},
+        "evidence_interval_frames": {
+          "type": "array",
+          "prefixItems": [{"type": "integer", "minimum": 0}, {"type": "integer", "minimum": 0}],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "evidence_interval_s": {
+          "type": "array",
+          "prefixItems": [{"type": "number", "minimum": 0}, {"type": "number", "minimum": 0}],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "anchor_fallback": {"type": "boolean"},
+        "frame_filename": {"type": ["string", "null"]},
+        "frame_available": {"type": "boolean"},
+        "shadow_only": {"const": true},
+        "product_actions_enabled": {"const": false}
+      }
+    }
+  }
+}

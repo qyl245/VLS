@@ -1,0 +1,388 @@
+{
+  "schema_version": "vls-assessment-rules-v1",
+  "policy": {
+    "threshold_policy": "provisional_engineering_multiview_v1",
+    "expert_calibrated": false,
+    "freeze_status": "shadow_only",
+    "calibration_splits": [
+      "dev",
+      "calibration"
+    ],
+    "holdout_allowed": false,
+    "label_source": "AI_candidate_not_expert_ground_truth",
+    "product_actions_enabled": false
+  },
+  "confidence": {
+    "severity_rank": {
+      "none": 0,
+      "low": 1,
+      "medium": 2,
+      "high": 3
+    },
+    "suppress_below": 0.35,
+    "low_below": 0.55,
+    "report_below": 0.65,
+    "quality_warn_drop_levels": 1,
+    "quality_warn_max_severity": "medium",
+    "persistence_factors": {
+      "1": 0.8,
+      "2": 0.9,
+      "3_or_more": 1.0
+    }
+  },
+  "physical_ranges": {
+    "rep_duration_s": [0.2, 20.0],
+    "rep_duration_cv": [0.0, 5.0],
+    "spine_stability_bottom": [0.0, 10.0],
+    "knee_flexion_rom": [0.0, 180.0],
+    "bottom_knee_angle": [0.0, 180.0],
+    "hip_flexion_rom": [0.0, 180.0],
+    "torso_lean_bottom": [0.0, 180.0],
+    "hip_depth_ratio": [0.0, 1.05],
+    "knee_valgus_bottom": [0.0, 180.0],
+    "knee_asymmetry_bottom": [0.0, 180.0],
+    "hip_asymmetry_bottom": [0.0, 180.0],
+    "elbow_flexion_rom": [0.0, 180.0],
+    "bottom_elbow_angle": [0.0, 180.0],
+    "body_line_angle": [0.0, 180.0],
+    "hip_sag_ratio": [0.0, 3.0],
+    "elbow_asymmetry_bottom": [0.0, 180.0],
+    "shoulder_asymmetry_bottom": [0.0, 180.0]
+  },
+  "thresholds": {
+    "knee_valgus_bottom": {
+      "low": 20.0,
+      "medium": 30.0,
+      "high": 40.0,
+      "unit": "deg",
+      "direction": "high_bad"
+    },
+    "knee_flexion_rom": {
+      "low": 70.0,
+      "medium": 55.0,
+      "high": 40.0,
+      "unit": "deg",
+      "direction": "low_bad"
+    },
+    "bottom_knee_angle": {
+      "low": 120.0,
+      "medium": 135.0,
+      "high": 150.0,
+      "unit": "deg",
+      "direction": "high_bad"
+    },
+    "hip_flexion_rom": {
+      "low": 55.0,
+      "medium": 40.0,
+      "high": 25.0,
+      "unit": "deg",
+      "direction": "low_bad"
+    },
+    "torso_lean_bottom": {
+      "low": 35.0,
+      "medium": 45.0,
+      "high": 60.0,
+      "unit": "deg",
+      "direction": "high_bad"
+    },
+    "hip_depth_ratio": {
+      "low": 0.12,
+      "medium": 0.08,
+      "high": 0.05,
+      "unit": "ratio",
+      "direction": "low_bad"
+    },
+    "knee_asymmetry_bottom": {
+      "low": 15.0,
+      "medium": 22.0,
+      "high": 30.0,
+      "unit": "deg",
+      "direction": "high_bad"
+    },
+    "hip_asymmetry_bottom": {
+      "low": 15.0,
+      "medium": 22.0,
+      "high": 30.0,
+      "unit": "deg",
+      "direction": "high_bad"
+    },
+    "elbow_asymmetry_bottom": {
+      "low": 12.0,
+      "medium": 20.0,
+      "high": 30.0,
+      "unit": "deg",
+      "direction": "high_bad"
+    },
+    "shoulder_asymmetry_bottom": {
+      "low": 12.0,
+      "medium": 20.0,
+      "high": 30.0,
+      "unit": "deg",
+      "direction": "high_bad"
+    },
+    "elbow_flexion_rom": {
+      "low": 60.0,
+      "medium": 45.0,
+      "high": 30.0,
+      "unit": "deg",
+      "direction": "low_bad"
+    },
+    "bottom_elbow_angle": {
+      "low": 110.0,
+      "medium": 125.0,
+      "high": 140.0,
+      "unit": "deg",
+      "direction": "high_bad"
+    },
+    "body_line_angle": {
+      "low": 165.0,
+      "medium": 155.0,
+      "high": 145.0,
+      "unit": "deg",
+      "direction": "low_bad"
+    },
+    "hip_sag_ratio": {
+      "low": 0.12,
+      "medium": 0.20,
+      "high": 0.30,
+      "unit": "ratio",
+      "direction": "high_bad"
+    },
+    "rep_duration_cv": {
+      "low": 0.15,
+      "medium": 0.20,
+      "high": 0.35,
+      "unit": "ratio",
+      "direction": "high_bad"
+    },
+    "spine_stability_bottom": {
+      "low": 0.05,
+      "medium": 0.10,
+      "high": 0.20,
+      "unit": "variance",
+      "direction": "high_bad"
+    }
+  },
+  "metric_policy": {
+    "rep_duration_s": {
+      "eligibility": "diagnostic_only",
+      "reason": "descriptive metric; not an issue trigger"
+    },
+    "rep_duration_cv": {
+      "eligibility": "provisional",
+      "report_views": [
+        "front",
+        "rear",
+        "side_left",
+        "side_right",
+        "oblique_left",
+        "oblique_right",
+        "unknown"
+      ],
+      "reason": "view-independent engineering threshold"
+    },
+    "spine_stability_bottom": {
+      "eligibility": "experimental",
+      "reason": "stability signal has not passed issue-level validation"
+    },
+    "knee_flexion_rom": {
+      "eligibility": "diagnostic_only",
+      "reason": "Side-view knee angle did not pass product validation"
+    },
+    "bottom_knee_angle": {
+      "eligibility": "diagnostic_only",
+      "reason": "Side-view knee angle did not pass product validation"
+    },
+    "hip_flexion_rom": {
+      "eligibility": "diagnostic_only",
+      "reason": "side-view hip angle not product validated"
+    },
+    "torso_lean_bottom": {
+      "eligibility": "diagnostic_only",
+      "reason": "side-view torso angle not product validated"
+    },
+    "hip_depth_ratio": {
+      "eligibility": "diagnostic_only",
+      "reason": "weak world-coordinate depth proxy"
+    },
+    "knee_valgus_bottom": {
+      "eligibility": "provisional",
+      "report_views": ["front", "rear"],
+      "reason": "oblique view remains diagnostic"
+    },
+    "knee_asymmetry_bottom": {
+      "eligibility": "provisional",
+      "report_views": ["front", "rear"],
+      "reason": "oblique view remains diagnostic"
+    },
+    "hip_asymmetry_bottom": {
+      "eligibility": "provisional",
+      "report_views": ["front", "rear"],
+      "reason": "oblique view remains diagnostic"
+    },
+    "elbow_flexion_rom": {
+      "eligibility": "diagnostic_only",
+      "reason": "Side-view elbow error did not pass product validation"
+    },
+    "bottom_elbow_angle": {
+      "eligibility": "diagnostic_only",
+      "reason": "Side-view elbow error did not pass product validation"
+    },
+    "body_line_angle": {
+      "eligibility": "diagnostic_only",
+      "reason": "side-view body-line measurement remains experimental"
+    },
+    "hip_sag_ratio": {
+      "eligibility": "diagnostic_only",
+      "reason": "side-view hip sag measurement remains experimental"
+    },
+    "elbow_asymmetry_bottom": {
+      "eligibility": "provisional",
+      "report_views": ["front", "rear"],
+      "reason": "oblique view remains diagnostic"
+    },
+    "shoulder_asymmetry_bottom": {
+      "eligibility": "provisional",
+      "report_views": ["front", "rear"],
+      "reason": "oblique view remains diagnostic"
+    }
+  },
+  "issue_rules": {
+    "squat_depth_insufficient": {
+      "family": "depth",
+      "scope": "rep",
+      "metrics": ["knee_flexion_rom", "bottom_knee_angle", "hip_depth_ratio"],
+      "candidate_min_severity": "low",
+      "report_min_severity": "high",
+      "report_min_confidence": 0.65,
+      "min_persistent_reps": 2,
+      "single_rep_max_severity": "medium"
+    },
+    "squat_torso_lean_excess": {
+      "family": "torso_control",
+      "scope": "rep",
+      "metrics": ["torso_lean_bottom"],
+      "candidate_min_severity": "low",
+      "report_min_severity": "high",
+      "report_min_confidence": 0.65,
+      "min_persistent_reps": 2,
+      "single_rep_max_severity": "medium"
+    },
+    "squat_knee_valgus": {
+      "family": "knee_alignment",
+      "scope": "rep",
+      "metrics": ["knee_valgus_bottom"],
+      "candidate_min_severity": "low",
+      "report_min_severity": "high",
+      "report_min_confidence": 0.65,
+      "min_persistent_reps": 2,
+      "single_rep_max_severity": "medium"
+    },
+    "squat_asymmetry": {
+      "family": "symmetry",
+      "scope": "rep",
+      "metrics": ["knee_asymmetry_bottom", "hip_asymmetry_bottom"],
+      "candidate_min_severity": "low",
+      "report_min_severity": "high",
+      "report_min_confidence": 0.65,
+      "min_persistent_reps": 2,
+      "single_rep_max_severity": "medium"
+    },
+    "squat_tempo_inconsistent": {
+      "family": "tempo",
+      "scope": "clip",
+      "metrics": ["rep_duration_cv"],
+      "candidate_min_severity": "low",
+      "report_min_severity": "high",
+      "report_min_confidence": 0.65,
+      "min_persistent_reps": 3,
+      "single_rep_max_severity": "medium"
+    },
+    "squat_stability_low": {
+      "family": "stability",
+      "scope": "rep",
+      "metrics": ["spine_stability_bottom"],
+      "candidate_min_severity": "low",
+      "report_min_severity": "high",
+      "report_min_confidence": 0.65,
+      "min_persistent_reps": 2,
+      "single_rep_max_severity": "medium"
+    },
+    "pushup_depth_insufficient": {
+      "family": "depth",
+      "scope": "rep",
+      "metrics": ["elbow_flexion_rom", "bottom_elbow_angle"],
+      "candidate_min_severity": "low",
+      "report_min_severity": "high",
+      "report_min_confidence": 0.65,
+      "min_persistent_reps": 2,
+      "single_rep_max_severity": "medium"
+    },
+    "pushup_body_line_break": {
+      "family": "torso_control",
+      "scope": "rep",
+      "metrics": ["body_line_angle"],
+      "candidate_min_severity": "low",
+      "report_min_severity": "high",
+      "report_min_confidence": 0.65,
+      "min_persistent_reps": 2,
+      "single_rep_max_severity": "medium"
+    },
+    "pushup_hip_sag": {
+      "family": "torso_control",
+      "scope": "rep",
+      "metrics": ["hip_sag_ratio"],
+      "candidate_min_severity": "low",
+      "report_min_severity": "high",
+      "report_min_confidence": 0.65,
+      "min_persistent_reps": 2,
+      "single_rep_max_severity": "medium"
+    },
+    "pushup_asymmetry": {
+      "family": "symmetry",
+      "scope": "rep",
+      "metrics": ["elbow_asymmetry_bottom", "shoulder_asymmetry_bottom"],
+      "candidate_min_severity": "low",
+      "report_min_severity": "high",
+      "report_min_confidence": 0.65,
+      "min_persistent_reps": 2,
+      "single_rep_max_severity": "medium"
+    },
+    "pushup_tempo_inconsistent": {
+      "family": "tempo",
+      "scope": "clip",
+      "metrics": ["rep_duration_cv"],
+      "candidate_min_severity": "low",
+      "report_min_severity": "high",
+      "report_min_confidence": 0.65,
+      "min_persistent_reps": 3,
+      "single_rep_max_severity": "medium"
+    },
+    "pushup_stability_low": {
+      "family": "stability",
+      "scope": "rep",
+      "metrics": ["spine_stability_bottom"],
+      "candidate_min_severity": "low",
+      "report_min_severity": "high",
+      "report_min_confidence": 0.65,
+      "min_persistent_reps": 2,
+      "single_rep_max_severity": "medium"
+    }
+  },
+  "arbitration": {
+    "max_one_reportable_issue_per_family": true,
+    "precedence_semantics": "key_issue_takes_precedence_over_listed_issues",
+    "family_precedence": {
+      "pushup_body_line_break": ["pushup_hip_sag"]
+    }
+  },
+  "evidence": {
+    "radius_frames": 8,
+    "max_default_issues": 3
+  },
+  "diagnostic_sweep": {
+    "confidence_thresholds": [0.45, 0.55, 0.65, 0.75, 0.85],
+    "min_severities": ["medium", "high"],
+    "threshold_scales": [0.8, 1.0, 1.2, 1.5]
+  }
+}

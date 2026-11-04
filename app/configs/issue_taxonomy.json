@@ -1,0 +1,250 @@
+{
+  "schema_version": "vls-issue-taxonomy-v1",
+  "severity_levels": [
+    "none",
+    "low",
+    "medium",
+    "high"
+  ],
+  "presence_values": [
+    "present",
+    "absent",
+    "uncertain",
+    "not_evaluable"
+  ],
+  "special_labels": {
+    "no_obvious_issue": {
+      "action": "any",
+      "family": "none",
+      "allowed_presence": [
+        "absent"
+      ],
+      "description": "Reviewer found no obvious target issue in the annotated scope."
+    }
+  },
+  "issue_families": {
+    "depth": "Range of motion or bottom position is insufficient.",
+    "torso_control": "Torso or body line deviates beyond the allowed range.",
+    "knee_alignment": "Frontal-plane knee alignment deviates inward.",
+    "symmetry": "Left/right measurements diverge enough to be actionable.",
+    "tempo": "Rep durations are inconsistent across a set.",
+    "stability": "A measured body segment is unstable around the bottom phase."
+  },
+  "issues": {
+    "squat_depth_insufficient": {
+      "action": "squat",
+      "family": "depth",
+      "views": [
+        "side_left",
+        "side_right",
+        "oblique_left",
+        "oblique_right"
+      ],
+      "metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle"
+      ],
+      "definition": "Squat bottom range is insufficient relative to the calibrated depth reference.",
+      "annotation_scope": [
+        "rep",
+        "clip"
+      ]
+    },
+    "squat_torso_lean_excess": {
+      "action": "squat",
+      "family": "torso_control",
+      "views": [
+        "side_left",
+        "side_right",
+        "oblique_left",
+        "oblique_right"
+      ],
+      "metrics": [
+        "torso_lean_bottom"
+      ],
+      "definition": "Torso leans forward beyond the calibrated bottom-position reference.",
+      "annotation_scope": [
+        "rep",
+        "clip"
+      ]
+    },
+    "squat_knee_valgus": {
+      "action": "squat",
+      "family": "knee_alignment",
+      "views": [
+        "front",
+        "rear",
+        "oblique_left",
+        "oblique_right"
+      ],
+      "metrics": [
+        "knee_valgus_bottom"
+      ],
+      "definition": "One or both knees move medially beyond the calibrated frontal-plane reference.",
+      "annotation_scope": [
+        "rep",
+        "clip"
+      ]
+    },
+    "squat_asymmetry": {
+      "action": "squat",
+      "family": "symmetry",
+      "views": [
+        "front",
+        "rear",
+        "oblique_left",
+        "oblique_right"
+      ],
+      "metrics": [
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "definition": "Left/right knee or hip measurements show a repeated or large asymmetry.",
+      "annotation_scope": [
+        "rep",
+        "clip"
+      ]
+    },
+    "squat_tempo_inconsistent": {
+      "action": "squat",
+      "family": "tempo",
+      "views": [
+        "any"
+      ],
+      "metrics": [
+        "rep_duration_cv"
+      ],
+      "definition": "Within-set rep duration variability is above the calibrated threshold.",
+      "annotation_scope": [
+        "clip"
+      ]
+    },
+    "squat_stability_low": {
+      "action": "squat",
+      "family": "stability",
+      "views": [
+        "any"
+      ],
+      "metrics": [
+        "spine_stability_bottom"
+      ],
+      "definition": "Torso/spine measurement is unstable around the bottom phase.",
+      "annotation_scope": [
+        "rep",
+        "clip"
+      ]
+    },
+    "pushup_depth_insufficient": {
+      "action": "pushup",
+      "family": "depth",
+      "views": [
+        "side_left",
+        "side_right",
+        "oblique_left",
+        "oblique_right"
+      ],
+      "metrics": [
+        "elbow_flexion_rom",
+        "bottom_elbow_angle"
+      ],
+      "definition": "Push-up descent range is insufficient relative to the calibrated depth reference.",
+      "annotation_scope": [
+        "rep",
+        "clip"
+      ]
+    },
+    "pushup_body_line_break": {
+      "action": "pushup",
+      "family": "torso_control",
+      "views": [
+        "side_left",
+        "side_right",
+        "oblique_left",
+        "oblique_right"
+      ],
+      "metrics": [
+        "body_line_angle"
+      ],
+      "definition": "Shoulder-hip-ankle body line breaks beyond the calibrated reference.",
+      "annotation_scope": [
+        "rep",
+        "clip"
+      ]
+    },
+    "pushup_hip_sag": {
+      "action": "pushup",
+      "family": "torso_control",
+      "views": [
+        "side_left",
+        "side_right",
+        "oblique_left",
+        "oblique_right"
+      ],
+      "metrics": [
+        "hip_sag_ratio"
+      ],
+      "definition": "Local hip sag or pike is visible while the overall body line is otherwise supported.",
+      "annotation_scope": [
+        "rep",
+        "clip"
+      ]
+    },
+    "pushup_asymmetry": {
+      "action": "pushup",
+      "family": "symmetry",
+      "views": [
+        "front",
+        "rear",
+        "oblique_left",
+        "oblique_right"
+      ],
+      "metrics": [
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ],
+      "definition": "Left/right elbow or shoulder measurements show a repeated or large asymmetry.",
+      "annotation_scope": [
+        "rep",
+        "clip"
+      ]
+    },
+    "pushup_tempo_inconsistent": {
+      "action": "pushup",
+      "family": "tempo",
+      "views": [
+        "any"
+      ],
+      "metrics": [
+        "rep_duration_cv"
+      ],
+      "definition": "Within-set rep duration variability is above the calibrated threshold.",
+      "annotation_scope": [
+        "clip"
+      ]
+    },
+    "pushup_stability_low": {
+      "action": "pushup",
+      "family": "stability",
+      "views": [
+        "any"
+      ],
+      "metrics": [
+        "spine_stability_bottom"
+      ],
+      "definition": "Torso/spine measurement is unstable around the bottom phase.",
+      "annotation_scope": [
+        "rep",
+        "clip"
+      ]
+    }
+  },
+  "annotation_contract": {
+    "ground_truth_source": "expert_issue_level",
+    "dataset_quality_group_is_ground_truth": false,
+    "qevd_fine_label_is_ground_truth": false,
+    "multi_label_allowed": true,
+    "uncertain_and_not_evaluable_required": true,
+    "evidence_required_for_present": true,
+    "subject_split_isolation_required": true
+  }
+}

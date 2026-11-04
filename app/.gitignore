@@ -1,0 +1,41 @@
+/.venv
+.venv*/
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+.idea/
+.vscode/
+
+# Generated datasets, model outputs and evaluation artifacts
+/outputs
+/results
+/webdata
+
+# Frontend generated dependencies and build output
+node_modules/
+dist/
+*.tsbuildinfo
+/web/frontend/node_modules
+
+# 本地调研产物与系统结构图（不参与构建与运行）
+/reports/
+/vls_overview.excalidraw
+/vls_overview.html
+
+# Local dataset and reference papers
+rawdata/
+reference/
+
+# Local logs, secrets and media files
+*.log
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.mp4
+*.webm

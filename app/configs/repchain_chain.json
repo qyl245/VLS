@@ -1,0 +1,104 @@
+{
+  "schema_version": "vls-repchain-chain-v1",
+  "revision": "v1",
+  "frozen": true,
+  "core": {
+    "dataset_independent": true,
+    "minimum_relative_amplitude": 0.5,
+    "minimum_edge_quality": 0.2,
+    "minimum_chain_reps": 3,
+    "gap_period_range": [
+      0.55,
+      1.55
+    ],
+    "period_log_sigma": 0.2,
+    "bottom_duration_sigma": 0.15,
+    "edge_quality_weights": {
+      "period": 0.55,
+      "relative_amplitude": 0.25,
+      "bottom_duration": 0.2
+    },
+    "node_quality_weights": {
+      "top_stability": 0.45,
+      "bottom_stability": 0.25,
+      "relative_amplitude": 0.3
+    },
+    "edge_support_weight": 0.3,
+    "tail_anchor": {
+      "dataset_independent": true,
+      "scope": "last_selected_event_per_chain",
+      "policy": "earlier_of_plateau_midpoint_and_phase_zero_crossing",
+      "rationale": "terminal top plateaus may include post-set holds; report the plateau entry-side anchor while preserving midpoint graph timing"
+    },
+    "default_set_order": [
+      "chain_length_desc",
+      "chain_confidence_desc",
+      "start_frame_asc"
+    ],
+    "low_evidence": {
+      "minimum_phase_periodicity": 0.2,
+      "fallback": "legacy_reps_if_available_else_no_confident_set"
+    },
+    "endpoint_arbitration": {
+      "dataset_independent": true,
+      "enabled": true,
+      "minimum_relative_amplitude": 0.2,
+      "minimum_top_stability": 0.4,
+      "endpoint_gap_period_range": [
+        0.65,
+        1.35
+      ],
+      "minimum_rep_score": 0.5,
+      "minimum_score_margin": 0.0,
+      "maximum_added_per_side": 1,
+      "score_weights": {
+        "relative_amplitude": 0.3,
+        "top_stability": 0.25,
+        "bottom_stability": 0.2,
+        "period_timing": 0.25
+      }
+    },
+    "endpoint_context_pruning": {
+      "dataset_independent": true,
+      "enabled": true,
+      "scope": "partial_chain_endpoints",
+      "minimum_retained_events": 4,
+      "minimum_context_evidence": 3,
+      "context_intervals": 4,
+      "sample_points": 17,
+      "maximum_context_amplitude_ratio": 0.7,
+      "local_gap_period_range": [
+        0.72,
+        1.38
+      ],
+      "minimum_waveform_correlation": 0.5,
+      "minimum_level_shift_ratio": 0.45,
+      "maximum_phase_excursion_ratio": 0.7,
+      "arbitrated_endpoint_protection_amplitude": 0.3
+    },
+    "low_rom_interior_bridge": {
+      "dataset_independent": true,
+      "enabled": true,
+      "minimum_relative_amplitude": 0.2,
+      "minimum_top_stability": 0.4,
+      "minimum_bottom_stability": 0.2,
+      "bridge_gap_period_range": [
+        1.55,
+        2.45
+      ],
+      "half_gap_period_range": [
+        0.65,
+        1.35
+      ],
+      "maximum_bridged_nodes": 4,
+      "minimum_bridge_confidence": 0.5,
+      "score_weights": {
+        "relative_amplitude": 0.3,
+        "top_stability": 0.25,
+        "bottom_stability": 0.2,
+        "period_timing": 0.25
+      }
+    },
+    "high_confidence_threshold": 0.5
+  }
+}

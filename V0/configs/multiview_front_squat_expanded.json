@@ -1,0 +1,585 @@
+{
+  "schema_version": "task1-4-v1",
+  "manifest_profile": "multiview-front-squat-expanded-v1",
+  "task": "Expanded Multi-View front-view squat test",
+  "dataset": "Multi-View Fitness Exercise Video Dataset",
+  "subject_count": 7,
+  "screen_csv": "/mnt/storage2/data_guest/VLS/V0/results/multiview_squat/front_screen/screen.csv",
+  "selection_rule": "good and bad front clips must both pass MediaPipe screening",
+  "clips": [
+    {
+      "clip_id": "mv_s001_squat_good_front",
+      "video_id": "subject_001_squat_good_front",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_001/squat/good/front/subject_001_squat_good_front.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 475
+      },
+      "fps": 15.0,
+      "frame_count": 476,
+      "source_size": {
+        "width": 810,
+        "height": 1440
+      },
+      "rotation": "none",
+      "view": "front",
+      "view_geometry": {
+        "dataset_label": "front"
+      },
+      "source_quality_label": "good",
+      "split": "pilot_front_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ]
+    },
+    {
+      "clip_id": "mv_s001_squat_bad_front",
+      "video_id": "subject_001_squat_bad_front",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_001/squat/bad/front/subject_001_squat_bad_front.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 467
+      },
+      "fps": 15.0,
+      "frame_count": 468,
+      "source_size": {
+        "width": 810,
+        "height": 1440
+      },
+      "rotation": "none",
+      "view": "front",
+      "view_geometry": {
+        "dataset_label": "front"
+      },
+      "source_quality_label": "bad",
+      "split": "pilot_front_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ]
+    },
+    {
+      "clip_id": "mv_s002_squat_good_front",
+      "video_id": "subject_002_squat_good_front",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_002/squat/good/front/subject_002_squat_good_front.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 466
+      },
+      "fps": 15.0,
+      "frame_count": 467,
+      "source_size": {
+        "width": 810,
+        "height": 1440
+      },
+      "rotation": "none",
+      "view": "front",
+      "view_geometry": {
+        "dataset_label": "front"
+      },
+      "source_quality_label": "good",
+      "split": "pilot_front_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ]
+    },
+    {
+      "clip_id": "mv_s002_squat_bad_front",
+      "video_id": "subject_002_squat_bad_front",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_002/squat/bad/front/subject_002_squat_bad_front.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 469
+      },
+      "fps": 15.0,
+      "frame_count": 470,
+      "source_size": {
+        "width": 810,
+        "height": 1440
+      },
+      "rotation": "none",
+      "view": "front",
+      "view_geometry": {
+        "dataset_label": "front"
+      },
+      "source_quality_label": "bad",
+      "split": "pilot_front_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ]
+    },
+    {
+      "clip_id": "mv_s003_squat_good_front",
+      "video_id": "subject_003_squat_good_front",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_003/squat/good/front/subject_003_squat_good_front.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 467
+      },
+      "fps": 15.0,
+      "frame_count": 468,
+      "source_size": {
+        "width": 810,
+        "height": 1440
+      },
+      "rotation": "none",
+      "view": "front",
+      "view_geometry": {
+        "dataset_label": "front"
+      },
+      "source_quality_label": "good",
+      "split": "pilot_front_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ]
+    },
+    {
+      "clip_id": "mv_s003_squat_bad_front",
+      "video_id": "subject_003_squat_bad_front",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_003/squat/bad/front/subject_003_squat_bad_front.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 467
+      },
+      "fps": 15.0,
+      "frame_count": 468,
+      "source_size": {
+        "width": 810,
+        "height": 1440
+      },
+      "rotation": "none",
+      "view": "front",
+      "view_geometry": {
+        "dataset_label": "front"
+      },
+      "source_quality_label": "bad",
+      "split": "pilot_front_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ]
+    },
+    {
+      "clip_id": "mv_s004_squat_good_front",
+      "video_id": "subject_004_squat_good_front",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_004/squat/good/front/subject_004_squat_good_front.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 466
+      },
+      "fps": 15.0,
+      "frame_count": 467,
+      "source_size": {
+        "width": 810,
+        "height": 1440
+      },
+      "rotation": "none",
+      "view": "front",
+      "view_geometry": {
+        "dataset_label": "front"
+      },
+      "source_quality_label": "good",
+      "split": "pilot_front_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ]
+    },
+    {
+      "clip_id": "mv_s004_squat_bad_front",
+      "video_id": "subject_004_squat_bad_front",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_004/squat/bad/front/subject_004_squat_bad_front.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 465
+      },
+      "fps": 15.0,
+      "frame_count": 466,
+      "source_size": {
+        "width": 810,
+        "height": 1440
+      },
+      "rotation": "none",
+      "view": "front",
+      "view_geometry": {
+        "dataset_label": "front"
+      },
+      "source_quality_label": "bad",
+      "split": "pilot_front_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ]
+    },
+    {
+      "clip_id": "mv_s006_squat_good_front",
+      "video_id": "subject_006_squat_good_front",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_006/squat/good/front/subject_006_squat_good_front.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 457
+      },
+      "fps": 15.0,
+      "frame_count": 458,
+      "source_size": {
+        "width": 810,
+        "height": 1440
+      },
+      "rotation": "none",
+      "view": "front",
+      "view_geometry": {
+        "dataset_label": "front"
+      },
+      "source_quality_label": "good",
+      "split": "pilot_front_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ]
+    },
+    {
+      "clip_id": "mv_s006_squat_bad_front",
+      "video_id": "subject_006_squat_bad_front",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_006/squat/bad/front/subject_006_squat_bad_front.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 466
+      },
+      "fps": 15.0,
+      "frame_count": 467,
+      "source_size": {
+        "width": 810,
+        "height": 1440
+      },
+      "rotation": "none",
+      "view": "front",
+      "view_geometry": {
+        "dataset_label": "front"
+      },
+      "source_quality_label": "bad",
+      "split": "pilot_front_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ]
+    },
+    {
+      "clip_id": "mv_s023_squat_good_front",
+      "video_id": "subject_023_squat_good_front",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_023/squat/good/front/subject_023_squat_good_front.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 371
+      },
+      "fps": 15.0,
+      "frame_count": 372,
+      "source_size": {
+        "width": 540,
+        "height": 960
+      },
+      "rotation": "none",
+      "view": "front",
+      "view_geometry": {
+        "dataset_label": "front"
+      },
+      "source_quality_label": "good",
+      "split": "pilot_front_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ]
+    },
+    {
+      "clip_id": "mv_s023_squat_bad_front",
+      "video_id": "subject_023_squat_bad_front",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_023/squat/bad/front/subject_023_squat_bad_front.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 340
+      },
+      "fps": 15.0,
+      "frame_count": 341,
+      "source_size": {
+        "width": 540,
+        "height": 960
+      },
+      "rotation": "none",
+      "view": "front",
+      "view_geometry": {
+        "dataset_label": "front"
+      },
+      "source_quality_label": "bad",
+      "split": "pilot_front_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ]
+    },
+    {
+      "clip_id": "mv_s024_squat_good_front",
+      "video_id": "subject_024_squat_good_front",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_024/squat/good/front/subject_024_squat_good_front.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 413
+      },
+      "fps": 15.0,
+      "frame_count": 414,
+      "source_size": {
+        "width": 540,
+        "height": 960
+      },
+      "rotation": "none",
+      "view": "front",
+      "view_geometry": {
+        "dataset_label": "front"
+      },
+      "source_quality_label": "good",
+      "split": "pilot_front_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ]
+    },
+    {
+      "clip_id": "mv_s024_squat_bad_front",
+      "video_id": "subject_024_squat_bad_front",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_024/squat/bad/front/subject_024_squat_bad_front.mp4",
+      "exercise": "squat",
+      "action_display": "squats",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 470
+      },
+      "fps": 15.0,
+      "frame_count": 471,
+      "source_size": {
+        "width": 540,
+        "height": 960
+      },
+      "rotation": "none",
+      "view": "front",
+      "view_geometry": {
+        "dataset_label": "front"
+      },
+      "source_quality_label": "bad",
+      "split": "pilot_front_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "knee_valgus_bottom",
+        "knee_asymmetry_bottom",
+        "hip_asymmetry_bottom"
+      ],
+      "disabled_metrics": [
+        "knee_flexion_rom",
+        "bottom_knee_angle",
+        "hip_flexion_rom",
+        "torso_lean_bottom",
+        "hip_depth_ratio"
+      ]
+    }
+  ]
+}

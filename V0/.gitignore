@@ -1,0 +1,24 @@
+.venv*/
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+.idea/
+.vscode/
+
+# Generated datasets, model outputs and evaluation artifacts
+outputs/
+results/
+
+# Local logs, secrets and media files
+*.log
+.env
+.env.*
+*.pem
+*.key
+*.mp4
+*.webm
+

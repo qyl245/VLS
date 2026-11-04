@@ -1,0 +1,585 @@
+{
+  "schema_version": "task1-4-v1",
+  "manifest_profile": "multiview-pushup-side-expanded-v1",
+  "task": "Expanded Multi-View side-view push-up test",
+  "dataset": "Multi-View Fitness Exercise Video Dataset",
+  "subject_count": 7,
+  "screen_csv": "/mnt/storage2/data_guest/VLS/V0/results/multiview_pushup/screen/screen.csv",
+  "selection_rule": "good and bad side clips must both pass MediaPipe screening (warn allowed when explicitly requested), near-side visibility must be >= 0.5, and content hashes must be unique",
+  "clips": [
+    {
+      "clip_id": "mv_s003_pushup_good_side",
+      "video_id": "subject_003_push_up_good_side",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_003/push_up/good/side/subject_003_push_up_good_side.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 449
+      },
+      "fps": 15.0,
+      "frame_count": 450,
+      "source_size": {
+        "width": 1440,
+        "height": 810
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "view_geometry": {
+        "dataset_label": "side",
+        "camera_side": "left"
+      },
+      "source_quality_label": "good",
+      "source_sha256": "5ed980e307afadb9a80e6655fde8818b0cfd62b108b7d97a140a9a43e4b9fba6",
+      "split": "pilot_pushup_side_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ]
+    },
+    {
+      "clip_id": "mv_s003_pushup_bad_side",
+      "video_id": "subject_003_push_up_bad_side",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_003/push_up/bad/side/subject_003_push_up_bad_side.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 457
+      },
+      "fps": 15.0,
+      "frame_count": 458,
+      "source_size": {
+        "width": 1440,
+        "height": 810
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "view_geometry": {
+        "dataset_label": "side",
+        "camera_side": "left"
+      },
+      "source_quality_label": "bad",
+      "source_sha256": "eeb395ab7b346b83abdec791e60472241765f20d4dbc439f2dc77bb75c92f2de",
+      "split": "pilot_pushup_side_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ]
+    },
+    {
+      "clip_id": "mv_s004_pushup_good_side",
+      "video_id": "subject_004_push_up_good_side",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_004/push_up/good/side/subject_004_push_up_good_side.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 305
+      },
+      "fps": 15.0,
+      "frame_count": 306,
+      "source_size": {
+        "width": 1440,
+        "height": 810
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "view_geometry": {
+        "dataset_label": "side",
+        "camera_side": "left"
+      },
+      "source_quality_label": "good",
+      "source_sha256": "818bdfa65d3c233a5df5a7cd4ba16cc6adae25a8fd081893b0eda9df1bebb1cb",
+      "split": "pilot_pushup_side_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ]
+    },
+    {
+      "clip_id": "mv_s004_pushup_bad_side",
+      "video_id": "subject_004_push_up_bad_side",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_004/push_up/bad/side/subject_004_push_up_bad_side.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 411
+      },
+      "fps": 15.0,
+      "frame_count": 412,
+      "source_size": {
+        "width": 1440,
+        "height": 810
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "view_geometry": {
+        "dataset_label": "side",
+        "camera_side": "left"
+      },
+      "source_quality_label": "bad",
+      "source_sha256": "f5f774636562a11c212edbfd89597a966005df512608cf3740fea788219838fa",
+      "split": "pilot_pushup_side_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ]
+    },
+    {
+      "clip_id": "mv_s006_pushup_good_side",
+      "video_id": "subject_006_push_up_good_side",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_006/push_up/good/side/subject_006_push_up_good_side.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 327
+      },
+      "fps": 15.0,
+      "frame_count": 328,
+      "source_size": {
+        "width": 1440,
+        "height": 810
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "view_geometry": {
+        "dataset_label": "side",
+        "camera_side": "left"
+      },
+      "source_quality_label": "good",
+      "source_sha256": "8940613690fd0d031650f2a606f370642edc043d5dd9042c070b998e1144c702",
+      "split": "pilot_pushup_side_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ]
+    },
+    {
+      "clip_id": "mv_s006_pushup_bad_side",
+      "video_id": "subject_006_push_up_bad_side",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_006/push_up/bad/side/subject_006_push_up_bad_side.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 271
+      },
+      "fps": 15.0,
+      "frame_count": 272,
+      "source_size": {
+        "width": 1440,
+        "height": 810
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "view_geometry": {
+        "dataset_label": "side",
+        "camera_side": "left"
+      },
+      "source_quality_label": "bad",
+      "source_sha256": "3a9431f8f5f0c91a84be3c69ca778484a398b5ecedaaa99377f56782a0fb2fb6",
+      "split": "pilot_pushup_side_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ]
+    },
+    {
+      "clip_id": "mv_s009_pushup_good_side",
+      "video_id": "subject_009_push_up_good_side",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_009/push_up/good/side/subject_009_push_up_good_side.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 233
+      },
+      "fps": 15.0,
+      "frame_count": 234,
+      "source_size": {
+        "width": 1440,
+        "height": 810
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "view_geometry": {
+        "dataset_label": "side",
+        "camera_side": "left"
+      },
+      "source_quality_label": "good",
+      "source_sha256": "2578af147671405398173221edb97283c363998ab7aec5dc1ff597ba178378db",
+      "split": "pilot_pushup_side_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ]
+    },
+    {
+      "clip_id": "mv_s009_pushup_bad_side",
+      "video_id": "subject_009_push_up_bad_side",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_009/push_up/bad/side/subject_009_push_up_bad_side.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 237
+      },
+      "fps": 15.0,
+      "frame_count": 238,
+      "source_size": {
+        "width": 1440,
+        "height": 810
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "view_geometry": {
+        "dataset_label": "side",
+        "camera_side": "left"
+      },
+      "source_quality_label": "bad",
+      "source_sha256": "4598b188ab3911196f0381e612e206d24341a70b48f330b32defba7af5f0ac31",
+      "split": "pilot_pushup_side_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ]
+    },
+    {
+      "clip_id": "mv_s012_pushup_good_side",
+      "video_id": "subject_012_push_up_good_side",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_012/push_up/good/side/subject_012_push_up_good_side.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 351
+      },
+      "fps": 15.0,
+      "frame_count": 352,
+      "source_size": {
+        "width": 960,
+        "height": 540
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "view_geometry": {
+        "dataset_label": "side",
+        "camera_side": "left"
+      },
+      "source_quality_label": "good",
+      "source_sha256": "53ffc16c2090adcab6ecf680c1561e80e3aaa387c3f20e2165d2943b851dea25",
+      "split": "pilot_pushup_side_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ]
+    },
+    {
+      "clip_id": "mv_s012_pushup_bad_side",
+      "video_id": "subject_012_push_up_bad_side",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_012/push_up/bad/side/subject_012_push_up_bad_side.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 373
+      },
+      "fps": 15.0,
+      "frame_count": 374,
+      "source_size": {
+        "width": 960,
+        "height": 540
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "view_geometry": {
+        "dataset_label": "side",
+        "camera_side": "left"
+      },
+      "source_quality_label": "bad",
+      "source_sha256": "7cfb934b31b4a3a13baec389ff435cedb037f87b67aa8608b7c55562633f27e0",
+      "split": "pilot_pushup_side_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ]
+    },
+    {
+      "clip_id": "mv_s023_pushup_good_side",
+      "video_id": "subject_023_push_up_good_side",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_023/push_up/good/side/subject_023_push_up_good_side.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 289
+      },
+      "fps": 15.0,
+      "frame_count": 290,
+      "source_size": {
+        "width": 636,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "view_geometry": {
+        "dataset_label": "side",
+        "camera_side": "left"
+      },
+      "source_quality_label": "good",
+      "source_sha256": "218b0c1569cd03e0b0c4dd581303ed7d3b35dc5a3c768b6cefef38dc5a07c8f4",
+      "split": "pilot_pushup_side_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ]
+    },
+    {
+      "clip_id": "mv_s023_pushup_bad_side",
+      "video_id": "subject_023_push_up_bad_side",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_023/push_up/bad/side/subject_023_push_up_bad_side.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 206
+      },
+      "fps": 15.0,
+      "frame_count": 207,
+      "source_size": {
+        "width": 636,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "view_geometry": {
+        "dataset_label": "side",
+        "camera_side": "left"
+      },
+      "source_quality_label": "bad",
+      "source_sha256": "04c99ee458a26d17dc81f0565d76536968e909f7d4b3be2247dc3941b6edda11",
+      "split": "pilot_pushup_side_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ]
+    },
+    {
+      "clip_id": "mv_s024_pushup_good_side",
+      "video_id": "subject_024_push_up_good_side",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_024/push_up/good/side/subject_024_push_up_good_side.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 289
+      },
+      "fps": 15.0,
+      "frame_count": 290,
+      "source_size": {
+        "width": 636,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "view_geometry": {
+        "dataset_label": "side",
+        "camera_side": "left"
+      },
+      "source_quality_label": "good",
+      "source_sha256": "df08b3820df7c7fc9d3c4d55094d6605c7c54c965bd91b5dec017e6e22ba6e09",
+      "split": "pilot_pushup_side_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ]
+    },
+    {
+      "clip_id": "mv_s024_pushup_bad_side",
+      "video_id": "subject_024_push_up_bad_side",
+      "video_path": "/mnt/storage2/data_guest/VLS/dataset/Multi-View/Dataset Subject-wise/subject_024/push_up/bad/side/subject_024_push_up_bad_side.mp4",
+      "exercise": "pushup",
+      "action_display": "pushups",
+      "trim": {
+        "start_frame": 0,
+        "end_frame": 318
+      },
+      "fps": 15.0,
+      "frame_count": 319,
+      "source_size": {
+        "width": 636,
+        "height": 360
+      },
+      "rotation": "none",
+      "view": "side_left",
+      "view_geometry": {
+        "dataset_label": "side",
+        "camera_side": "left"
+      },
+      "source_quality_label": "bad",
+      "source_sha256": "72b3f3a73db648855c29af40392deb9a3313065bdf48ac01177ad91e61c8f02a",
+      "split": "pilot_pushup_side_expanded",
+      "phase_role": "pilot",
+      "selected_for_phase": true,
+      "usable_metrics": [
+        "rep_duration_s",
+        "rep_duration_cv",
+        "spine_stability_bottom",
+        "elbow_flexion_rom",
+        "bottom_elbow_angle",
+        "body_line_angle",
+        "hip_sag_ratio"
+      ],
+      "disabled_metrics": [
+        "elbow_asymmetry_bottom",
+        "shoulder_asymmetry_bottom"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,316 @@
+{
+  "schema_version": "vls-metric-contracts-v1",
+  "timebase": {
+    "frame_basis": "clip_local",
+    "source_frame_basis": "source_video_absolute",
+    "time_unit": "s",
+    "anchor_policy": "phase_window_extreme_or_center"
+  },
+  "status_values": [
+    "ok",
+    "low_confidence",
+    "unavailable",
+    "disabled",
+    "insufficient_reps",
+    "conflict"
+  ],
+  "view_families": {
+    "any": [
+      "front",
+      "rear",
+      "side_left",
+      "side_right",
+      "oblique_left",
+      "oblique_right",
+      "unknown"
+    ],
+    "sagittal": [
+      "side_left",
+      "side_right",
+      "oblique_left",
+      "oblique_right"
+    ],
+    "frontal": [
+      "front",
+      "rear",
+      "oblique_left",
+      "oblique_right"
+    ]
+  },
+  "near_side_by_view": {
+    "side_left": "left",
+    "oblique_left": "left",
+    "side_right": "right",
+    "oblique_right": "right"
+  },
+  "view_confidence_factors": {
+    "front": 1.0,
+    "rear": 1.0,
+    "side_left": 1.0,
+    "side_right": 1.0,
+    "oblique_left": 0.85,
+    "oblique_right": 0.85,
+    "unknown": 0.8
+  },
+  "confidence": {
+    "low_below": 0.55,
+    "suppress_below": 0.35,
+    "clip_rep_boundary_component": 1.0,
+    "quality_factors": {
+      "pass": 1.0,
+      "warn": 0.9,
+      "reject": 0.5,
+      "unknown": 0.8
+    },
+    "combination": "signal * rep_boundary * view * quality * metric_scale",
+    "scope_policy": {
+      "rep": "rep_boundary is the selected rep boundary confidence",
+      "clip": "rep boundary evidence is folded into signal; rep_boundary component is 1.0"
+    }
+  },
+  "windows": {
+    "bottom_radius_frames": 8,
+    "stability_radius_frames": 15,
+    "top_radius_frames": 3
+  },
+  "clip_policy": {
+    "min_reps_for_tempo": 3,
+    "quality_reject_abstains": true,
+    "insufficient_reps_abstains": false
+  },
+  "metrics": {
+    "rep_duration_s": {
+      "unit": "s",
+      "scope": "rep",
+      "view_family": "any",
+      "phase": "full_rep",
+      "source": "reps.duration_s",
+      "source_signals": ["reps.duration_s"],
+      "computation": "rep_end_minus_rep_start",
+      "aggregation": "duration",
+      "anchor_rule": "rep_midpoint"
+    },
+    "spine_stability_bottom": {
+      "unit": "variance",
+      "scope": "rep",
+      "view_family": "any",
+      "phase": "bottom_window",
+      "source": "angles_wide.spine_stability",
+      "source_signals": ["spine_stability"],
+      "computation": "window_p90",
+      "aggregation": "p90",
+      "anchor_rule": "max",
+      "window_radius_key": "stability_radius_frames"
+    },
+    "rep_duration_cv": {
+      "unit": "ratio",
+      "scope": "clip",
+      "view_family": "any",
+      "phase": "clip",
+      "source": "reps.duration_s",
+      "source_signals": ["reps.duration_s"],
+      "computation": "population_std_over_mean",
+      "aggregation": "cv",
+      "anchor_rule": "most_deviant_rep_midpoint",
+      "min_reps": 3
+    }
+  },
+  "exercise_metrics": {
+    "squat": {
+      "knee_flexion_rom": {
+        "unit": "deg",
+        "scope": "rep",
+        "view_family": "sagittal",
+        "phase": "full_rep",
+        "source": "angles_wide.{side}_knee_flexion",
+        "source_signals": ["{side}_knee_flexion"],
+        "computation": "p95_minus_p5_of_180_minus_joint_angle",
+        "aggregation": "p95_minus_p5",
+        "anchor_rule": "max_flexion",
+        "side_dependent": true
+      },
+      "bottom_knee_angle": {
+        "unit": "deg",
+        "scope": "rep",
+        "view_family": "sagittal",
+        "phase": "bottom_window",
+        "source": "angles_wide.{side}_knee_flexion",
+        "source_signals": ["{side}_knee_flexion"],
+        "computation": "window_median_joint_angle",
+        "aggregation": "median",
+        "anchor_rule": "nearest_median",
+        "window_radius_key": "bottom_radius_frames",
+        "side_dependent": true
+      },
+      "hip_flexion_rom": {
+        "unit": "deg",
+        "scope": "rep",
+        "view_family": "sagittal",
+        "phase": "full_rep",
+        "source": "angles_wide.{side}_hip_flexion_sagittal",
+        "source_signals": ["{side}_hip_flexion_sagittal"],
+        "computation": "p95_minus_p5_sagittal_flexion",
+        "aggregation": "p95_minus_p5",
+        "anchor_rule": "max_flexion",
+        "side_dependent": true
+      },
+      "torso_lean_bottom": {
+        "unit": "deg",
+        "scope": "rep",
+        "view_family": "sagittal",
+        "phase": "bottom_window",
+        "source": "angles_wide.torso_flexion",
+        "source_signals": ["torso_flexion"],
+        "computation": "window_median_torso_flexion",
+        "aggregation": "median",
+        "anchor_rule": "max",
+        "window_radius_key": "bottom_radius_frames"
+      },
+      "hip_depth_ratio": {
+        "unit": "ratio",
+        "scope": "rep",
+        "view_family": "sagittal",
+        "phase": "top_to_bottom",
+        "source": "landmarks_world.ankle_mid_y_minus_hip_mid_y",
+        "source_signals": ["landmarks_world[23,24,27,28].y"],
+        "computation": "top_hip_height_drop_over_top_hip_height",
+        "aggregation": "median_ratio",
+        "anchor_rule": "bottom_center",
+        "confidence_scale": 0.85
+      },
+      "knee_valgus_bottom": {
+        "unit": "deg",
+        "scope": "rep",
+        "view_family": "frontal",
+        "phase": "bottom_window",
+        "source": "landmarks_body_frame.hip_knee_ankle_coronal",
+        "source_signals": [
+          "landmarks_body_frame[23,25,27]",
+          "landmarks_body_frame[24,26,28]"
+        ],
+        "computation": "window_p90_max_inward_knee_deviation",
+        "aggregation": "p90",
+        "anchor_rule": "max",
+        "window_radius_key": "bottom_radius_frames"
+      },
+      "knee_asymmetry_bottom": {
+        "unit": "deg",
+        "scope": "rep",
+        "view_family": "frontal",
+        "phase": "bottom_window",
+        "source": "angles_wide.knee_flexion_asymmetry",
+        "source_signals": ["knee_flexion_asymmetry"],
+        "computation": "window_p90_absolute_left_right_knee_angle_difference",
+        "aggregation": "p90",
+        "anchor_rule": "max",
+        "window_radius_key": "bottom_radius_frames"
+      },
+      "hip_asymmetry_bottom": {
+        "unit": "deg",
+        "scope": "rep",
+        "view_family": "frontal",
+        "phase": "bottom_window",
+        "source": "angles_wide.hip_flexion_asymmetry",
+        "source_signals": ["hip_flexion_asymmetry"],
+        "computation": "window_p90_absolute_left_right_hip_angle_difference",
+        "aggregation": "p90",
+        "anchor_rule": "max",
+        "window_radius_key": "bottom_radius_frames"
+      }
+    },
+    "pushup": {
+      "elbow_flexion_rom": {
+        "unit": "deg",
+        "scope": "rep",
+        "view_family": "sagittal",
+        "phase": "full_rep",
+        "source": "angles_wide.{side}_elbow_flexion",
+        "source_signals": ["{side}_elbow_flexion"],
+        "computation": "p95_minus_p5_of_180_minus_joint_angle",
+        "aggregation": "p95_minus_p5",
+        "anchor_rule": "max_flexion",
+        "side_dependent": true
+      },
+      "bottom_elbow_angle": {
+        "unit": "deg",
+        "scope": "rep",
+        "view_family": "sagittal",
+        "phase": "bottom_window",
+        "source": "angles_wide.{side}_elbow_flexion",
+        "source_signals": ["{side}_elbow_flexion"],
+        "computation": "window_median_joint_angle",
+        "aggregation": "median",
+        "anchor_rule": "nearest_median",
+        "window_radius_key": "bottom_radius_frames",
+        "side_dependent": true
+      },
+      "body_line_angle": {
+        "unit": "deg",
+        "scope": "rep",
+        "view_family": "sagittal",
+        "phase": "full_rep",
+        "source": "landmarks_world.shoulder_hip_ankle_angle",
+        "source_signals": ["landmarks_world[11,12,23,24,27,28]"],
+        "computation": "window_p10_shoulder_hip_ankle_angle",
+        "aggregation": "p10",
+        "anchor_rule": "min"
+      },
+      "hip_sag_ratio": {
+        "unit": "ratio",
+        "scope": "rep",
+        "view_family": "sagittal",
+        "phase": "bottom_window",
+        "source": "landmarks_world.hip_distance_from_shoulder_ankle_line_over_torso_length",
+        "source_signals": ["landmarks_world[11,12,23,24,27,28]"],
+        "computation": "window_p90_hip_line_deviation_ratio",
+        "aggregation": "p90",
+        "anchor_rule": "max",
+        "window_radius_key": "bottom_radius_frames",
+        "confidence_scale": 0.85
+      },
+      "elbow_asymmetry_bottom": {
+        "unit": "deg",
+        "scope": "rep",
+        "view_family": "frontal",
+        "phase": "bottom_window",
+        "source": "angles_wide.left_right_elbow_flexion",
+        "source_signals": ["left_elbow_flexion", "right_elbow_flexion"],
+        "computation": "window_p90_absolute_left_right_elbow_angle_difference",
+        "aggregation": "p90",
+        "anchor_rule": "max",
+        "window_radius_key": "bottom_radius_frames"
+      },
+      "shoulder_asymmetry_bottom": {
+        "unit": "deg",
+        "scope": "rep",
+        "view_family": "frontal",
+        "phase": "bottom_window",
+        "source": "angles_wide.left_right_shoulder_flexion",
+        "source_signals": ["left_shoulder_flexion", "right_shoulder_flexion"],
+        "computation": "window_p90_absolute_left_right_shoulder_angle_difference",
+        "aggregation": "p90",
+        "anchor_rule": "max",
+        "window_radius_key": "bottom_radius_frames",
+        "confidence_scale": 0.85
+      }
+    }
+  },
+  "issue_metrics": {
+    "squat": {
+      "squat_depth_insufficient": ["knee_flexion_rom", "bottom_knee_angle", "hip_depth_ratio"],
+      "squat_torso_lean_excess": ["torso_lean_bottom"],
+      "squat_knee_valgus": ["knee_valgus_bottom"],
+      "squat_asymmetry": ["knee_asymmetry_bottom", "hip_asymmetry_bottom"],
+      "squat_tempo_inconsistent": ["rep_duration_cv"],
+      "squat_stability_low": ["spine_stability_bottom"]
+    },
+    "pushup": {
+      "pushup_depth_insufficient": ["elbow_flexion_rom", "bottom_elbow_angle"],
+      "pushup_body_line_break": ["body_line_angle"],
+      "pushup_hip_sag": ["hip_sag_ratio"],
+      "pushup_asymmetry": ["elbow_asymmetry_bottom", "shoulder_asymmetry_bottom"],
+      "pushup_tempo_inconsistent": ["rep_duration_cv"],
+      "pushup_stability_low": ["spine_stability_bottom"]
+    }
+  }
+}

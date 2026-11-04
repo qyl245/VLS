@@ -1,0 +1,28 @@
+{
+  "schema_version": "multiview-pushup-tops-v1",
+  "review_protocol": "Visual review of every-frame crops around model-navigated candidates, with dense contact sheets sampled every 3 frames for boundary checks. Top anchors denote the visible arms-extended plateau; entry/exit transitions, kneeling, and standing frames are excluded.",
+  "reviewed_at": "2026-11-02",
+  "review_notes": [
+    "s012_bad: added the two initial tops and one mid-clip top that the phase candidates merged into long cycles.",
+    "s023_bad: excluded the final kneeling/stand-up transition.",
+    "s024_good: added the missed mid-clip top and excluded the terminal stand-up frame.",
+    "s024_bad: excluded the terminal stand-up frame.",
+    "s003_good: corrected a late top candidate that fell on the descent instead of the arms-extended plateau."
+  ],
+  "top_boundaries": {
+    "mv_s003_pushup_good_side": [7, 28, 53, 76, 99, 120, 141, 164, 185, 206, 229, 252, 275, 298, 321, 344, 375, 401, 435],
+    "mv_s003_pushup_bad_side": [37, 69, 96, 119, 142, 165, 191, 213, 243, 268, 300, 337, 369, 410, 451],
+    "mv_s004_pushup_good_side": [22, 56, 95, 136, 178, 225, 267],
+    "mv_s004_pushup_bad_side": [13, 65, 120, 173, 225, 277],
+    "mv_s006_pushup_good_side": [6, 24, 43, 62, 80, 99, 119, 136, 155, 174, 192, 211, 229, 249, 269, 288, 308],
+    "mv_s006_pushup_bad_side": [19, 43, 74, 101, 134, 165, 193, 221, 254],
+    "mv_s009_pushup_good_side": [0, 27, 56, 88, 122, 156, 199],
+    "mv_s009_pushup_bad_side": [0, 15, 40, 64, 94, 136, 175, 207],
+    "mv_s012_pushup_good_side": [0, 18, 38, 57, 74, 93, 112, 132, 153, 171, 190, 208, 226, 246, 263, 281, 299, 319, 338],
+    "mv_s012_pushup_bad_side": [0, 28, 63, 111, 141, 164, 189, 225, 267, 300, 339],
+    "mv_s023_pushup_good_side": [35, 58, 81, 104, 128, 152, 176, 200, 224, 251, 278],
+    "mv_s023_pushup_bad_side": [40, 63, 88, 113, 138, 165],
+    "mv_s024_pushup_good_side": [2, 25, 49, 71, 95, 117, 145, 171, 195, 225, 253],
+    "mv_s024_pushup_bad_side": [11, 40, 61, 82, 103, 126, 149, 172, 197, 226, 249, 272]
+  }
+}
