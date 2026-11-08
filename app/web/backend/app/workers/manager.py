@@ -85,6 +85,17 @@ class JobManager:
 
         def on_stage(name: str, detail: dict[str, Any]) -> None:
             nonlocal last_mark
+            index = _STAGE_ORDER.index(name) if name in _STAGE_ORDER else 0
+            progress = round(min(max(index / (len(_STAGE_ORDER) - 1), 0.0), 1.0), 3)
+            if detail.get("event") == "start":
+                status = "validating" if name == "validate_upload" else "running"
+                db.update_job(job_id, status=status, stage=name, progress=progress)
+                self._mirror(job_id)
+                with self._lock:
+                    cancelled = job_id in self._cancel
+                if cancelled:
+                    raise AppError("job_cancelled", "任务已取消", status_code=409)
+                return
             now = time.perf_counter()
             stages_done.append(
                 JobStage(
@@ -96,8 +107,6 @@ class JobManager:
             )
             last_mark = now
             status = "validating" if name == "validate_upload" else "running"
-            index = _STAGE_ORDER.index(name) if name in _STAGE_ORDER else 0
-            progress = round(min(max(index / (len(_STAGE_ORDER) - 1), 0.0), 1.0), 3)
             db.update_job(job_id, status=status, stage=name, progress=progress, stages=stages_done)
             self._mirror(job_id)
             with self._lock:

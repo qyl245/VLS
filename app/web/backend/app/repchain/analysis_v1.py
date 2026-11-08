@@ -965,26 +965,41 @@ def segment_clip(
     }
 
 
-def torso_vertical_span_by_frame(
+def torso_verticality_by_frame(
     landmarks_path: Path,
     trim_start: int,
 ) -> dict[int, float]:
+    """Return the vertical fraction of the 3D torso vector per source frame."""
     values: dict[int, float] = {}
     for record in json.loads(landmarks_path.read_text()):
         landmarks = record.get("landmarks_world")
         if not isinstance(landmarks, list) or len(landmarks) < 25:
             continue
         try:
-            shoulder_y = (float(landmarks[11][1]) + float(landmarks[12][1])) / 2.0
-            hip_y = (float(landmarks[23][1]) + float(landmarks[24][1])) / 2.0
+            shoulder = np.asarray(
+                [
+                    (float(landmarks[11][axis]) + float(landmarks[12][axis])) / 2.0
+                    for axis in range(3)
+                ],
+                dtype=np.float64,
+            )
+            hip = np.asarray(
+                [
+                    (float(landmarks[23][axis]) + float(landmarks[24][axis])) / 2.0
+                    for axis in range(3)
+                ],
+                dtype=np.float64,
+            )
         except (TypeError, ValueError, IndexError):
             continue
-        if not (np.isfinite(shoulder_y) and np.isfinite(hip_y)):
+        torso_vector = hip - shoulder
+        torso_length = float(np.linalg.norm(torso_vector))
+        if not np.isfinite(torso_length) or torso_length < 1e-6:
             continue
         source_frame = record.get("source_frame")
         if source_frame is None:
             source_frame = trim_start + int(record.get("frame_id", 0))
-        values[int(source_frame)] = abs(shoulder_y - hip_y)
+        values[int(source_frame)] = abs(float(torso_vector[1])) / torso_length
     return values
 
 
@@ -999,7 +1014,7 @@ def apply_exercise_posture_gate(
         return segmentation
 
     trim_start = int(clip["trim"]["start_frame"])
-    values = torso_vertical_span_by_frame(angles_dir / "landmarks.json", trim_start)
+    values = torso_verticality_by_frame(angles_dir / "landmarks.json", trim_start)
     rule = gate["rule"]
     threshold = float(gate["threshold"])
     kept = []

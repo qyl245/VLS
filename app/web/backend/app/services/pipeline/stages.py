@@ -247,6 +247,7 @@ def run_stages(job_id: str, request: dict[str, Any], on_stage: Callable[[str, di
     on_stage("build_job_manifest", {"manifest": str(manifest.name)})
 
     legacy_dir = job_dir / "work" / "analysis_v1"
+    on_stage("analysis_v1", {"event": "start", "output_dir": "work/analysis_v1"})
     _run_script(
         job_dir,
         [
@@ -265,6 +266,7 @@ def run_stages(job_id: str, request: dict[str, Any], on_stage: Callable[[str, di
     repchain_dir = job_dir / "work" / "repchain"
     repchain_status = "ok"
     repchain_summary: dict[str, Any] = {}
+    on_stage("repchain", {"event": "start", "output_dir": "work/analysis"})
     try:
         _run_script(
             job_dir,
@@ -316,6 +318,7 @@ def run_stages(job_id: str, request: dict[str, Any], on_stage: Callable[[str, di
     )
 
     feedback_dir = job_dir / "work" / "feedback"
+    on_stage("issues", {"event": "start", "output_dir": "work/feedback"})
     _run_script(
         job_dir,
         [
@@ -331,6 +334,7 @@ def run_stages(job_id: str, request: dict[str, Any], on_stage: Callable[[str, di
     on_stage("issues", {"output_dir": "work/feedback"})
 
     feedback_v2_dir = job_dir / "work" / "feedback_v2"
+    on_stage("feedback_v2", {"event": "start", "output_dir": "work/feedback_v2"})
     _run_script(
         job_dir,
         [
@@ -350,6 +354,7 @@ def run_stages(job_id: str, request: dict[str, Any], on_stage: Callable[[str, di
     on_stage("feedback_v2", {"output_dir": "work/feedback_v2"})
 
     artifacts_root = job_dir / "artifacts"
+    on_stage("build_report", {"event": "start", "output_dir": "artifacts"})
     _run_script(
         job_dir,
         [

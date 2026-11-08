@@ -32,6 +32,14 @@ export interface SampleSummary {
   duration_seconds: number
 }
 
+export type RepSelectionMode = 'primary' | 'boundary_refinement' | 'fallback' | 'none'
+
+export interface RepProvenance {
+  selection: RepSelectionMode
+  top_boundary_source: string
+  bottom_boundary_source: string
+}
+
 export interface RepItem {
   rep_id: number
   start_s: number
@@ -43,6 +51,23 @@ export interface RepItem {
   status: string
   quality_flags: string[]
   reject_reasons: string[]
+  provenance: RepProvenance | null
+}
+
+export interface RepSelectionCounts {
+  accepted_cycle: number
+  complete_cycle: number
+  endpoint_partial_cycle: number
+  rejected_candidate: number
+}
+
+export interface RepSelection {
+  schema_version: 'vls-rep-selection-v1'
+  mode: RepSelectionMode
+  selected_source: 'repchain' | 'legacy' | null
+  reason: string
+  counts: RepSelectionCounts
+  aliases: Record<string, number>
 }
 
 export interface PhaseItem {
@@ -176,6 +201,7 @@ export interface SampleDetail {
   quality: QualityGate
   contract: Contract
   confidence: ConfidencePanel
+  rep_selection: RepSelection | null
   assessment: AssessmentSummary | null
   feedback: FeedbackSummary | null
   state: FeedbackState

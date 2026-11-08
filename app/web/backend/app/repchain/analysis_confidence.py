@@ -17,6 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import repchain_confidence as base_confidence
 import analysis_quality as quality_lite
+import rep_contract
 
 
 DEFAULT_CONFIG = ROOT / "configs" / "confidence_calibration.json"
@@ -76,6 +77,14 @@ def _complete_reps(set_candidate: dict[str, Any] | None) -> list[dict[str, Any]]
         for rep in set_candidate.get("reps") or []
         if rep.get("status") == "complete"
     ]
+
+
+def _accepted_cycles(
+    set_candidate: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    if not set_candidate:
+        return []
+    return rep_contract.accepted_cycle_reps(set_candidate.get("reps") or [])
 
 
 def _evidence_by_id(
@@ -257,6 +266,9 @@ def build_output_confidence(
     calibrator: dict[str, Any],
 ) -> dict[str, Any]:
     core = config["core"]
+    default_set = _default_set(analysis)
+    complete_reps = _complete_reps(default_set)
+    accepted_cycles = _accepted_cycles(default_set)
     components = _base_components(analysis, signal_evidence)
     quality_factor, quality_status = _clip_quality_factor(
         quality_evidence, core["quality_multipliers"]
@@ -285,7 +297,7 @@ def build_output_confidence(
         abstain_reason = "phase_ambiguous"
     elif action_status != "supported":
         abstain_reason = f"action_{action_status}"
-    elif not _complete_reps(_default_set(analysis)):
+    elif not accepted_cycles:
         abstain_reason = "no_confident_set"
     elif calibrated["combined"] < float(core["minimum_reportable_confidence"]):
         abstain_reason = "low_confidence"
@@ -294,6 +306,12 @@ def build_output_confidence(
         "calibrated": calibrated,
         "abstained": abstain_reason is not None,
         "abstain_reason": abstain_reason,
+        "rep_evidence": {
+            "rep_count_basis": "accepted_cycle",
+            "accepted_cycle_count": len(accepted_cycles),
+            "complete_cycle_count": len(complete_reps),
+            "endpoint_partial_cycle_count": len(accepted_cycles) - len(complete_reps),
+        },
     }
 
 

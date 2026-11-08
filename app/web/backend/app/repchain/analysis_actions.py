@@ -10,6 +10,8 @@ import statistics
 from pathlib import Path
 from typing import Any
 
+import rep_contract
+
 
 ROOT = Path(__file__).resolve().parents[4]
 DEFAULT_CONFIG = ROOT / "configs" / "action_verification.json"
@@ -73,6 +75,18 @@ def _complete_reps(set_candidate: dict[str, Any] | None) -> list[dict[str, Any]]
     ]
 
 
+def _cycle_reps(set_candidate: dict[str, Any] | None) -> list[dict[str, Any]]:
+    """Return complete cycles plus trustworthy endpoint partial cycles.
+
+    Endpoint partials have a real interior bottom and one observed boundary;
+    they are useful for action recognition and rep counting, while their
+    status still prevents them from masquerading as fully bounded reps.
+    """
+    if not set_candidate:
+        return []
+    return rep_contract.accepted_cycle_reps(set_candidate.get("reps") or [])
+
+
 def _period_seconds(
     analysis: dict[str, Any],
     set_candidate: dict[str, Any] | None,
@@ -128,9 +142,24 @@ def verify_action(
     family = signal_family(selected_signal)
     allowed = {signal_family(value) for value in policy["allowed_phase_families"]}
     default_set = _default_set(analysis)
-    reps = _complete_reps(default_set)
-    period_seconds = _period_seconds(analysis, default_set, reps, fps)
-    minimum_reps = int(policy.get("minimum_complete_reps", core["minimum_complete_reps"]))
+    complete_reps = _complete_reps(default_set)
+    cycle_reps = _cycle_reps(default_set)
+    endpoint_partial_reps = [
+        rep for rep in cycle_reps if rep.get("status") == "endpoint_partial"
+    ]
+    period_seconds = _period_seconds(analysis, default_set, cycle_reps, fps)
+    minimum_cycle_reps = int(
+        policy.get(
+            "minimum_cycle_reps",
+            policy.get("minimum_complete_reps", core["minimum_complete_reps"]),
+        )
+    )
+    minimum_complete_reps = int(
+        policy.get(
+            "minimum_complete_reps",
+            core["minimum_complete_reps"],
+        )
+    )
     period_low, period_high = (
         float(value) for value in policy["period_seconds_range"]
     )
@@ -139,8 +168,12 @@ def verify_action(
         "selected_phase_signal": selected_signal,
         "phase_family": family or None,
         "allowed_phase_families": sorted(allowed),
-        "complete_rep_count": len(reps),
-        "minimum_complete_reps": minimum_reps,
+        "complete_rep_count": len(complete_reps),
+        "endpoint_partial_rep_count": len(endpoint_partial_reps),
+        "cycle_rep_count": len(cycle_reps),
+        "rep_count_basis": "accepted_cycle",
+        "minimum_cycle_reps": minimum_cycle_reps,
+        "minimum_complete_reps": minimum_complete_reps,
         "period_seconds": period_seconds,
         "period_seconds_range": [period_low, period_high],
         "periodicity": diagnostics.get("periodicity"),
@@ -156,9 +189,9 @@ def verify_action(
     elif family not in allowed:
         status = "mismatch"
         reasons.append("phase_signal_family_mismatch")
-    if status == "supported" and len(reps) < minimum_reps:
+    if status == "supported" and len(cycle_reps) < minimum_cycle_reps:
         status = "ambiguous"
-        reasons.append("insufficient_complete_reps")
+        reasons.append("insufficient_cycle_reps")
     if (
         status == "supported"
         and period_seconds is not None

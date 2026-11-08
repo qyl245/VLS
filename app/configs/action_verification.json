@@ -1,6 +1,6 @@
 {
   "schema_version": "vls-action-verification-v1",
-  "revision": "v1",
+  "revision": "v1.1-endpoint-cycles-slow-squat",
   "frozen": true,
   "core": {
     "dataset_independent": true,
@@ -25,9 +25,10 @@
         "hip_flexion_sagittal"
       ],
       "minimum_complete_reps": 3,
+      "minimum_cycle_reps": 3,
       "period_seconds_range": [
         0.7,
-        5.0
+        8.0
       ]
     },
     "pushup": {
@@ -37,6 +38,7 @@
         "elbow_flexion"
       ],
       "minimum_complete_reps": 3,
+      "minimum_cycle_reps": 3,
       "period_seconds_range": [
         0.7,
         5.0

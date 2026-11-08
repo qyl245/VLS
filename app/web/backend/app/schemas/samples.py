@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 
 class Timebase(BaseModel):
@@ -39,6 +39,51 @@ class SampleSummary(BaseModel):
     duration_seconds: float
 
 
+class RepProvenance(BaseModel):
+    selection: Literal["primary", "boundary_refinement", "fallback", "none"]
+    top_boundary_source: str
+    bottom_boundary_source: str
+
+
+class RepSelectionCounts(BaseModel):
+    accepted_cycle: int = Field(ge=0)
+    complete_cycle: int = Field(ge=0)
+    endpoint_partial_cycle: int = Field(ge=0)
+    rejected_candidate: int = Field(ge=0)
+
+
+class RepSelection(BaseModel):
+    schema_version: Literal["vls-rep-selection-v1"]
+    mode: Literal["primary", "boundary_refinement", "fallback", "none"]
+    selected_source: Literal["repchain", "legacy"] | None
+    reason: str
+    counts: RepSelectionCounts
+    aliases: dict[str, int] = Field(default_factory=dict)
+
+    @model_validator(mode="after")
+    def validate_semantics(self) -> "RepSelection":
+        counts = self.counts
+        if counts.accepted_cycle != counts.complete_cycle + counts.endpoint_partial_cycle:
+            raise ValueError("accepted_cycle must equal complete + endpoint_partial")
+        expected_source = {
+            "primary": "repchain",
+            "boundary_refinement": "repchain",
+            "fallback": "legacy",
+            "none": None,
+        }[self.mode]
+        if self.selected_source != expected_source:
+            raise ValueError(
+                f"selected_source must be {expected_source!r} for mode {self.mode!r}"
+            )
+        if self.mode == "none" and counts.accepted_cycle:
+            raise ValueError("mode 'none' cannot contain accepted cycles")
+        if self.mode != "none" and not counts.accepted_cycle:
+            raise ValueError(f"mode {self.mode!r} requires accepted cycles")
+        if self.aliases.get("rep_count") not in {None, counts.accepted_cycle}:
+            raise ValueError("aliases.rep_count must equal accepted_cycle")
+        return self
+
+
 class RepItem(BaseModel):
     rep_id: int
     start_s: float
@@ -50,6 +95,7 @@ class RepItem(BaseModel):
     status: str
     quality_flags: list[str] = Field(default_factory=list)
     reject_reasons: list[str] = Field(default_factory=list)
+    provenance: RepProvenance | None = None
 
 
 class PhaseItem(BaseModel):
@@ -182,6 +228,7 @@ class SampleDetail(BaseModel):
     quality: QualityGate
     contract: Contract
     confidence: ConfidencePanel
+    rep_selection: RepSelection | None = None
     assessment: AssessmentSummary | None = None
     feedback: FeedbackSummary | None = None
     state: Literal[

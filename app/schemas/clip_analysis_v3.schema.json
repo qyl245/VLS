@@ -446,7 +446,13 @@
     "output_confidence": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["components", "calibrated", "abstained", "abstain_reason"],
+      "required": [
+        "components",
+        "calibrated",
+        "abstained",
+        "abstain_reason",
+        "rep_evidence"
+      ],
       "properties": {
         "components": {
           "type": "object",
@@ -464,6 +470,33 @@
         },
         "abstain_reason": {
           "type": ["string", "null"]
+        },
+        "rep_evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "rep_count_basis",
+            "accepted_cycle_count",
+            "complete_cycle_count",
+            "endpoint_partial_cycle_count"
+          ],
+          "properties": {
+            "rep_count_basis": {
+              "const": "accepted_cycle"
+            },
+            "accepted_cycle_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "complete_cycle_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "endpoint_partial_cycle_count": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
         }
       }
     },

@@ -134,6 +134,9 @@ POSE_KEY_JOINTS = {
 MIN_KEY_JOINT_VISIBILITY = 0.5
 MIN_PUSHUP_SHOULDER_WRIST_SPAN = 0.05
 MIN_SQUAT_SEGMENT_SPAN = 0.03
+MAX_VIDEO_LONG_EDGE = 960
+MAX_VIDEO_FPS = 12.0
+WEB_VIDEO_QUALITY = 35
 VIEW_LABELS = {
     "front": "正面",
     "rear": "背面",
@@ -333,12 +336,14 @@ class VideoFrameReader:
 
 
 def build_web_video(bundle: dict[str, Any], output_dir: Path) -> Path:
-    """Encode the clip window to a browser-compatible VP8/WebM proxy."""
+    """Encode a compact browser proxy without upscaling the uploaded source."""
     analysis = bundle["analysis"]
     trim = analysis["trim"]
     start = int(trim["start_frame"])
     end = int(trim["end_frame"])
     fps = float(analysis["fps"])
+    frame_step = max(1, int(math.ceil(fps / MAX_VIDEO_FPS)))
+    proxy_fps = fps / frame_step
     rotation = analysis.get("rotation", "none")
     target = output_dir / "media" / f"{bundle['clip_id']}_clip.webm"
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -351,25 +356,39 @@ def build_web_video(bundle: dict[str, Any], output_dir: Path) -> Path:
     written = 0
     try:
         cap.set(cv2.CAP_PROP_POS_FRAMES, start)
-        for _source_frame in range(start, end + 1):
+        for source_frame in range(start, end + 1):
+            if (source_frame - start) % frame_step:
+                if not cap.grab():
+                    raise RuntimeError(
+                        f"cannot skip video frame {source_frame}: {bundle['video_path']}"
+                    )
+                continue
             ok, frame = cap.read()
             if not ok:
                 raise RuntimeError(
                     f"cannot read video frame in [{start}, {end}]: {bundle['video_path']}"
                 )
             frame = rotate_frame(frame, rotation)
+            height, width = frame.shape[:2]
+            scale = min(1.0, MAX_VIDEO_LONG_EDGE / float(max(height, width)))
+            if scale < 1.0:
+                frame = cv2.resize(
+                    frame,
+                    (max(2, int(round(width * scale))), max(2, int(round(height * scale)))),
+                    interpolation=cv2.INTER_AREA,
+                )
             if writer is None:
                 height, width = frame.shape[:2]
                 writer = cv2.VideoWriter(
                     str(temporary),
                     cv2.VideoWriter_fourcc(*"VP80"),
-                    fps,
+                    proxy_fps,
                     (width, height),
                 )
                 if not writer.isOpened():
                     raise RuntimeError("OpenCV VP8/WebM encoder is unavailable")
                 if hasattr(cv2, "VIDEOWRITER_PROP_QUALITY"):
-                    writer.set(cv2.VIDEOWRITER_PROP_QUALITY, 92)
+                    writer.set(cv2.VIDEOWRITER_PROP_QUALITY, WEB_VIDEO_QUALITY)
             writer.write(frame)
             written += 1
     finally:
@@ -1502,6 +1521,11 @@ def render_clip(
         "stale_frames_removed": stale_frames_removed,
         "video": str(web_video_path.resolve()),
         "video_codec": "vp8/webm",
+        "video_proxy": {
+            "max_long_edge": MAX_VIDEO_LONG_EDGE,
+            "max_fps": MAX_VIDEO_FPS,
+            "quality": WEB_VIDEO_QUALITY,
+        },
         "report": str((output_dir / "report.html").resolve()),
         "annotated_frames": str(frame_dir.resolve()),
     }

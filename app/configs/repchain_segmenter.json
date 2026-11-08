@@ -55,7 +55,7 @@
         "bottom_polarity": "trough",
         "phase_landmark": "standing_knee_extended",
         "min_period_s": 0.7,
-        "max_period_s": 5.0
+        "max_period_s": 8.0
       }
     },
     "detector": {

@@ -26,6 +26,8 @@ from ..schemas.samples import (
     PhaseItem,
     QualityGate,
     RepItem,
+    RepProvenance,
+    RepSelection,
     SampleDetail,
     SampleSummary,
     Timebase,
@@ -260,6 +262,13 @@ def _build_reps(source: Source) -> list[RepItem]:
     rows = _read_csv(source.analysis_dir / "reps.csv")
     reps = []
     for row in rows:
+        provenance = None
+        if row.get("provenance.selection"):
+            provenance = RepProvenance(
+                selection=row["provenance.selection"],
+                top_boundary_source=row.get("provenance.top_boundary_source") or "unknown",
+                bottom_boundary_source=row.get("provenance.bottom_boundary_source") or "unknown",
+            )
         reps.append(
             RepItem(
                 rep_id=_int(row.get("rep_id")),
@@ -272,9 +281,17 @@ def _build_reps(source: Source) -> list[RepItem]:
                 status=row.get("status") or "unknown",
                 quality_flags=[x for x in (row.get("quality_flags") or "").split(";") if x],
                 reject_reasons=[x for x in (row.get("reject_reasons") or "").split(";") if x],
+                provenance=provenance,
             )
         )
     return reps
+
+
+def _build_rep_selection(analysis: dict[str, Any]) -> RepSelection | None:
+    payload = analysis.get("rep_selection")
+    if not payload:
+        return None
+    return RepSelection.model_validate(payload)
 
 
 def _build_phases(source: Source) -> list[PhaseItem]:
@@ -545,6 +562,7 @@ def detail_of(source: Source) -> SampleDetail:
         quality=quality,
         contract=_build_contract(source, analysis),
         confidence=_build_confidence(reps, quality_json),
+        rep_selection=_build_rep_selection(analysis),
         assessment=_build_assessment_summary(feedback_v2),
         feedback=feedback_summary,
         state=state,

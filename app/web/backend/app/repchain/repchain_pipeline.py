@@ -23,6 +23,7 @@ import repchain_chain_selection as chain_selection
 import repchain_phase_states as phase_states
 import repchain_quality as quality_gates
 import analysis_builder as analysis_v3
+import rep_contract
 
 
 DEFAULT_SPECS = ROOT / "configs" / "exercise_specs.json"
@@ -65,6 +66,9 @@ REP_FIELDS = [
     "quality_flags",
     "status",
     "reject_reasons",
+    "provenance.selection",
+    "provenance.top_boundary_source",
+    "provenance.bottom_boundary_source",
 ]
 PHASE_FIELDS = [
     "rep_id",
@@ -103,10 +107,22 @@ def write_json(path: Path, payload: Any) -> None:
 
 def write_csv(path: Path, rows: list[dict[str, Any]], fields: list[str]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    csv_rows = []
+    for row in rows:
+        flattened = dict(row)
+        provenance = row.get("provenance")
+        if isinstance(provenance, dict):
+            flattened.update(
+                {
+                    f"provenance.{key}": value
+                    for key, value in provenance.items()
+                }
+            )
+        csv_rows.append(flattened)
     with path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore")
         writer.writeheader()
-        writer.writerows(rows)
+        writer.writerows(csv_rows)
 
 
 def source_time_s(frame: int, fps: float) -> float:
@@ -179,6 +195,22 @@ def _choose_bottom_frame(
     return (start_local + end_local) // 2
 
 
+def _rep_bottoms_align(
+    primary_reps: list[dict[str, Any]],
+    candidate_reps: list[dict[str, Any]],
+    *,
+    fps: float,
+) -> bool:
+    if len(primary_reps) != len(candidate_reps):
+        return False
+    tolerance = max(4.0, 0.5 * max(float(fps), 1.0))
+    return all(
+        abs(float(left["bottom_frame"]) - float(right["bottom_frame"]))
+        <= tolerance
+        for left, right in zip(primary_reps, candidate_reps)
+    )
+
+
 def _quality_flags(rep: dict[str, Any]) -> list[str]:
     flags = [str(value) for value in rep.get("quality_flags") or [] if str(value)]
     status = str(rep.get("status") or "unknown")
@@ -231,6 +263,8 @@ def adapt_cycles(
                 "repchain_rep": rep,
             }
             cycles_with_status.append(item)
+            if status not in rep_contract.ACCEPTED_CYCLE_STATUSES:
+                continue
             # Endpoint partials are real cycles whose closing top lies beyond the
             # selected set boundary. Keep them reportable, but preserve the
             # RepChain status in quality_flags/status instead of silently
@@ -344,6 +378,248 @@ def adapt_cycles(
     return rows, phases, cycles_with_status, rejected
 
 
+def _smooth_signal(signal: np.ndarray, fps: float) -> np.ndarray:
+    """Smooth a phase signal while preserving invalid samples."""
+    valid = np.isfinite(signal)
+    if not valid.any():
+        return signal.copy()
+    window = max(1, int(round(0.12 * fps)))
+    if window <= 1:
+        return signal.copy()
+    indices = np.arange(len(signal), dtype=np.float64)
+    values = np.interp(indices, indices[valid], signal[valid])
+    kernel = np.ones(window, dtype=np.float64) / window
+    smoothed = np.convolve(values, kernel, mode="same")
+    smoothed[~valid] = np.nan
+    return smoothed
+
+
+def _phase_peak_between(signal: np.ndarray, start: int, end: int) -> int | None:
+    start = max(0, int(start))
+    end = min(len(signal) - 1, int(end))
+    if end < start:
+        return None
+    window = signal[start : end + 1]
+    finite = np.flatnonzero(np.isfinite(window))
+    if not finite.size:
+        return None
+    return start + int(finite[int(np.argmax(window[finite]))])
+
+
+def _phase_top_anchor_between(
+    signal: np.ndarray,
+    start: int,
+    end: int,
+    *,
+    fps: float,
+) -> int | None:
+    """Anchor a top just before the high-phase standing plateau ends.
+
+    The exact peak can occur early in a long standing plateau. Following the
+    near-peak band to its exit and stepping back 150 ms tracks the onset of the
+    descent while remaining robust to one-frame pose noise.
+    """
+    peak = _phase_peak_between(signal, start, end)
+    if peak is None:
+        return None
+    start = max(0, int(start))
+    end = min(len(signal) - 1, int(end))
+    finite = signal[np.isfinite(signal)]
+    if not finite.size:
+        return peak
+    low, high = np.percentile(finite, [10, 90])
+    tolerance = max(1.0, 0.04 * float(high - low))
+    threshold = float(signal[peak]) - tolerance
+    plateau_exit = peak
+    while (
+        plateau_exit < end
+        and np.isfinite(signal[plateau_exit + 1])
+        and float(signal[plateau_exit + 1]) >= threshold
+    ):
+        plateau_exit += 1
+    lead = max(1, int(round(0.15 * max(float(fps), 0.0))))
+    return max(start, plateau_exit - lead)
+
+
+def build_legacy_recovery_analysis(
+    clip_id: str,
+    legacy: dict[str, Any],
+    signal: np.ndarray,
+    *,
+    fps: float,
+    trim_start: int,
+    phase_signal_name: str,
+    minimum_reps: int = 3,
+) -> tuple[dict[str, Any] | None, dict[str, Any]]:
+    """Recover complete legacy candidates and rebuild top anchors from phase peaks.
+
+    Legacy bottoms are used as anchors, while standing boundaries are rebuilt
+    from the shared phase signal instead of copying the legacy top boundaries.
+    """
+    legacy_reps = [
+        rep
+        for rep in ((legacy.get("segmentation") or {}).get("reps") or [])
+        if str(rep.get("status") or "complete") == "complete"
+    ]
+    legacy_reps.sort(key=lambda rep: int(rep["bottom_frame"]))
+    evidence: dict[str, Any] = {
+        "status": "not_eligible",
+        "legacy_complete_rep_count": len(legacy_reps),
+        "minimum_required_reps": minimum_reps,
+    }
+    if len(legacy_reps) < minimum_reps:
+        evidence["reason"] = "insufficient_legacy_complete_reps"
+        return None, evidence
+    if not np.isfinite(signal).any():
+        evidence["reason"] = "phase_signal_unavailable"
+        return None, evidence
+
+    bottoms = [int(rep["bottom_frame"]) - trim_start for rep in legacy_reps]
+    if any(frame < 0 or frame >= len(signal) for frame in bottoms):
+        evidence["reason"] = "legacy_bottom_outside_signal"
+        return None, evidence
+    if any(right <= left for left, right in zip(bottoms, bottoms[1:])):
+        evidence["reason"] = "legacy_bottoms_not_monotonic"
+        return None, evidence
+
+    smoothed = _smooth_signal(signal, fps)
+    intervals = [
+        (0, bottoms[0]),
+        *zip(bottoms[:-1], bottoms[1:]),
+        (bottoms[-1], len(signal) - 1),
+    ]
+    tops: list[int | None] = []
+    for index, (start, end) in enumerate(intervals):
+        start_pad = 1 if index == 0 else 1
+        end_pad = 1 if index == len(intervals) - 1 else 1
+        window_start = start + start_pad
+        window_end = end - end_pad
+        peak = _phase_peak_between(smoothed, window_start, window_end)
+        plateau_anchor = _phase_top_anchor_between(
+            smoothed,
+            window_start,
+            window_end,
+            fps=fps,
+        )
+        if peak is None:
+            tops.append(None)
+            continue
+        relative_peak = (peak - window_start) / max(1, window_end - window_start)
+        # Interior peaks near the start of a wide plateau are the main failure
+        # mode. Use the plateau-exit anchor only there; ordinary extrema already
+        # align with descent onset. The terminal interval keeps the plateau
+        # anchor because the closing top may lie beyond the last observed peak.
+        use_plateau_anchor = index == len(intervals) - 1 or (
+            index > 0 and relative_peak < 0.40
+        )
+        tops.append(plateau_anchor if use_plateau_anchor else peak)
+    if any(frame is None for frame in tops):
+        evidence["reason"] = "phase_peak_missing"
+        return None, evidence
+    top_frames = [int(frame) for frame in tops if frame is not None]
+    if any(right <= left for left, right in zip(top_frames, top_frames[1:])):
+        evidence["reason"] = "phase_peaks_not_monotonic"
+        return None, evidence
+    if any(not (top_frames[index] < bottoms[index] < top_frames[index + 1]) for index in range(len(bottoms))):
+        evidence["reason"] = "bottom_not_inside_adjacent_tops"
+        return None, evidence
+
+    recovery_reps: list[dict[str, Any]] = []
+    for index, (source, bottom_frame) in enumerate(zip(legacy_reps, bottoms), start=1):
+        confidence = float(source.get("confidence") or 0.5)
+        confidence = float(np.clip(confidence, 0.0, 1.0))
+        recovery_reps.append(
+            {
+                "rep_id": index,
+                "start_frame": top_frames[index - 1],
+                "end_frame": top_frames[index],
+                "top": {
+                    "start_frame": top_frames[index - 1],
+                    "end_frame": top_frames[index - 1],
+                    "anchor_frame": top_frames[index - 1],
+                    "stable_fraction": 1.0,
+                    "boundary_slope": 0.0,
+                    "mean_angle": float(signal[top_frames[index - 1]]),
+                    "evidence": {"source": "legacy_recovery_phase_peak"},
+                },
+                "bottom": {
+                    "start_frame": bottom_frame,
+                    "end_frame": bottom_frame,
+                    "anchor_frame": bottom_frame,
+                    "stable_fraction": 1.0,
+                    "boundary_slope": 0.0,
+                    "mean_angle": float(signal[bottom_frame]),
+                    "evidence": {"source": "legacy_recovery_candidate"},
+                },
+                "phase_signal": phase_signal_name,
+                "rep_unit": "cycle",
+                "status": "complete",
+                "partial_side": None,
+                "confidence": {
+                    "complete": round(confidence, 6),
+                    "in_set": round(confidence, 6),
+                    "combined": round(confidence, 6),
+                },
+                "quality_flags": ["legacy_recovery", "selected_chain"],
+            }
+        )
+
+    period_frames = float(np.median(np.diff(top_frames))) if len(top_frames) > 1 else 0.0
+    selected_events = [
+        {
+            "frame": frame,
+            "set_ids": [1],
+            "is_terminal": index == len(top_frames) - 1,
+        }
+        for index, frame in enumerate(top_frames)
+    ]
+    chain = {
+        "schema_version": "vls-clip-analysis-v2",
+        "clip_id": clip_id,
+        "algorithm": {"name": "repchain", "version": "v3"},
+        "anchor_policy": "plateau_midpoint",
+        "status": "ok",
+        "motion_status": "ok",
+        "sets": [
+            {
+                "set_id": 1,
+                "start_frame": top_frames[0],
+                "end_frame": top_frames[-1],
+                "status": "complete_set",
+                "chain_confidence": round(
+                    float(np.mean([rep["confidence"]["combined"] for rep in recovery_reps])),
+                    6,
+                ),
+                "reps": recovery_reps,
+                "rejected_candidates": [],
+                "non_rep_intervals": [],
+                "consensus_event_count": len(top_frames),
+                "endpoint_closure_count": 0,
+            }
+        ],
+        "rejected_candidates": [],
+        "non_rep_intervals": [],
+        "diagnostics": {
+            "selected_phase_signal": phase_signal_name,
+            "phase_signal_candidates": [],
+            "chain_source": "legacy_candidate_recovery",
+            "selected_top_events": selected_events,
+            "period_frames": period_frames,
+            "periodicity": None,
+        },
+    }
+    evidence.update(
+        {
+            "status": "eligible",
+            "reason": "repchain_abstained_with_recoverable_legacy_candidates",
+            "legacy_bottom_frames": bottoms,
+            "reconstructed_top_frames": top_frames,
+            "period_frames": period_frames,
+        }
+    )
+    return chain, evidence
+
+
 def _copy_legacy_tree(source: Path, target: Path) -> None:
     if source.resolve() == target.resolve():
         return
@@ -368,6 +644,10 @@ def analyze_clip(
     signals = phase_states.load_angle_signals(legacy_clip_dir / "angles" / "angles_wide.csv")
     action_name = str(clip.get("action") or clip.get("exercise") or "").lower()
     action = phase_states.action_config(action_name, specs)
+    # Phase resolution evaluates a private copy that includes derived bilateral
+    # signals. Materialize the same candidates here so boundary reconstruction
+    # uses the exact series selected by the chain.
+    phase_states.add_bilateral_signal_candidates(signals, action)
     prior_signal = (legacy.get("segmentation") or {}).get("phase_angle")
     gate = quality_gates.from_legacy_quality(legacy)
 
@@ -389,11 +669,17 @@ def analyze_clip(
         gate=gate,
     )
     analysis_v3.validate_v3_analysis(v3)
+    primary_v3 = copy.deepcopy(v3)
+    selection_mode = "none"
+    selection_reason = "no_accepted_cycles"
+    recovery_evidence: dict[str, Any] = {
+        "status": "not_needed",
+        "reason": "repchain_primary_available",
+    }
 
     repchain_dir.mkdir(parents=True, exist_ok=True)
     write_json(repchain_dir / f"{clip_id}_chain.json", chain_analysis)
     write_json(repchain_dir / f"{clip_id}_gate.json", gate)
-    write_json(repchain_dir / f"{clip_id}.json", v3)
 
     phase_signal_name = str(
         (v3.get("diagnostics") or {}).get("selected_phase_signal")
@@ -413,16 +699,109 @@ def analyze_clip(
         trim_start=trim_start,
         phase_signal_name=phase_signal_name,
     )
-    complete_rep_count = sum(1 for rep in reps if rep.get("status") == "complete")
-    endpoint_partial_rep_count = sum(
-        1 for rep in reps if rep.get("status") == "endpoint_partial"
+    recovery_chain, recovery_evidence = build_legacy_recovery_analysis(
+        clip_id,
+        legacy,
+        phase_signal,
+        fps=fps,
+        trim_start=trim_start,
+        phase_signal_name=phase_signal_name,
     )
+    action_status = (v3.get("action_verification") or {}).get("status")
+    if recovery_chain is not None and action_status not in {"mismatch", "unsupported"}:
+        recovery_v3 = analysis_v3.build_v3_analysis(
+            recovery_chain,
+            {**clip, "action": action_name},
+            gate=gate,
+        )
+        analysis_v3.validate_v3_analysis(recovery_v3)
+        recovery_reps, recovery_phases, _, recovery_rejected = adapt_cycles(
+            recovery_v3,
+            phase_signal,
+            fps=fps,
+            trim_start=trim_start,
+            phase_signal_name=phase_signal_name,
+        )
+        use_as_fallback = not reps and len(recovery_reps) >= 3
+        use_as_refinement = (
+            bool(reps)
+            and len(recovery_reps) >= 3
+            and _rep_bottoms_align(reps, recovery_reps, fps=fps)
+        )
+        if use_as_fallback or use_as_refinement:
+            if use_as_refinement:
+                for candidate, primary in zip(recovery_chain["sets"][0]["reps"], reps):
+                    candidate["status"] = primary.get("status") or "complete"
+                    candidate["partial_side"] = primary.get("partial_side")
+                    candidate.setdefault("quality_flags", []).append(
+                        "legacy_boundary_refinement"
+                    )
+                recovery_v3 = analysis_v3.build_v3_analysis(
+                    recovery_chain,
+                    {**clip, "action": action_name},
+                    gate=gate,
+                )
+                analysis_v3.validate_v3_analysis(recovery_v3)
+                recovery_reps, recovery_phases, _, recovery_rejected = adapt_cycles(
+                    recovery_v3,
+                    phase_signal,
+                    fps=fps,
+                    trim_start=trim_start,
+                    phase_signal_name=phase_signal_name,
+                )
+            v3 = recovery_v3
+            reps = recovery_reps
+            phases = recovery_phases
+            rejected = recovery_rejected
+            selection_mode = (
+                "fallback" if use_as_fallback else "boundary_refinement"
+            )
+            selection_reason = (
+                "repchain_abstained_with_recoverable_legacy_candidates"
+                if use_as_fallback
+                else "legacy_bottom_anchors_refined_repchain_boundaries"
+            )
+            recovery_evidence["status"] = "applied"
+            recovery_evidence["mode"] = selection_mode
+            recovery_evidence["reason"] = selection_reason
+            write_json(repchain_dir / f"{clip_id}_primary.json", primary_v3)
+        else:
+            recovery_evidence["status"] = "rejected"
+            recovery_evidence["reason"] = (
+                "recovery_analysis_not_usable"
+                if len(recovery_reps) < 3
+                else "recovery_cycles_do_not_match_primary"
+            )
+    elif recovery_chain is not None:
+        recovery_evidence["status"] = "rejected"
+        recovery_evidence["reason"] = "action_mismatch_or_unsupported"
+
+    if selection_mode == "none" and reps:
+        selection_mode = "primary"
+        selection_reason = "repchain_chain_accepted"
+    rep_contract.attach_rep_provenance(reps, selection_mode=selection_mode)
+    cycle_counts = rep_contract.count_cycles(
+        reps,
+        rejected_candidate_count=len(rejected),
+    )
+    rep_selection = rep_contract.build_rep_selection(
+        reps,
+        mode=selection_mode,
+        reason=selection_reason,
+        rejected_candidate_count=len(rejected),
+    )
+    recovery_used = selection_mode == "fallback"
+    boundary_refinement_used = selection_mode == "boundary_refinement"
+    write_json(repchain_dir / f"{clip_id}.json", v3)
+    complete_rep_count = cycle_counts["complete_cycle"]
+    endpoint_partial_rep_count = cycle_counts["endpoint_partial_cycle"]
 
     adapted_clip_dir = output_dir / clip_id
     _copy_legacy_tree(legacy_clip_dir, adapted_clip_dir)
     adapted = copy.deepcopy(legacy)
     adapted["algorithm"] = {"name": "repchain", "version": "v3"}
-    adapted["rep_count"] = len(reps)
+    adapted["rep_selection"] = rep_selection
+    adapted["rep_count"] = cycle_counts["accepted_cycle"]
     adapted["rejected_rep_count"] = len(rejected)
     if adapted.get("status") == "ok" and len(reps) < 3:
         adapted["status"] = "partial"
@@ -437,11 +816,17 @@ def analyze_clip(
     segmentation["reps"] = reps
     segmentation["phases"] = phases
     segmentation["rejected_reps"] = rejected
+    segmentation["rep_selection"] = rep_selection
     segmentation["candidate_sources"] = {
-        "selected": "repchain_v3",
+        "selected": rep_selection["selected_source"],
+        "selected_algorithm": "repchain_v3",
+        "selection_mode": selection_mode,
         "repchain_complete_rep_count": complete_rep_count,
         "repchain_endpoint_partial_rep_count": endpoint_partial_rep_count,
+        "accepted_cycle_count": cycle_counts["accepted_cycle"],
         "repchain_set_count": len(v3.get("sets") or []),
+        "legacy_recovery_used": recovery_used,
+        "legacy_boundary_refinement_used": boundary_refinement_used,
     }
     confidence = v3.get("confidence") or {}
     segmentation["repchain"] = {
@@ -467,6 +852,7 @@ def analyze_clip(
         ],
         "non_rep_intervals": v3.get("non_rep_intervals") or [],
         "output": str((repchain_dir / f"{clip_id}.json").resolve()),
+        "recovery": recovery_evidence,
     }
     adapted["outputs"] = {
         name: str((adapted_clip_dir / relative).resolve())
@@ -495,20 +881,34 @@ def analyze_clip(
     quality_payload = adapted.setdefault("quality", {})
     quality_checks = quality_payload.setdefault("checks", {})
     quality_checks["legacy_rep_count"] = segmentation.get("legacy_rep_count")
-    quality_checks["rep_count"] = len(reps)
-    quality_checks["candidate_rep_count"] = len(reps) + len(rejected)
+    quality_checks["rep_count"] = cycle_counts["accepted_cycle"]
+    quality_checks["accepted_cycle_count"] = cycle_counts["accepted_cycle"]
+    quality_checks["complete_cycle_count"] = cycle_counts["complete_cycle"]
+    quality_checks["endpoint_partial_cycle_count"] = cycle_counts[
+        "endpoint_partial_cycle"
+    ]
+    quality_checks["candidate_rep_count"] = cycle_counts["accepted_cycle"] + len(rejected)
     quality_checks["rejected_rep_count"] = len(rejected)
+    quality_checks["rep_count_basis"] = "accepted_cycle"
     warnings = [
         str(value)
         for value in quality_payload.get("warnings") or []
         if str(value)
-        not in {"no_complete_reps", "fewer_than_three_complete_reps"}
+        not in {
+            "no_complete_reps",
+            "fewer_than_three_complete_reps",
+            "no_accepted_cycles",
+            "fewer_than_three_accepted_cycles",
+        }
     ]
-    if not reps:
-        warnings.append("no_complete_reps")
-    elif len(reps) < 3:
-        warnings.append("fewer_than_three_complete_reps")
+    cycle_warning = rep_contract.cycle_count_warning(cycle_counts["accepted_cycle"])
+    if cycle_warning:
+        warnings.append(cycle_warning)
     quality_payload["warnings"] = warnings
+    quality_payload["legacy_warning_aliases"] = {
+        "no_accepted_cycles": "no_complete_reps",
+        "fewer_than_three_accepted_cycles": "fewer_than_three_complete_reps",
+    } if cycle_warning else {}
     quality_payload["status"] = (
         "reject"
         if quality_payload.get("failures")
@@ -519,6 +919,8 @@ def analyze_clip(
         "status": v3.get("status"),
         "abstained": confidence.get("abstained"),
         "abstain_reason": confidence.get("abstain_reason"),
+        "rep_selection": rep_selection,
+        "accepted_cycle_count": cycle_counts["accepted_cycle"],
         "complete_rep_count": complete_rep_count,
         "endpoint_partial_rep_count": endpoint_partial_rep_count,
     }
@@ -535,12 +937,17 @@ def analyze_clip(
         "action_status": (v3.get("action_verification") or {}).get("status"),
         "abstained": (v3.get("confidence") or {}).get("abstained"),
         "abstain_reason": (v3.get("confidence") or {}).get("abstain_reason"),
-        "rep_count": len(reps),
+        "rep_count": cycle_counts["accepted_cycle"],
+        "accepted_cycle_count": cycle_counts["accepted_cycle"],
         "complete_rep_count": complete_rep_count,
         "endpoint_partial_rep_count": endpoint_partial_rep_count,
         "rejected_rep_count": len(rejected),
         "set_count": len(v3.get("sets") or []),
         "selected_phase_signal": phase_signal_name,
+        "rep_selection_mode": selection_mode,
+        "rep_selection": rep_selection,
+        "recovery_used": recovery_used,
+        "boundary_refinement_used": boundary_refinement_used,
     }
 
 

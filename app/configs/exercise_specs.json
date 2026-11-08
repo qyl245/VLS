@@ -44,10 +44,10 @@
       "rep_unit": "cycle",
       "min_complete_reps": 3,
       "posture_gate": {
-        "metric": "torso_vertical_span_bottom_m",
+        "metric": "torso_verticality_bottom",
         "rule": "min",
-        "threshold": 0.3,
-        "description": "Bottom-frame absolute shoulder-midpoint to hip-midpoint vertical span in MediaPipe world coordinates; squats must remain upright."
+        "threshold": 0.35,
+        "description": "Bottom-frame absolute vertical component divided by the 3D shoulder-midpoint to hip-midpoint length; squats must remain substantially upright while remaining invariant to body size and camera distance."
       },
       "phase": {
         "top": "standing, knee extended, rep boundary",
@@ -133,10 +133,10 @@
       "rep_unit": "cycle",
       "min_complete_reps": 3,
       "posture_gate": {
-        "metric": "torso_vertical_span_bottom_m",
+        "metric": "torso_verticality_bottom",
         "rule": "max",
-        "threshold": 0.3,
-        "description": "Bottom-frame absolute shoulder-midpoint to hip-midpoint vertical span in MediaPipe world coordinates; pushups must be close to horizontal."
+        "threshold": 0.35,
+        "description": "Bottom-frame absolute vertical component divided by the 3D shoulder-midpoint to hip-midpoint length; pushups must remain substantially horizontal while remaining invariant to body size and camera distance."
       },
       "phase": {
         "top": "arms extended, rep boundary",

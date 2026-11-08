@@ -75,7 +75,7 @@ ACTION_BILATERAL_SIGNAL_PAIRS = {
 }
 
 ACTION_PERIOD_RANGE_S = {
-    "squat": (0.70, 5.00),
+    "squat": (0.70, 8.00),
     "pushup": (0.70, 5.00),
 }
 
